@@ -352,6 +352,20 @@ details.mall{margin:10px 0}
 details.mall summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center}
 details.mall ol{margin:4px 0;padding-left:1.4em}
 
+/* ---------- Exit tickets ---------- */
+.et-ask{display:block;margin-top:4px;font:500 .93rem/1.4 var(--font);color:var(--muted);letter-spacing:0}
+.et-l{display:block;font-weight:700;font-size:.88rem;margin:12px 0 4px}
+.et-in{display:block;width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:16px var(--font)}
+.et-in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.wq.et textarea{min-height:84px;margin:0}
+.et .wq-actions{margin-top:12px}
+.et-fb .fb{margin:10px 0 0;font-weight:500}
+.et-fb .fb b{font-weight:800}
+.et-model{margin:8px 0 0;padding:10px 12px;border-radius:var(--r-s);background:var(--surface-2)}
+.et-sum{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:10px 14px;margin:12px 0}
+.et-score{font-weight:700}
+.case-jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+
 /* ---------- Begreppskort ---------- */
 .fc-tools{display:grid;gap:10px;margin:10px 0 14px}
 .fc-tools .seg{justify-self:start}
@@ -510,7 +524,7 @@ details.fc-more .search{margin-bottom:10px}
 <section id="hjarnan" class="wide" hidden>
   <div class="narrow">
     <h1>Hjärnans delar</h1>
-    <p class="lead">Del 1: ”En person har svårt med X. Vilken del kan vara påverkad?” Motivera genom att <b>upprepa funktionen</b>.</p>
+    <p class="lead">Del 1: ”En person har svårt med X. Vilken del kan vara påverkad?” Motivera genom att <b>upprepa funktionen</b>. Öva provformatet i <a href="#hjarnan" data-anchor="exit-hjarnan">lärarens exit ticket</a>.</p>
   </div>
 
   <div class="map-layout">
@@ -565,6 +579,10 @@ details.fc-more .search{margin-bottom:10px}
   </div>
 
   <div class="narrow">
+    <h2 id="exit-hjarnan">Exit ticket: hjärnans delar</h2>
+    <p>Läs situationen, skriv ditt svar och motivera med minst en ledtråd. Tryck <b>Rätta</b> så kollar sidan svaret och om motiveringen har en ledtråd ur texten.</p>
+    <div id="ex-eth"></div>
+
     <h2>Alla delar (lärarens lista, bok s. 53)</h2>
     <div id="brainTable"></div>
 
@@ -663,6 +681,15 @@ details.fc-more .search{margin-bottom:10px}
       <li>Puls och vakenhet → <b>noradrenalin</b></li>
       <li>Belöning och ”vill ha mer” → <b>dopamin</b></li>
     </ul></div>
+
+    <h2 id="exit-amnen">Exit ticket: signalsubstanser och hormoner</h2>
+    <p>Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst. Tryck <b>Rätta</b>.</p>
+    <div id="ex-ets"></div>
+
+    <h2 id="vem-ar-jag">Vem är jag? (arbetsbladet, steg 1)</h2>
+    <p>Skriv rätt ämne vid varje beskrivning. Använd varje ämne en gång.</p>
+    <div class="box"><b>Ämnen:</b> Dopamin, oxytocin, endorfiner, serotonin, noradrenalin, GABA, testosteron och östrogen.</div>
+    <div id="ex-vem"></div>
 
     <h2>Stress (boken)</h2>
     <ul class="pts">
@@ -862,7 +889,13 @@ details.fc-more .search{margin-bottom:10px}
 <!-- ================= ANALYS ================= -->
 <section id="analys" hidden>
   <h1>Analys</h1>
-  <p class="lead">Del 5: använd allt från Del 1–4 för att lösa ett case. Följ mallen och använd fackord.</p>
+  <p class="lead">Del 5: använd allt från Del 1–4 för att lösa ett case. Följ mallen och använd fackord. Börja med lärarens uppgifter: <b>Alex och alkoholen</b> och <b>Love och mobilen</b>.</p>
+  <nav class="case-jump" aria-label="Hoppa till ett case">
+    <a class="chip" href="#analys" data-anchor="case-alkohol">Alex och alkoholen</a>
+    <a class="chip" href="#analys" data-anchor="case-love">Love och mobilen</a>
+    <a class="chip" href="#analys" data-anchor="case-festen">Festen</a>
+    <a class="chip" href="#analys" data-anchor="case-alex">Alex och mobilspelet</a>
+  </nav>
 
   <h2>Femstegsmallen</h2>
   <ol class="steps" id="mall"></ol>
@@ -946,7 +979,7 @@ const tipHTML = t => `<div class="tip"><span class="tip-l">Minnesknep</span>${t}
 
 /* ============ Lagring ============ */
 const KEY = 'biopsyk1';
-const fresh = o => ({ cards: o.cards || {}, quiz: o.quiz || {}, text: o.text || {}, checks: o.checks || {}, map: o.map || null, plan: o.plan || {}, missed: o.missed || {}, theme: o.theme || null });
+const fresh = o => ({ cards: o.cards || {}, quiz: o.quiz || {}, text: o.text || {}, checks: o.checks || {}, map: o.map || null, plan: o.plan || {}, missed: o.missed || {}, ex: o.ex || {}, theme: o.theme || null });
 let S;
 try { S = fresh(JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { S = fresh({}); }
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* lagring ej tillgänglig */ } };
@@ -1106,16 +1139,16 @@ const W4 = [
 ];
 
 const CASES = [
-  { id: 'case-love', title: 'Case 1: Love', src: 'Från arbetsbladet',
-    text: '<p>Love är <b>16 år</b> och har bestämt sig för att lägga undan mobilen och sova. Ändå fortsätter Love att <b>scrolla</b>. Nya klipp och notiser lockar, och plötsligt har en timme gått.</p><p>Nästa dag är Love <b>trött</b> och har svårt att koncentrera sig i skolan.</p><p><b>Hur kan vi förstå Loves beteende utifrån signalsubstanser, hjärnans delar, beroende och tonårshjärnan?</b></p>',
-    help: ['Vilken roll kan dopamin och belöningssystemet spela?', 'Hur påverkar pannloben och tonårshjärnans utveckling förmågan att stå emot och tänka på konsekvenser?', 'Hur kan beteendet bli en vana, och vad skiljer en stark vana från ett beroende?', 'Vad skulle kunna hjälpa Love att bryta mönstret, och varför?'],
+  { id: 'case-love', title: 'Love och mobilen', src: 'Arbetsbladet, steg 2',
+    text: '<p>Love är 16 år och har bestämt sig för att lägga undan mobilen och sova. Ändå fortsätter Love att scrolla. Nya klipp och notiser lockar, och plötsligt har en timme gått. Nästa dag är Love trött och har svårt att koncentrera sig i skolan.</p><p><b>Hur kan vi förstå Loves beteende utifrån det ni har lärt er om signalsubstanser, hjärnans delar, beroende och tonårshjärnan?</b></p>',
+    help: ['Vilken roll kan dopamin och hjärnans belöningssystem spela?', 'Hur kan pannloben och tonårshjärnans utveckling påverka förmågan att stå emot och tänka på konsekvenser?', 'Hur kan beteendet bli en vana, och vad skiljer en stark vana från ett beroende?', 'Vad skulle kunna hjälpa Love att bryta mönstret? Förklara varför.'],
     keys: ['dopamin', 'belöningssystemet', 'positiv förstärkning', 'partiell förstärkning', 'pannloben', '25 år', 'impulskontroll', 'klassisk betingning', 'vana', 'tolerans', 'abstinens', 'kontrollförlust', 'skärmberoende ej sjukdom', 'Folkhälsomyndigheten'],
     answer: '<ul><li><b>Dopamin:</b> varje nytt klipp eller notis kan bli en liten belöning. Dopamin frisätts och Love vill ha mer, alltså <b>positiv förstärkning</b>. Love vet aldrig när nästa bra klipp kommer, vilket liknar <b>partiell förstärkning</b> som är svårast att släcka ut.</li><li><b>Pannloben:</b> Love är 16 och pannloben är färdig först runt <b>25</b>. Förmågan att stå emot och tänka ”jag blir trött i morgon” är svagare, så belöningen nu väger tyngre än konsekvensen sen.</li><li><b>Vana:</b> mobilen i sängen varje kväll gör att sängen blir en signal för att scrolla (<b>klassisk betingning</b>). Upprepning gör beteendet automatiskt.</li><li><b>Vana eller beroende:</b> en stark vana är automatisk men saknar <b>tolerans, abstinens och total kontrollförlust</b>. Ett beroende har dem, och personen fortsätter trots allvarliga konsekvenser. <b>Skärmberoende räknas inte som beroendesjukdom.</b> Love har en stark vana, men tröttheten i skolan är en negativ konsekvens att ta på allvar.</li><li><b>Lösning:</b> mobilen utanför sovrummet, som <b>Folkhälsomyndigheten</b> rekommenderar, tar bort både signalen och dopaminkicken. Avstängda notiser och en skärmtidsgräns blir en yttre broms när pannloben inte räcker. När förstärkningen uteblir släcks vanan så småningom ut.</li></ul>' },
-  { id: 'case-festen', title: 'Case 2: Festen', src: 'Filmuppgiften (Del 3, fråga 5)',
+  { id: 'case-festen', title: 'Festen', src: 'Filmuppgiften (Del 3, fråga 5)',
     text: '<p>En <b>16-åring</b> är på en fest. Flera kompisar uppmuntrar personen att göra något <b>riskfyllt</b> som hen egentligen tvekar inför.</p><p><b>Hur kan hjärnans utveckling, dopamin och den sociala situationen bidra till att personen ändå gör det?</b></p>',
     keys: ['social belöning', 'dopamin', 'amygdala', 'rädsla att hamna utanför', 'pannloben omogen', 'riskbedömning', 'social inlärning'],
     answer: '<ul><li>Kompisarnas gillande blir en <b>social belöning</b> som frisätter <b>dopamin</b>.</li><li>Rädslan att hamna utanför väcker starka känslor via <b>amygdala</b>.</li><li><b>Pannloben</b>, som sköter <b>riskbedömning</b> och konsekvenstänkande, är inte färdig förrän vid <b>ca 25</b>, så bromsen är svag.</li><li>Personen gör dessutom som gruppen, vilket är <b>social inlärning</b>.</li></ul>' },
-  { id: 'case-alex', title: 'Case 3: Alex', src: 'Övning utan färdigt svar',
+  { id: 'case-alex', title: 'Alex och mobilspelet', src: 'Övning utan färdigt svar',
     text: '<p><b>Alex, 17</b>, spelar ett mobilspel med <b>dagliga belöningar</b> och har börjat <b>köpa saker i spelet</b> för sina sparpengar. Alex blir <b>irriterad</b> när föräldrarna säger åt hen att sluta.</p><p><b>Analysera Alex beteende med femstegsmallen.</b></p>',
     keys: ['dopamin', 'positiv förstärkning', 'partiell förstärkning', 'tonårshjärnan', 'pannloben', 'irritation som tecken på abstinens', 'ekonomiska problem', 'spel om pengar vs dataspel', 'KBT eller motiverande samtal'],
     answer: null }
@@ -1201,7 +1234,7 @@ const QUIZZES = [
     { q: 'Svårt att bearbeta hörselintryck.', a: 'Tinningloben', ex: 'Tinningloben, eftersom tinningloben tar hand om hörseln.' },
     { q: 'Svårt att bearbeta information om beröring och smärta.', a: 'Thalamus', ex: 'Thalamus, eftersom thalamus tar emot information om beröring och smärta.' },
     { q: 'Minns gamla saker men har svårt att skapa nya långtidsminnen.', a: 'Hippocampus', ex: 'Hippocampus, eftersom hippocampus skapar långtidsminnen.', trap: ['Lillhjärnan'] },
-    { q: 'Reagerar ovanligt svagt på sådant som brukar skapa starka känslor.', a: 'Amygdala', ex: 'Amygdala, eftersom amygdala styr positiva och negativa känslor.' },
+    { q: 'Reagerar ovanligt svagt på sådant som brukar skapa starka positiva eller negativa känslor.', a: 'Amygdala', ex: 'Amygdala, eftersom amygdala styr positiva och negativa känslor.' },
     { q: 'Känner inte hunger och törst normalt och har svårt att reglera kroppstemperaturen.', a: 'Hypotalamus', ex: 'Hypotalamus, eftersom hypotalamus styr hunger, törst och kroppstemperatur.', trap: ['Thalamus'] },
     { q: 'Svårt med balansen, rörelserna blir klumpiga och okoordinerade.', a: 'Lillhjärnan', ex: 'Lillhjärnan, eftersom lillhjärnan koordinerar rörelser och balanssinnet.', trap: ['Hjärnbarken'] },
     { q: 'Kan bara säga ett ord men förstår vad andra säger.', a: 'Brocas område', ex: 'Brocas område, eftersom Brocas område reglerar den motoriska talförmågan (att producera tal). Tänk: Bara ”tan”.', trap: ['Wernickes område'] },
@@ -1276,7 +1309,7 @@ const SNABB = [
     ['Brocas område', '<b>Producera tal</b> (motorisk talförmåga). Patienten ”Tan”, 1861. Främre tinningloben (enligt boken).', 'Broca = Bara ”tan”.'],
     ['Wernickes område', '<b>Förstå talat språk</b>. Patient med afasi. Temporalloben (= tinningloben).', 'Wernicke = ”Va sa du?”'],
     ['Hjärnbalken', 'Förbinder hjärnhalvorna så att de samarbetar.']
-  ], after: '<div class="note"><span class="note-l">Så svarar du på Del 1</span>Delen + ”eftersom” + funktionen: ”<b>Thalamus, eftersom thalamus tar emot information om beröring och smärta.</b>”</div>' },
+  ], after: '<div class="note"><span class="note-l">Så svarar du på Del 1</span>Delen + ”eftersom” + funktionen: ”<b>Thalamus, eftersom thalamus tar emot information om beröring och smärta.</b>” <a href="#hjarnan" data-anchor="exit-hjarnan">Öva i lärarens exit ticket</a></div>' },
   { id: 'sk-2', nav: 'Del 2', h: 'Del 2: Signalsubstanser och hormoner', rows: [
     ['Dopamin', '<b>Motivation och belöning</b>, förväntan, längtan.<span class="sk-nk">Nyckelord: belöning, nästa nivå, lust att fortsätta</span>', '”Jag längtar efter det här!”'],
     ['Oxytocin', '<b>Närhet</b>, beröring, anknytning, mjölkutdrivning.<span class="sk-nk">Nyckelord: kram, hudkontakt, nyfödd, trygghet</span>', '”Närhet – inte automatiskt kärlek”'],
@@ -1287,7 +1320,7 @@ const SNABB = [
     ['Testosteron', '<b>Könshormon hos alla</b>: sexlust, muskler, mörkare röst i puberteten.<span class="sk-nk">Nyckelord: muskelmassa, röst, sexlust</span>', '”Hormon som påverkar lust – hos alla”'],
     ['Östrogen', '<b>Könshormon hos alla</b>: reproduktion, slemhinnor, skelett, menscykel.<span class="sk-nk">Nyckelord: slemhinnor, skelett, mens</span>', '”Sexuell funktion”'],
     ['Kortisol och adrenalin', '<b>Stresshormoner</b>. Inför ett prov aktiveras limbiska systemet.']
-  ], after: '<div class="trap"><h3>Fällor</h3><ul><li>Muskler, lust, röst → <b>testosteron</b>. Slemhinnor, skelett, mens → <b>östrogen</b> (även hos män).</li><li>Humör och sömn → <b>serotonin</b>. ”Hämmande”, ”dåsig” → <b>GABA</b>.</li><li>Puls och vakenhet → <b>noradrenalin</b>. Belöning, ”vill ha mer” → <b>dopamin</b>.</li></ul></div>' },
+  ], after: '<div class="trap"><h3>Fällor</h3><ul><li>Muskler, lust, röst → <b>testosteron</b>. Slemhinnor, skelett, mens → <b>östrogen</b> (även hos män).</li><li>Humör och sömn → <b>serotonin</b>. ”Hämmande”, ”dåsig” → <b>GABA</b>.</li><li>Puls och vakenhet → <b>noradrenalin</b>. Belöning, ”vill ha mer” → <b>dopamin</b>.</li></ul></div><p><a href="#amnen" data-anchor="exit-amnen">Öva i lärarens exit ticket</a></p>' },
   { id: 'sk-3', nav: 'Del 3', h: 'Del 3: Tonårshjärnan', rows: [
     ['Fullt utvecklad', 'Ca <b>25 år</b>. Pannloben blir klar <b>allra sist</b>.'],
     ['Mest intensivt', '<b>0–2 år</b>, men hjärnan utvecklas mycket i tonåren också.'],
@@ -1318,9 +1351,13 @@ const SNABB = [
     ['Sjukdom eller inte?', '<b>Spel om pengar</b> kan diagnostiseras som beroendesjukdom. <b>Dataspel</b> och ”skärmberoende” räknas inte som sjukdom.'],
     ['Orsaker', 'Både <b>arv och miljö</b>: uppväxt, personlighet, biologisk sårbarhet, psykisk ohälsa, självmedicinering, tillgänglighet.'],
     ['Behandling', '<b>KBT</b>, <b>motiverande samtal</b> (Miller och Rollnick, ca 1990) och läkemedel.'],
-    ['Vanligast i Sverige', '<b>Alkohol</b>.']
+    ['Vanligast i Sverige', '<b>Alkohol</b>.'],
+    ['Beteendepsykologi', '<b>Social inlärning</b> (härmar andra), <b>positiv förstärkning</b> (något behagligt tillförs), <b>negativ förstärkning</b> (något obehagligt tas bort), <b>klassisk betingning</b> (en signal väcker sug), <b>vanemässig inlärning</b> (blir automatiskt).'],
+    ['Försvarsmekanismer (psykoanalysen)', '<b>Förnekelse</b>: ”Jag har inga problem, jag kan sluta när jag vill.” <b>Rationalisering</b>: ”Jag dricker för att hantera stressen.” <b>Projektion</b>: ”Det är samhällets fel att jag dricker.”']
   ] },
-  { id: 'sk-6', nav: 'Del 5', h: 'Del 5: Analys', rows: MALL.map(([t, d], i) => [`${i + 1}. ${t}`, d]),
+  { id: 'sk-6', nav: 'Del 5', h: 'Del 5: Analys', rows: [...MALL.map(([t, d], i) => [`${i + 1}. ${t}`, d]),
+    ['Alex och alkoholen', 'Tecken: <b>tolerans</b> (mer alkohol för samma effekt), <b>abstinens</b> (rastlös, mår dåligt), <b>kontrollförlust</b>, <b>sociala problem</b> (relationer, skola). Beteendepsykologi: <b>social inlärning</b>, <b>positiv och negativ förstärkning</b>. Psykoanalys: <b>förnekelse</b>.'],
+    ['Love och mobilen', '<b>Dopamin</b> och partiell förstärkning, <b>pannloben</b> klar först runt 25, <b>klassisk betingning</b> (sängen blir en signal), stark vana men ingen beroendesjukdom, mobilen utanför sovrummet.']],
     after: tipHTML('Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning') }
 ];
 let skHidden = false;
@@ -1582,8 +1619,8 @@ function writeArea(id, label) {
 function wqHTML(q) {
   if (q.link) {
     return `<article class="wq"><div class="wq-head"><span class="wq-n">${q.n}</span><h3>${q.q}</h3></div>
-      <p>En 16-åring på en fest gör något riskfyllt. Den här frågan tränar du som <b>Case 2</b> under Analys.</p>
-      <a class="btn" href="#analys" data-anchor="case-festen">Gå till Case 2: Festen</a></article>`;
+      <p>En 16-åring på en fest gör något riskfyllt. Den här frågan tränar du i caset <b>Festen</b> under Analys.</p>
+      <a class="btn" href="#analys" data-anchor="case-festen">Gå till Festen</a></article>`;
   }
   return `<article class="wq" id="${q.id}">
     <div class="wq-head"><span class="wq-n">${q.n}</span><h3>${q.q}</h3></div>
@@ -1613,7 +1650,7 @@ function caseHTML(c) {
 function renderWriting() {
   $('#w3').innerHTML = W3.map(wqHTML).join('');
   $('#w4').innerHTML = W4.map(wqHTML).join('');
-  $('#cases').innerHTML = CASES.map(caseHTML).join('');
+  $('#cases').innerHTML = alkHTML() + CASES.map(caseHTML).join('');
   hydrateWriting();
 }
 function updateKCount(fs) {
@@ -1621,19 +1658,26 @@ function updateKCount(fs) {
   $('.kcount', fs).textContent = `(${n} av ${all.length})`;
 }
 function hydrateWriting() {
-  $$('textarea[data-key]').forEach(ta => { ta.value = S.text[ta.dataset.key] || ''; });
+  $$('textarea[data-key], input[data-key]').forEach(ta => { ta.value = S.text[ta.dataset.key] || ''; });
   $$('.keys').forEach(fs => {
     const on = S.checks[fs.dataset.key] || [];
     $$('input', fs).forEach(x => { x.checked = on.includes(+x.dataset.i); });
     updateKCount(fs);
   });
+  hydrateExercises();
 }
 const saveTimers = new Map();
 document.addEventListener('input', e => {
-  const ta = e.target.closest && e.target.closest('textarea[data-key]');
+  const ta = e.target.closest && e.target.closest('textarea[data-key], input[data-key]');
   if (!ta) return;
   const k = ta.dataset.key;
   if (ta.value.trim()) S.text[k] = ta.value; else delete S.text[k];
+  const art = ta.closest('.et');
+  if (art) {
+    const ex = art.dataset.ex, i = +art.dataset.i;
+    if (S.ex[ex] && S.ex[ex][i]) { delete S.ex[ex][i]; renderExSum(ex); }
+    $('.et-fb', art).innerHTML = '';
+  }
   const flag = ta.parentElement.querySelector('.saved');
   clearTimeout(saveTimers.get(k));
   saveTimers.set(k, setTimeout(() => { save(); if (flag) { flag.textContent = 'Sparat'; setTimeout(() => { flag.textContent = ''; }, 1500); } }, 400));
@@ -1655,6 +1699,204 @@ document.addEventListener('click', e => {
   r.textContent = open ? r.dataset.hideT : r.dataset.show;
 });
 window.addEventListener('pagehide', save);
+
+/* ============ Exit tickets: skriv svaret själv ============ */
+const PART_DICT = { cortex: ['hjärnbarken', 'hjärnbark', 'barken', 'cortex'], frontal: ['pannloben', 'pannlob'], parietal: ['hjässloben', 'hjässlob'], occipital: ['nackloben', 'nacklob'], temporal: ['tinningloben', 'tinninglob', 'temporalloben', 'temporallob'], thalamus: ['thalamus', 'talamus'], hippocampus: ['hippocampus', 'hippokampus'], amygdala: ['amygdala'], hypothalamus: ['hypotalamus', 'hypothalamus'], cerebellum: ['lillhjärnan', 'lillhjärna', 'cerebellum'], brainstem: ['hjärnstammen', 'hjärnstam'] };
+const SUB_DICT = { dopamin: ['dopamin'], oxytocin: ['oxytocin', 'oxitocin'], endorfiner: ['endorfiner', 'endorfin', 'endorfinerna'], serotonin: ['serotonin'], noradrenalin: ['noradrenalin'], gaba: ['gaba'], testosteron: ['testosteron'], ostrogen: ['östrogen', 'ostrogen'], adrenalin: ['adrenalin'], kortisol: ['kortisol'] };
+const SUB_NAME = { dopamin: 'Dopamin', oxytocin: 'Oxytocin', endorfiner: 'Endorfiner', serotonin: 'Serotonin', noradrenalin: 'Noradrenalin', gaba: 'GABA', testosteron: 'Testosteron', ostrogen: 'Östrogen', adrenalin: 'Adrenalin', kortisol: 'Kortisol' };
+const SUB_HINT = { dopamin: 'motivation och belöning', oxytocin: 'närhet och anknytning', endorfiner: 'smärtlindring', serotonin: 'reglerar stämningsläge och sömn', noradrenalin: 'alert och snabbare puls, kroppens gaspedal', gaba: 'hämmar och dämpar, bromsen', testosteron: 'muskler, lust och mörkare röst', ostrogen: 'slemhinnor, skelett och mens', adrenalin: 'ett stresshormon', kortisol: 'ett stresshormon' };
+const EXS = {
+  eth: {
+    dict: PART_DICT, name: id => BRAIN_BY[id].name, hint: id => (BRAIN_BY[id].ask || '').toLowerCase(), mot: true, ph: 'Vilken del?',
+    ask: 'Vilken del av hjärnan kan vara påverkad? Motivera med en ledtråd ur texten.',
+    items: [
+      { q: 'En person har svårt att styra sina rörelser och får även problem med språket.', a: 'cortex', clues: [['rörelser', 'rörels'], ['språket', 'språk']], model: 'Hjärnbarken, eftersom hjärnbarken styr rörelser och språk.' },
+      { q: 'En person har svårt att planera, koncentrera sig och tänka på konsekvenser.', a: 'frontal', clues: [['planera', 'plan'], ['koncentrera', 'koncentr'], ['konsekvenser', 'konsekvens'], ['omdöme', 'omdöm']], model: 'Pannloben, eftersom pannloben sköter planering, koncentration och omdömesförmåga.' },
+      { q: 'En person har svårt att kombinera intryck av doft, smak, konsistens och temperatur.', a: 'parietal', clues: [['doft', 'doft'], ['smak', 'smak'], ['konsistens', 'konsistens'], ['temperatur', 'temperatur']], model: 'Hjässloben, eftersom hjässloben kombinerar doft, smak, konsistens och temperatur till en helhetsupplevelse.' },
+      { q: 'En person får efter en hjärnskada kraftigt försämrad syn.', a: 'occipital', clues: [['synen', 'syn']], model: 'Nackloben, eftersom nackloben tar hand om synen.' },
+      { q: 'En person har svårt att bearbeta hörselintryck.', a: 'temporal', clues: [['hörseln', 'hör']], model: 'Tinningloben, eftersom tinningloben tar hand om hörseln.' },
+      { q: 'En person har svårt att bearbeta information om beröring och smärta.', a: 'thalamus', clues: [['beröring', 'beröring'], ['smärta', 'smärt']], model: 'Thalamus, eftersom thalamus tar emot information om beröring och smärta.' },
+      { q: 'En person minns gamla saker men har svårt att skapa nya långtidsminnen.', a: 'hippocampus', clues: [['långtidsminnen', 'minn']], model: 'Hippocampus, eftersom hippocampus skapar långtidsminnen.' },
+      { q: 'En person reagerar ovanligt svagt på sådant som brukar skapa starka positiva eller negativa känslor.', a: 'amygdala', clues: [['känslor', 'känsl']], model: 'Amygdala, eftersom amygdala styr positiva och negativa känslor.' },
+      { q: 'En person känner inte hunger och törst på ett normalt sätt och har problem med att reglera kroppstemperaturen.', a: 'hypothalamus', clues: [['hunger', 'hunger'], ['törst', 'törst'], ['kroppstemperatur', 'temperatur']], model: 'Hypotalamus, eftersom hypotalamus styr hunger, törst och kroppstemperatur.' },
+      { q: 'En person har svårt med balansen och rörelserna blir klumpiga och okoordinerade.', a: 'cerebellum', clues: [['balansen', 'balans'], ['koordination', 'koordin'], ['rörelser', 'rörels'], ['klumpiga', 'klumpig']], model: 'Lillhjärnan, eftersom lillhjärnan koordinerar rörelser och balanssinnet.' }
+    ]
+  },
+  ets: {
+    dict: SUB_DICT, name: id => SUB_NAME[id], hint: id => SUB_HINT[id], ph: 'Vilket ämne?',
+    items: [
+      { q: 'När ett brandlarm plötsligt ljuder blir Alex extra vaksam, pulsen stiger och kroppen gör sig redo att agera.', ask: 'Vilken signalsubstans förknippas särskilt med denna beredskap?', a: 'noradrenalin', model: 'Noradrenalin gör oss alerta, uppmärksamma och redo att reagera, med snabbare puls. Nyckelord: brandlarm, vaksam.' },
+      { q: 'En elev läser om ett könshormon som bland annat har betydelse för menscykeln och för slemhinnornas funktion.', ask: 'Vilket hormon handlar det om?', a: 'ostrogen', model: 'Östrogen: reproduktion, slemhinnor, skelett och menscykel.' },
+      { q: 'Kim har kämpat länge med en svår uppgift. När lösningen äntligen fungerar får Kim lust att fortsätta med nästa utmaning.', ask: 'Vilken signalsubstans är starkt kopplad till belöning och motivation?', a: 'dopamin', model: 'Dopamin = förväntan, motivation och belöning. Nyckelord: lust att fortsätta.' },
+      { q: 'Efter en intensiv dag behöver hjärnan kunna dämpa överdriven nervaktivitet.', ask: 'Vilken signalsubstans har en viktig hämmande och lugnande funktion?', a: 'gaba', model: 'GABA är hjärnans viktigaste hämmande signalsubstans och dämpar nervaktivitet, ”bromsen”.' },
+      { q: 'Två nära vänner återförenas och ger varandra en lång kram. De känner trygghet och närhet.', ask: 'Vilket ämne är särskilt kopplat till social samhörighet och anknytning?', a: 'oxytocin', model: 'Oxytocin: beröring, närhet och anknytning. Nyckelord: kram, trygghet.' },
+      { q: 'En person läser om ett könshormon som hos både kvinnor och män bidrar till sexuell lust och som även är viktigt för muskelutveckling.', ask: 'Vilket hormon beskrivs?', a: 'testosteron', model: 'Testosteron finns hos alla: sexuell lust, muskler och reproduktion.' },
+      { q: 'En person studerar ett ämne som är inblandat i regleringen av både sinnesstämning och sömn.', ask: 'Vilken signalsubstans är det?', a: 'serotonin', model: 'Serotonin reglerar stämningsläge, sömn och impulskontroll. ”Reglering, inte bara lycka.”' },
+      { q: 'Efter ett ansträngande löppass upplever Sam välbehag och märker att obehaget från ansträngningen känns mindre.', ask: 'Vilken grupp av kroppsegna ämnen kan bidra till smärtlindring?', a: 'endorfiner', model: 'Endorfiner är kroppens egna opioidsystem och minskar smärta. Nyckelord: efter löppass.' },
+      { q: 'Ett läkemedel förstärker hjärnans hämmande signalering, vilket kan bidra till dåsighet och avslappning.', ask: 'Vilken signalsubstans är central i den signaleringen?', a: 'gaba', model: '”Hämmande” och ”dåsighet” pekar på GABA, inte serotonin.' },
+      { q: 'Ett mobilspel lockar med nya poäng och belöningar. Robin känner stark motivation att fortsätta spela för att nå nästa nivå.', ask: 'Vilken signalsubstans är särskilt förknippad med belöningssystemet?', a: 'dopamin', model: '”Nästa nivå” = belöning och motivation = dopamin.' },
+      { q: 'En person får veta att även män har ett könshormon som bland annat bidrar till skelettets hälsa och påverkar sexuell funktion.', ask: 'Vilket hormon kan det vara?', a: 'ostrogen', model: 'Fälla! Östrogen finns hos alla och är viktigt för skelettet.' },
+      { q: 'Inför starten av en viktig match blir en spelare mycket alert och fokuserad. Kroppen är redo för snabb aktivitet.', ask: 'Vilken signalsubstans är särskilt kopplad till vakenhet och stresspåslag?', a: 'noradrenalin', model: 'Alert, vakenhet och stresspåslag = noradrenalin, kroppens gaspedal.' },
+      { q: 'En person slår i armbågen men upplever efter en stund att kroppens egna smärtdämpande system hjälper till.', ask: 'Vilka ämnen kan bidra till denna effekt?', a: 'endorfiner', model: 'Endorfiner = naturlig smärtdämpning. Nyckelord: slår i armbågen.' },
+      { q: 'En elev ska beskriva en signalsubstans som bland annat hjälper till att reglera välbefinnande, sinnesstämning och sömn.', ask: 'Vilken väljer eleven?', a: 'serotonin', model: 'Serotonin reglerar välbefinnande, sinnesstämning och sömn.' },
+      { q: 'Under puberteten bidrar ett könshormon bland annat till ökad muskelmassa och mörkare röst hos många pojkar.', ask: 'Vilket hormon är särskilt viktigt?', a: 'testosteron', model: 'Testosteron: muskler, lust och mörkare röst i puberteten.' },
+      { q: 'En förälder har nära hudkontakt med sitt nyfödda barn. Ett hormon som är kopplat till anknytning och även till mjölkutdrivning uppmärksammas.', ask: 'Vilket hormon är det?', a: 'oxytocin', model: 'Oxytocin: hudkontakt, nyfödd, anknytning och mjölkutdrivning.' }
+    ]
+  },
+  vem: {
+    dict: SUB_DICT, name: id => SUB_NAME[id], hint: id => SUB_HINT[id], ph: 'Vilket ämne?',
+    items: [
+      { q: 'Jag dämpar nervaktiviteten och kallas för ”hjärnans broms”.', a: 'gaba', model: 'GABA är hjärnans viktigaste hämmande signalsubstans, ”bromsen”.' },
+      { q: 'Jag har betydelse för motivation, belöning och längtan.', a: 'dopamin', model: 'Dopamin = förväntan, motivation och belöning. ”Jag längtar efter det här!”' },
+      { q: 'Jag är ett könshormon som bland annat påverkar slemhinnor, skelett och sexuell funktion.', a: 'ostrogen', model: 'Östrogen är ett könshormon hos alla: reproduktion, slemhinnor, skelett och menscykel.' },
+      { q: 'Jag kan minska smärta och bidra till välbehag och avslappning.', a: 'endorfiner', model: 'Endorfiner är kroppens egna opioidsystem, ”naturlig smärtdämpning”.' },
+      { q: 'Jag hjälper kroppen att bli alert och kan bidra till snabbare puls.', a: 'noradrenalin', model: 'Noradrenalin gör oss alerta och ger snabbare puls, ”kroppens gaspedal”.' },
+      { q: 'Jag kan frisättas vid beröring och är inblandad i social närhet.', a: 'oxytocin', model: 'Oxytocin hör ihop med beröring, närhet och anknytning.' },
+      { q: 'Jag påverkar bland annat stämningsläge, sömn och impulskontroll.', a: 'serotonin', model: 'Serotonin reglerar stämningsläge, sömn och impulskontroll.' },
+      { q: 'Jag är ett könshormon som har betydelse för bland annat sexlust och muskler.', a: 'testosteron', model: 'Testosteron är ett könshormon hos alla: sexuell lust, muskler och reproduktion.' }
+    ]
+  }
+};
+const normTxt = s => s.toLowerCase().replace(/[^a-zåäöéü]+/g, ' ').trim();
+function lev(a, b) {
+  if (Math.abs(a.length - b.length) > 2) return 9;
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    prev = cur;
+  }
+  return prev[b.length];
+}
+// Vilka begrepp i ordlistan som svaret nämner. Tål små stavfel.
+function identifyAll(text, dict) {
+  const toks = normTxt(text).split(' ').filter(Boolean);
+  const cands = toks.concat(toks.slice(1).map((t, i) => toks[i] + t));
+  const found = new Set();
+  cands.forEach(t => {
+    let best = null, bestD = 9;
+    for (const id in dict) for (const f of dict[id]) {
+      const d = lev(t, f);
+      if (d <= (f.length >= 9 ? 2 : 1) && d < bestD) { bestD = d; best = id; }
+    }
+    if (best) found.add(best);
+  });
+  return [...found];
+}
+function exStats(exId) {
+  const r = Object.values(S.ex[exId] || {});
+  return { done: r.length, ok: r.filter(x => x.ok).length, full: r.filter(x => x.ok && x.clue).length, total: EXS[exId].items.length };
+}
+function renderExSum(exId) {
+  const s = exStats(exId), el = document.getElementById('sum-' + exId);
+  if (!el) return;
+  el.textContent = !s.done ? `${s.total} frågor. Skriv dina svar och tryck Rätta.`
+    : EXS[exId].mot ? `Rätt: ${s.ok} av ${s.total}. Med ledtråd: ${s.full} av ${s.total}.` : `Rätt: ${s.ok} av ${s.total}.`;
+}
+function exItemHTML(exId, ex, it, i) {
+  const k = `${exId}-${i + 1}`, ask = it.ask || ex.ask;
+  return `<article class="wq et" data-ex="${exId}" data-i="${i}">
+    <div class="wq-head"><span class="wq-n">${i + 1}</span><h3>${it.q}${ask ? `<span class="et-ask">${ask}</span>` : ''}</h3></div>
+    <label class="et-l" for="f-${k}-svar">Svar</label>
+    <input class="et-in" id="f-${k}-svar" data-key="${k}-svar" type="text" autocomplete="off" spellcheck="false" placeholder="${ex.ph}">
+    ${ex.mot ? `<label class="et-l" for="f-${k}-mot">Motivering</label><textarea id="f-${k}-mot" data-key="${k}-mot" rows="2" placeholder="…, eftersom …"></textarea>` : ''}
+    <div class="wq-actions"><button type="button" class="btn" data-check>Rätta</button><span class="saved" aria-live="polite"></span></div>
+    <div class="et-fb" aria-live="polite"></div>
+  </article>`;
+}
+function renderExercises() {
+  Object.keys(EXS).forEach(exId => {
+    const ex = EXS[exId];
+    $('#ex-' + exId).innerHTML = `<div class="et-sum"><span class="et-score" id="sum-${exId}"></span>
+      <div class="btn-row" style="margin:0"><button type="button" class="btn btn-sm btn-primary" data-check-all="${exId}">Rätta alla</button><button type="button" class="btn btn-sm" data-clear="${exId}">Töm och börja om</button></div></div>`
+      + ex.items.map((it, i) => exItemHTML(exId, ex, it, i)).join('');
+  });
+}
+function checkItem(exId, i) {
+  const ex = EXS[exId], it = ex.items[i], k = `${exId}-${i + 1}`;
+  const fb = $(`.et[data-ex="${exId}"][data-i="${i}"] .et-fb`);
+  const svar = S.text[k + '-svar'] || '', mot = S.text[k + '-mot'] || '';
+  if (!svar.trim()) { fb.innerHTML = '<div class="fb fb-bad">Skriv ett svar först.</div>'; return; }
+  const ids = identifyAll(svar, ex.dict), right = ex.name(it.a);
+  const ok = ids.length === 1 && ids[0] === it.a;
+  let h;
+  if (ok) h = `<div class="fb fb-ok"><b>Rätt: ${right}.</b></div>`;
+  else if (ids.length > 1) h = `<div class="fb fb-bad"><b>Du skrev flera svar.</b> Välj det som passar bäst: ${right}.</div>`;
+  else if (ids.length === 1) h = `<div class="fb fb-bad"><b>Du skrev ${ex.name(ids[0])}, men rätt svar är ${right}.</b>${ex.hint(ids[0]) ? ` ${ex.name(ids[0])} = ${ex.hint(ids[0])}.` : ''}</div>`;
+  else h = `<div class="fb fb-bad"><b>Rätt svar är ${right}.</b> Kolla stavningen om du menade det.</div>`;
+  let clue = true;
+  if (ex.mot) {
+    const m = normTxt(mot), found = it.clues.filter(([, st]) => m.includes(st)).map(([l]) => l);
+    clue = found.length > 0;
+    h += clue ? `<div class="fb fb-ok">Motiveringen har en ledtråd ur texten: <b>${found.join(', ')}</b>.</div>`
+      : `<div class="fb fb-bad">${mot.trim() ? 'Motiveringen saknar en ledtråd ur texten.' : 'Skriv en motivering också.'} Använd t.ex. <b>${it.clues.map(c => c[0]).join(', ')}</b>.</div>`;
+    if (mot.trim() && !m.split(' ').includes('eftersom')) h += '<p class="map-note">Tips: skriv som läraren, ”Delen, eftersom delen …”.</p>';
+  }
+  h += `<div class="et-model"><b>${ex.mot ? 'Modellsvar' : 'Förklaring'}:</b> ${it.model}</div>`;
+  fb.innerHTML = h;
+  (S.ex[exId] = S.ex[exId] || {})[i] = { ok, clue };
+  if (exStats('eth').full === EXS.eth.items.length) S.plan.eth = true;
+  if (exStats('ets').ok === EXS.ets.items.length && exStats('vem').ok === EXS.vem.items.length) S.plan.ets = true;
+  save(); renderExSum(exId);
+}
+function hydrateExercises() {
+  $$('.et .et-fb').forEach(fb => { fb.innerHTML = ''; });
+  Object.keys(EXS).forEach(exId => {
+    Object.keys(S.ex[exId] || {}).forEach(i => checkItem(exId, +i));
+    renderExSum(exId);
+  });
+}
+const clearArm = {};
+document.addEventListener('click', e => {
+  const c = e.target.closest('[data-check]');
+  if (c) { const a = c.closest('.et'); checkItem(a.dataset.ex, +a.dataset.i); return; }
+  const all = e.target.closest('[data-check-all]');
+  if (all) { const id = all.dataset.checkAll; EXS[id].items.forEach((_, i) => checkItem(id, i)); return; }
+  const cl = e.target.closest('[data-clear]');
+  if (!cl) return;
+  const id = cl.dataset.clear;
+  if (!clearArm[id]) {
+    cl.textContent = 'Tryck igen för att tömma';
+    clearArm[id] = setTimeout(() => { clearArm[id] = null; cl.textContent = 'Töm och börja om'; }, 3000);
+    return;
+  }
+  clearTimeout(clearArm[id]); clearArm[id] = null; cl.textContent = 'Töm och börja om';
+  EXS[id].items.forEach((_, i) => { delete S.text[`${id}-${i + 1}-svar`]; delete S.text[`${id}-${i + 1}-mot`]; });
+  S.ex[id] = {};
+  save(); hydrateWriting();
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' || !e.target.classList || !e.target.classList.contains('et-in')) return;
+  e.preventDefault();
+  const art = e.target.closest('.et'), ta = $('textarea', art);
+  if (ta) ta.focus(); else checkItem(art.dataset.ex, +art.dataset.i);
+});
+
+/* ---- Lärarens analysuppgift: Alex och alkoholen ---- */
+const ALK = {
+  text: '<p>Alex har börjat dricka alkohol nästan varje helg. Från början gjorde Alex det mest på fester eftersom kompisarna gjorde det och det kändes lättare att vara social. Efter ett tag började Alex även dricka hemma när hen kände sig stressad eller mådde dåligt.</p><p>Nu märker Alex att det behövs mer alkohol än tidigare för att få samma effekt. När Alex försöker låta bli känner hen sig rastlös och mår dåligt. Trots att drickandet har börjat påverka relationer och skolarbete fortsätter Alex.</p><p>När en kompis säger att Alex kanske borde dra ner svarar Alex: ”Jag har inga problem. Jag kan sluta när jag vill.”</p>',
+  parts: [
+    { id: 'alk-1', n: '1', q: 'Vilka tecken på beroende kan du hitta i situationen? Använd begrepp från området och motivera med exempel från texten.',
+      model: '<ul><li><b>Tolerans:</b> ”det behövs mer alkohol än tidigare för att få samma effekt”. Belöningssystemet har förändrats så att det krävs en större dos.</li><li><b>Abstinens:</b> ”När Alex försöker låta bli känner hen sig rastlös och mår dåligt”. Obehag, fysiskt och psykiskt, utan substansen.</li><li><b>Kontrollförlust:</b> Alex dricker allt oftare, nu även hemma, och fortsätter trots problemen.</li><li><b>Sociala problem:</b> drickandet ”har börjat påverka relationer och skolarbete”.</li><li>Alex fortsätter <b>trots negativa konsekvenser</b>. Det började som <b>riskbruk</b> på fester, men med tolerans och abstinens stämmer det nu med <b>beroende</b>.</li></ul>',
+      tip: '5 symtom: ”Trötta Tonåringar Kan Aldrig Sova”. Minst fyra av dem syns hos Alex.',
+      keys: ['tolerans', 'abstinens', 'kontrollförlust', 'sociala problem', 'negativa konsekvenser', 'riskbruk', 'beroende', 'citat ur texten'] },
+    { id: 'alk-2', n: '2', q: 'Förklara Alex beteende utifrån beteendepsykologin. Använd minst två relevanta begrepp från tidigare block om beteendepsykologi.',
+      model: '<ul><li><b>Social inlärning:</b> Alex började dricka på fester ”eftersom kompisarna gjorde det”. Man härmar andra för gemenskap.</li><li><b>Positiv förstärkning:</b> det ”kändes lättare att vara social”. Något behagligt tillförs (social belöning), så beteendet ökar.</li><li><b>Negativ förstärkning:</b> Alex dricker hemma när hen är stressad eller mår dåligt. Alkoholen tar bort något obehagligt, så beteendet ökar. Nu tar drickandet också bort abstinensen.</li><li><b>Klassisk betingning:</b> fester och stress kan bli signaler som i sig väcker sug, som när soffan och TV:n väcker sug.</li><li><b>Vanemässig inlärning:</b> drickandet upprepas varje helg och blir automatiskt.</li></ul>',
+      keys: ['social inlärning', 'positiv förstärkning', 'negativ förstärkning', 'klassisk betingning', 'vanemässig inlärning', 'exempel ur texten'] },
+    { id: 'alk-3', n: '3', q: 'Alex säger: ”Jag har inga problem. Jag kan sluta när jag vill.” Hur skulle detta kunna förklaras utifrån psykoanalysen? Använd ett relevant begrepp.',
+      model: '<ul><li>Det kan förklaras med försvarsmekanismen <b>förnekelse</b>.</li><li>Alex förnekar problemet trots tydliga tecken: tolerans, abstinens och problem med relationer och skola.</li><li>Lärarens exempel på förnekelse är nästan samma mening: ”Jag har inga problem, jag kan sluta när jag vill.”</li><li>Blanda inte ihop: <b>rationalisering</b> = ”Jag dricker för att hantera stressen.” <b>Projektion</b> = ”Det är samhällets fel att jag dricker.”</li></ul>',
+      keys: ['förnekelse', 'försvarsmekanism', 'psykoanalysen', 'tecken ur texten'] },
+    { id: 'alk-b', n: 'Bonus', q: 'Svårare: Förklara varför Alex fortsätter dricka trots de negativa konsekvenserna genom att kombinera det biologiska perspektivet och beteendepsykologin.',
+      model: '<ul><li><b>Biologiskt:</b> alkohol ger en dopamindusch, upp till 100 gånger starkare än en god måltid. Belöningssystemet förändras permanent, så Alex har fått <b>tolerans</b>. Utan alkohol kommer <b>abstinens</b> (rastlös, mår dåligt).</li><li><b>Beteendepsykologiskt:</b> att dricka tar bort abstinensen och stressen = <b>negativ förstärkning</b>. Välbehaget och den sociala belöningen = <b>positiv förstärkning</b>.</li><li><b>Tillsammans:</b> biologin gör obehaget utan alkohol starkt, och varje gång drickandet tar bort det förstärks beteendet. Det är <b>beroendespiralen</b>: belöning → dopamindusch → tolerans → abstinens → negativ förstärkning → igen. Därför fortsätter Alex trots konsekvenserna.</li></ul>',
+      keys: ['dopamin', 'belöningssystemet', 'tolerans', 'abstinens', 'negativ förstärkning', 'positiv förstärkning', 'beroendespiralen'] }
+  ]
+};
+function alkHTML() {
+  return `<h2 id="case-alkohol">Alex och alkoholen</h2>
+  <article class="wq"><span class="tag">Lärarens analysuppgift</span><div class="case-text">${ALK.text}</div>
+  <details class="mall"><summary>Femstegsmallen</summary><ol>${MALL.map(([t, d]) => `<li><b>${t}:</b> ${d}</li>`).join('')}</ol></details></article>
+  ${ALK.parts.map(wqHTML).join('')}`;
+}
 
 /* ============ Begreppskort ============ */
 const FC = { mode: 'one', cat: 'Alla', q: '', onlyOva: false, reverse: false, order: TERMS.map(t => t.id), flipped: new Set(), list: [], pos: 0 };
@@ -1882,7 +2124,7 @@ function endQuiz() {
     if (isBest) S.quiz[id] = { best: first, total };
     line = isBest ? 'Nytt bästa resultat!' : `Bästa: ${S.quiz[id].best} av ${total}`;
   }
-  const planId = { q1: 'q1', q2: 'q2', mix: 'slut' }[id];
+  const planId = { mix: 'slut' }[id];
   if (planId) S.plan[planId] = true;
   save();
   const m = missedKeys().length;
@@ -1928,24 +2170,27 @@ function initQuiz() {
 /* ============ Kvällsplan och start ============ */
 const PLAN = [
   { id: 'snabb', t: 'Läs snabbkollen', d: 'Allt viktigaste på en sida, ordnat efter provets delar. Läs lugnt uppifrån och ner.', go: ['snabb'], btn: 'Öppna snabbkollen' },
-  { id: 'q1', t: 'Del 1: quiz om hjärnans delar', d: 'Motivera tyst för dig själv varje gång: ”X, eftersom X …”.', quiz: 'q1', btn: 'Starta quizet' },
-  { id: 'q2', t: 'Del 2: quiz om signalsubstanser och hormoner', d: 'Leta efter nyckelorden i varje situation.', quiz: 'q2', btn: 'Starta quizet' },
+  { id: 'eth', t: 'Del 1: exit ticket om hjärnans delar', d: 'Lärarens exit ticket. Skriv svar och motivering för 10 situationer. Sidan rättar svaret och kollar att du har med en ledtråd.', go: ['hjarnan', 'exit-hjarnan'], btn: 'Öppna exit ticketen' },
+  { id: 'ets', t: 'Del 2: exit ticket om signalsubstanser och hormoner', d: 'Lärarens 16 situationer och arbetsbladets ”Vem är jag?”. Skriv rätt ämne, sidan rättar direkt.', go: ['amnen', 'exit-amnen'], btn: 'Öppna exit ticketen' },
   { id: 'kort', t: 'Begreppskort', d: 'Gå igenom korten ett i taget och välj Kan eller Öva mer. Kör sedan bara Öva mer-korten.', go: ['begrepp'], btn: 'Öppna korten' },
   { id: 'del3', t: 'Del 3: tonårshjärnan', d: 'Läs punkterna och skriv korta svar på filmfrågorna.', go: ['tonar', 'filmfragor'], btn: 'Öppna filmfrågorna' },
   { id: 'del4', t: 'Del 4: skrivfrågor', d: 'Välj de frågor du är osäkrast på. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['skriv'], btn: 'Öppna skrivfrågorna' },
-  { id: 'del5', t: 'Del 5: analys', d: 'Lös Case 1 (Love) med femstegsmallen.', go: ['analys', 'case-love'], btn: 'Öppna caset' },
+  { id: 'alk', t: 'Del 5: Alex och alkoholen', d: 'Lärarens analysuppgift: tre frågor och en bonusfråga. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['analys', 'case-alkohol'], btn: 'Öppna analysuppgiften' },
+  { id: 'love', t: 'Del 5: Love och mobilen', d: 'Arbetsbladet, steg 2. Använd stödfrågorna och femstegsmallen.', go: ['analys', 'case-love'], btn: 'Öppna caset' },
   { id: 'slut', t: 'Slutprov', d: 'Blandade frågor från alla quiz. Kör sedan ”Det du missat” tills listan är tom.', quiz: 'mix', btn: 'Starta slutprovet' }
 ];
 function stepStatus(p) {
   const best = id => { const b = S.quiz[id]; return b ? `Bäst: ${b.best} av ${b.total}` : 'Inte gjort än'; };
-  if (p.id === 'q1' || p.id === 'q2') return best(p.id);
+  if (p.id === 'eth') { const x = exStats('eth'); return x.done ? `${x.ok} av ${x.total} rätt, ${x.full} med ledtråd` : 'Inte påbörjad'; }
+  if (p.id === 'ets') { const a = exStats('ets'), b = exStats('vem'); return a.done || b.done ? `Exit ticket: ${a.ok} av ${a.total} rätt. Vem är jag: ${b.ok} av ${b.total} rätt.` : 'Inte påbörjad'; }
+  if (p.id === 'alk') return `${ALK.parts.filter(q => S.text[q.id]).length} av ${ALK.parts.length} frågor besvarade`;
   if (p.id === 'kort') {
     const v = TERMS.map(t => S.cards[t.id]);
     return `${v.filter(x => x === 'kan').length} av ${TERMS.length} kan, ${v.filter(x => x === 'ova').length} att öva mer på`;
   }
   if (p.id === 'del3') { const ids = W3.filter(q => !q.link).map(q => q.id); return `${ids.filter(i => S.text[i]).length} av ${ids.length} filmfrågor besvarade`; }
   if (p.id === 'del4') return `${W4.filter(q => S.text[q.id]).length} av ${W4.length} skrivfrågor besvarade`;
-  if (p.id === 'del5') return S.text['case-love'] ? 'Case 1 påbörjat' : 'Inte påbörjat';
+  if (p.id === 'love') return S.text['case-love'] ? 'Påbörjat' : 'Inte påbörjat';
   if (p.id === 'slut') { const m = missedKeys().length; return best('mix') + (m ? `. ${m} missade frågor att repetera` : ''); }
   return '';
 }
@@ -2060,6 +2305,7 @@ window.addEventListener('popstate', onUrl);
 applyTheme();
 renderSnabb();
 renderTables();
+renderExercises();
 renderStudies();
 renderSpiral();
 renderWriting();
