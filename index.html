@@ -1,0 +1,1804 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Biologisk psykologi</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='40 20 345 230'%3E%3Cpath fill='%23B0306A' d='M62 175C40 140 45 90 85 62C125 32 200 22 255 32C315 42 365 75 375 125C383 160 372 185 345 195C320 202 290 200 265 205C250 225 215 245 170 245C135 245 108 230 104 205C100 192 88 186 75 186C66 186 62 182 62 175Z'/%3E%3C/svg%3E">
+<script>try{var t=(JSON.parse(localStorage.getItem('biopsyk1'))||{}).theme;if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+/* ---------- Tokens ---------- */
+:root{
+  --bg:#F3F4F8; --surface:#FFFFFF; --surface-2:#E9EBF2; --ink:#1A1D2E; --muted:#596079; --line:#DCDFEA;
+  --accent:#B0306A; --accent-ink:#FFFFFF; --accent-soft:#F7E2EC;
+  --hl:#FFE45C; --hl-bg:#FFF7CC; --hl-label:#7A5B00; --mark:#FFE45C;
+  --ok:#14805A; --ok-soft:#DCF2E7; --bad:#C2352B; --bad-soft:#FBE2DF; --warn:#A85900; --warn-soft:#FCEBD5;
+  --b-frontal:#F4B6C8; --b-parietal:#F6D688; --b-occipital:#9FD8C3; --b-temporal:#A9C6F2;
+  --b-cereb:#CDB9EE; --b-stem:#DCCAB2; --b-cortex:#C5839F; --b-limbic:#B0306A; --halo:rgba(255,255,255,.75);
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-round:ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r-s:10px; --r-m:14px; --r-l:20px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12141C; --surface:#1B1E29; --surface-2:#262A39; --ink:#ECEEF5; --muted:#A3A9BE; --line:#30364A;
+    --accent:#F06AA3; --accent-ink:#22091A; --accent-soft:#3A1E2D;
+    --hl:#E3C845; --hl-bg:#332E15; --hl-label:#F2D85E; --mark:rgba(227,200,69,.34);
+    --ok:#4CCB8F; --ok-soft:#173828; --bad:#FF7E70; --bad-soft:#3D1D1A; --warn:#FFB45C; --warn-soft:#3A2915;
+    --b-frontal:#8E4B63; --b-parietal:#86703A; --b-occipital:#357462; --b-temporal:#405F90;
+    --b-cereb:#644F8C; --b-stem:#6D5E4A; --b-cortex:#C66D95; --b-limbic:#F06AA3; --halo:rgba(27,30,41,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12141C; --surface:#1B1E29; --surface-2:#262A39; --ink:#ECEEF5; --muted:#A3A9BE; --line:#30364A;
+  --accent:#F06AA3; --accent-ink:#22091A; --accent-soft:#3A1E2D;
+  --hl:#E3C845; --hl-bg:#332E15; --hl-label:#F2D85E; --mark:rgba(227,200,69,.34);
+  --ok:#4CCB8F; --ok-soft:#173828; --bad:#FF7E70; --bad-soft:#3D1D1A; --warn:#FFB45C; --warn-soft:#3A2915;
+  --b-frontal:#8E4B63; --b-parietal:#86703A; --b-occipital:#357462; --b-temporal:#405F90;
+  --b-cereb:#644F8C; --b-stem:#6D5E4A; --b-cortex:#C66D95; --b-limbic:#F06AA3; --halo:rgba(27,30,41,.8);
+  color-scheme:dark;
+}
+
+/* ---------- Bas ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:120px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);-webkit-tap-highlight-color:transparent}
+a{color:var(--accent);text-underline-offset:2px}
+b,strong{font-weight:700}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+h1,h2,h3,h4{font-family:var(--font-round);line-height:1.2;letter-spacing:-.01em}
+h1{font-size:clamp(1.9rem,7vw,2.6rem);font-weight:800;margin:.25em 0 .3em;letter-spacing:-.025em}
+h2{font-size:1.38rem;font-weight:780;margin:2.2em 0 .7em}
+h3{font-size:1.1rem;font-weight:750;margin:0 0 .4em}
+h4{font-size:1rem;margin:0 0 .4em}
+p{margin:.5em 0}
+.lead{color:var(--muted);font-size:1.05rem;margin:0 0 1.2em;max-width:62ch}
+ul.pts{padding-left:1.25em;margin:.5em 0 1em}
+ul.pts li{margin:.35em 0}
+ul.pts li::marker{color:var(--accent)}
+
+/* ---------- Topp och flikar ---------- */
+.top{position:sticky;top:0;z-index:30;background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;gap:12px;max-width:1040px;margin:0 auto;padding:8px 16px 2px;padding-top:max(8px,env(safe-area-inset-top))}
+.brand{display:flex;align-items:center;gap:9px;margin-right:auto;color:var(--ink);text-decoration:none;font-family:var(--font-round);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;min-height:44px}
+.brand svg{width:30px;height:22px;flex:none}
+.brand small{display:block;font:600 .74rem/1.1 var(--font);color:var(--muted);letter-spacing:0}
+.icon-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;flex:none}
+.icon-btn svg{width:20px;height:20px}
+.icon-btn .i-sun{display:none}
+.icon-btn[data-dark="true"] .i-sun{display:block}
+.icon-btn[data-dark="true"] .i-moon{display:none}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:1040px;margin:0 auto;padding:6px 16px 10px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;scroll-snap-align:start;min-height:42px;padding:8px 15px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:650;font-size:.96rem;display:inline-flex;align-items:center;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-current="page"]{background:var(--ink);color:var(--bg)}
+
+/* ---------- Layout ---------- */
+main{padding:18px 16px 96px}
+main>section{max-width:760px;margin:0 auto}
+main>section.wide{max-width:1040px}
+.narrow{max-width:760px}
+footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:.88rem}
+
+/* ---------- Komponenter ---------- */
+.btn{min-height:44px;padding:9px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:650;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;text-align:center;line-height:1.25}
+.btn:hover{border-color:var(--muted)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{border-color:var(--accent);filter:brightness(1.05)}
+.btn-sm{min-height:40px;padding:6px 13px;font-size:.93rem}
+.btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.btn-danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:14px 16px;margin:12px 0}
+.box>:first-child{margin-top:0}.box>:last-child{margin-bottom:0}
+.duo{display:grid;gap:12px}
+@media(min-width:640px){.duo{grid-template-columns:1fr 1fr}}
+.duo>.box{margin:0}
+.tag{display:inline-block;font-size:.8rem;font-weight:650;padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.tag-limbic{background:var(--accent-soft);color:var(--accent)}
+
+/* Minnesknep = överstrykningspenna */
+.tip{background:var(--hl-bg);border-left:6px solid var(--hl);border-radius:var(--r-s);padding:11px 14px;margin:12px 0}
+.tip-l{display:block;font-weight:800;font-size:.82rem;color:var(--hl-label);margin-bottom:1px}
+.knep{display:inline;background:var(--hl-bg);box-shadow:inset 0 -0.5em 0 var(--mark);padding:1px 4px;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.mark{background:linear-gradient(transparent 52%,var(--mark) 52%);padding:0 2px}
+
+/* Råd och fällor */
+.note{border-left:6px solid var(--accent);background:var(--accent-soft);border-radius:var(--r-s);padding:11px 14px;margin:12px 0}
+.note-l{display:block;font-weight:800;font-size:.82rem;color:var(--accent);margin-bottom:1px}
+.trap{background:var(--warn-soft);border-radius:var(--r-m);padding:13px 16px;margin:10px 0}
+.trap h3{color:var(--warn);font-size:1.02rem}
+.trap ul{margin:.3em 0 0;padding-left:1.2em}
+
+/* ---------- Dölj-läge (tabeller och studiekort) ---------- */
+.hide-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.hide-hint{display:none;color:var(--muted);font-size:.88rem}
+.hiding .hide-hint{display:inline}
+.hiding [data-row]{cursor:pointer}
+.hiding [data-row]:not(.rev) .ans{position:relative}
+.hiding [data-row]:not(.rev) .ans>div{visibility:hidden}
+.hiding [data-row]:not(.rev) .ans::after{content:"Tryck för att visa";position:absolute;inset:4px 0;display:flex;align-items:center;padding:0 10px;font-size:.84rem;font-weight:600;color:var(--muted);border-radius:8px;background:repeating-linear-gradient(-45deg,var(--surface-2) 0 7px,transparent 7px 14px)}
+.hiding [data-row]:not(.rev) .ans~.ans::after{content:""}
+.hiding [data-row].rev .ans>div{animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+
+/* Tabeller: kort på mobil, tabell på bred skärm */
+.tbl{margin:12px 0 18px}
+.tbl table{width:100%;border-collapse:separate;border-spacing:0}
+.tbl th,.tbl td{text-align:left;vertical-align:top}
+.tbl td ul{margin:0;padding-left:1.1em}
+.tbl td li{margin:.15em 0}
+@media(max-width:719px){
+  .tbl:not(.tbl-keep) thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .tbl:not(.tbl-keep) table,.tbl:not(.tbl-keep) tbody,.tbl:not(.tbl-keep) tr,.tbl:not(.tbl-keep) th,.tbl:not(.tbl-keep) td{display:block}
+  .tbl:not(.tbl-keep) tr{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:12px 14px;margin-bottom:8px}
+  .tbl:not(.tbl-keep) th[scope=row]{font-family:var(--font-round);font-size:1.12rem;font-weight:780;padding-bottom:2px}
+  .tbl:not(.tbl-keep) td{padding:5px 0}
+  .tbl:not(.tbl-keep) td::before{content:attr(data-label);display:block;font-size:.78rem;font-weight:700;color:var(--muted)}
+}
+.tbl-keep table{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;table-layout:fixed}
+.tbl-keep th,.tbl-keep td{overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}
+.tbl-keep th,.tbl-keep td{padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl-keep tbody tr:last-child>*{border-bottom:0}
+.tbl-keep thead th{font-size:.82rem;color:var(--muted);background:var(--surface-2)}
+.tbl-keep th[scope=row]{font-weight:750;width:38%}
+@media(min-width:720px){
+  .tbl table{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden}
+  .tbl th,.tbl td{padding:11px 13px;border-bottom:1px solid var(--line)}
+  .tbl tbody tr:last-child>*{border-bottom:0}
+  .tbl thead th{font-size:.82rem;color:var(--muted);background:var(--surface-2);font-weight:700}
+  .tbl th[scope=row]{font-weight:750;white-space:nowrap}
+  .hiding tbody tr:hover>*{background:var(--surface-2)}
+}
+
+/* Studiekort */
+.study{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:14px 16px 8px;margin:12px 0}
+.study-h{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.study-h h3{margin:0}
+.study-meta{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+.study dl{margin:0}
+.srow{display:grid;grid-template-columns:1fr;gap:0 14px;padding:9px 0;border-top:1px solid var(--line)}
+.srow dt{font-size:.8rem;font-weight:750;color:var(--accent)}
+.srow dd{margin:0}
+@media(min-width:600px){.srow{grid-template-columns:150px 1fr}.srow dt{font-size:.9rem;padding-top:1px}}
+.study .tip{margin:6px 0 10px}
+
+/* ---------- Start ---------- */
+.hero{padding:6px 0 4px}
+.hero+h2{margin-top:1.2em}
+.hero h1{font-size:clamp(2.2rem,10vw,3.4rem);line-height:1.02;margin:.15em 0 .25em}
+.del-grid{display:grid;gap:10px}
+@media(min-width:640px){.del-grid{grid-template-columns:1fr 1fr}.del-grid .del:last-child{grid-column:1/-1}}
+.del{display:grid;grid-template-columns:54px 1fr;gap:2px 14px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);text-decoration:none;color:var(--ink);align-content:start}
+.del:hover{border-color:var(--muted)}
+.del-n{grid-row:1/span 4;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font:800 1.9rem/1 var(--font-round);background:var(--c);color:var(--ink)}
+.del>span:not(.del-n){grid-column:2}
+.del-t{font-family:var(--font-round);font-weight:780;font-size:1.12rem;line-height:1.25}
+.del-q{color:var(--muted);font-size:.93rem}
+.del-tip{font-size:.9rem;margin-top:4px}
+.del-go{color:var(--accent);font-weight:700;font-size:.92rem;margin-top:6px}
+.stats{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:13px 14px}
+.stat-n{font:800 1.9rem/1 var(--font-round)}
+.stat-l{color:var(--muted);font-size:.88rem;margin-top:4px}
+.bar{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-top:10px}
+.bar>i{display:block;height:100%;width:0;background:var(--ok);border-radius:99px;transition:width .3s}
+.qbest{list-style:none;padding:0;margin:10px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m)}
+.qbest li{display:flex;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}
+.qbest li:first-child{border-top:0}
+.qbest span:last-child{font-weight:700;white-space:nowrap}
+.qbest .none{color:var(--muted);font-weight:500}
+
+/* ---------- Hjärnkarta ---------- */
+.map-layout{display:grid;gap:14px}
+@media(min-width:880px){.map-layout{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);align-items:start}.map-side{position:sticky;top:130px}}
+.map-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:12px}
+.map-bar{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:12px;padding:3px}
+.seg button{min-height:40px;padding:6px 16px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:inherit;font-weight:700;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+#brainSvg{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#brainSvg .part{cursor:pointer;stroke:var(--surface);stroke-width:2.5;transition:opacity .15s,fill .2s}
+#brainSvg .part:focus{outline:none}
+#brainSvg .part:focus-visible{stroke:var(--accent);stroke-width:4}
+#brainSvg [data-id=frontal]{fill:var(--b-frontal)}
+#brainSvg [data-id=parietal]{fill:var(--b-parietal)}
+#brainSvg [data-id=occipital]{fill:var(--b-occipital)}
+#brainSvg [data-id=temporal]{fill:var(--b-temporal)}
+#brainSvg [data-id=cerebellum]{fill:var(--b-cereb)}
+#brainSvg [data-id=brainstem]{fill:var(--b-stem)}
+#brainSvg .limbic{fill:var(--b-limbic);stroke:var(--surface);stroke-width:1.5}
+#brainSvg .cortex{fill:none;stroke:var(--b-cortex);stroke-width:8;pointer-events:stroke}
+#brainSvg [data-id=hippocampus]{fill:none;stroke:var(--b-limbic);stroke-width:8;stroke-linecap:round;pointer-events:stroke}
+#brainSvg .folia{fill:none;stroke:var(--surface);stroke-width:1.6;opacity:.7;pointer-events:none}
+#brainSvg .lz{fill:none;stroke:var(--b-limbic);stroke-width:1.4;stroke-dasharray:4 4;opacity:.55;pointer-events:none}
+#brainSvg .lbl{font:650 11.5px var(--font);fill:var(--ink);paint-order:stroke;stroke:var(--halo);stroke-width:3.5px;stroke-linejoin:round;pointer-events:none}
+#brainSvg .lbl-s{font-size:9.5px}
+#brainSvg .lead-line{stroke:var(--muted);stroke-width:1;pointer-events:none}
+#brainSvg .dir{font:600 10.5px var(--font);fill:var(--muted)}
+#brainSvg.no-labels .lbl,#brainSvg.no-labels .lead-line{display:none}
+#brainSvg.has-sel .part:not(.sel){opacity:.42}
+#brainSvg .part.sel{stroke:var(--ink);stroke-width:3}
+#brainSvg .cortex.sel{stroke:var(--b-cortex);stroke-width:10;opacity:1}
+#brainSvg [data-id=hippocampus].sel{stroke:var(--b-limbic);stroke-width:10}
+#brainSvg .part.good{fill:var(--ok)!important;opacity:1!important}
+#brainSvg .part.wrong{fill:var(--bad)!important;opacity:1!important}
+#brainSvg .cortex.good,#brainSvg [data-id=hippocampus].good{fill:none!important;stroke:var(--ok)!important}
+#brainSvg .cortex.wrong,#brainSvg [data-id=hippocampus].wrong{fill:none!important;stroke:var(--bad)!important}
+@media(hover:hover){#brainSvg .part:hover{opacity:1;filter:brightness(1.05)}}
+.map-note{margin:4px 2px 2px;color:var(--muted);font-size:.84rem}
+.map-info{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:14px 16px;min-height:120px}
+.map-info h3{font-size:1.35rem;margin:0 0 4px}
+.map-info .empty{color:var(--muted);margin:0}
+.part-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.part-btns button{min-height:40px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+.part-btns button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pp-n{font-size:.85rem;color:var(--muted);font-weight:650}
+.pp-ask{display:block;font:780 1.3rem/1.25 var(--font-round);margin:2px 0 8px}
+.fb{border-radius:var(--r-s);padding:9px 12px;margin:8px 0;font-weight:600}
+.fb-ok{background:var(--ok-soft);color:var(--ok)}
+.fb-bad{background:var(--bad-soft);color:var(--bad)}
+
+/* Höger/vänster */
+.lr .box h3{display:flex;align-items:center;gap:8px}
+
+/* Tidslinje */
+.tl{list-style:none;padding:0;margin:12px 0;position:relative}
+.tl li{position:relative;padding:0 0 16px 30px}
+.tl li::before{content:"";position:absolute;left:7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.tl li::after{content:"";position:absolute;left:12px;top:20px;bottom:-4px;width:2px;background:var(--line)}
+.tl li:last-child::after{display:none}
+.tl b.when{display:block;font-family:var(--font-round);font-size:1.05rem}
+
+/* Gas och broms */
+.gb{display:grid;gap:12px;margin:12px 0}
+.gb-row{display:grid;grid-template-columns:1fr;gap:4px}
+.gb-top{display:flex;justify-content:space-between;gap:10px;font-size:.93rem}
+.gb-top span:last-child{color:var(--muted)}
+.gb-track{height:16px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.gb-fill{height:100%;border-radius:99px}
+.gb-gas{width:100%;background:var(--accent)}
+.gb-brake{width:58%;background:repeating-linear-gradient(-45deg,var(--b-frontal) 0 8px,color-mix(in srgb,var(--b-frontal) 55%,transparent) 8px 16px)}
+
+/* Numrerade steg */
+.steps{list-style:none;counter-reset:s;padding:0;margin:12px 0}
+.steps li{counter-increment:s;position:relative;padding:10px 12px 10px 52px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);margin-bottom:8px}
+.steps li::before{content:counter(s);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:9px;background:var(--accent);color:var(--accent-ink);font:800 1rem/28px var(--font-round);text-align:center}
+
+/* Beroendespiralen */
+.spiral{display:grid;gap:14px}
+@media(min-width:760px){.spiral{grid-template-columns:minmax(0,360px) 1fr;align-items:center}}
+.ring{position:relative;width:100%;max-width:360px;aspect-ratio:1;margin:0 auto}
+.ring svg{position:absolute;inset:0;width:100%;height:100%}
+.ring .arc{fill:none;stroke:var(--line);stroke-width:3}
+.ring .arc.on{stroke:var(--accent)}
+.ring .arr-head{fill:var(--muted)}
+.node{position:absolute;transform:translate(-50%,-50%);width:max-content;max-width:118px;min-height:44px;padding:6px 10px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:650 .82rem/1.15 var(--font);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.node b{flex:none;width:22px;height:22px;border-radius:7px;background:var(--surface-2);display:grid;place-items:center;font:800 .82rem/1 var(--font-round)}
+.node[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.node[aria-pressed="true"] b{background:var(--accent-ink);color:var(--accent)}
+.ring-c{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:40%;text-align:center;pointer-events:none}
+.ring-c small{display:block;color:var(--muted);font-weight:650;font-size:.8rem}
+.ring-c strong{display:block;font:800 1.05rem/1.2 var(--font-round)}
+.sp-detail{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:14px 16px}
+.sp-detail h3{margin:0 0 6px}
+
+/* Symtom */
+.sym{list-style:none;padding:0;margin:10px 0}
+.sym li{display:grid;grid-template-columns:42px 92px 1fr;gap:10px;align-items:center;padding:9px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);margin-bottom:6px}
+.sym .L{width:42px;height:42px;border-radius:11px;background:var(--hl);color:#3A2E00;display:grid;place-items:center;font:800 1.35rem/1 var(--font-round)}
+.sym .w{font-weight:700;color:var(--hl-label)}
+.sym .ans{min-height:24px}
+
+/* Skrivträning */
+.wq{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:16px;margin:14px 0}
+.wq-head{display:flex;gap:12px;align-items:flex-start}
+.wq-n{flex:none;min-width:34px;height:34px;padding:0 6px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font:800 1rem/1 var(--font-round)}
+.wq-head h3{margin:4px 0 6px;font-size:1.08rem}
+.wq .tag{margin:0 0 10px}
+.wq textarea{display:block;width:100%;min-height:130px;margin:8px 0;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:16px/1.5 var(--font);resize:vertical}
+.wq textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.wq-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.saved{color:var(--ok);font-size:.86rem;font-weight:650}
+.model{margin:12px 0 4px;padding:12px 14px;border-radius:var(--r-m);background:var(--ok-soft)}
+.model h4{color:var(--ok);margin:0 0 4px;font-size:.92rem}
+.model ul{margin:.3em 0;padding-left:1.2em}
+.model li{margin:.3em 0}
+.model p{margin:.3em 0}
+.keys{border:0;padding:0;margin:14px 0 0;min-width:0}
+.keys legend{font-weight:700;font-size:.93rem;padding:0;margin-bottom:8px}
+.kcount{color:var(--muted);font-weight:600}
+.kwrap{display:flex;flex-wrap:wrap;gap:6px}
+.kchip{position:relative;display:inline-flex}
+.kchip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.kchip span{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.92rem;font-weight:600;cursor:pointer}
+.kchip span::before{content:"";width:14px;height:14px;border-radius:4px;border:2px solid var(--muted);flex:none}
+.kchip input:checked+span{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.kchip input:checked+span::before{background:var(--ok);border-color:var(--ok);box-shadow:inset 0 0 0 2px var(--ok-soft)}
+.kchip input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.case-text{background:var(--surface-2);border-radius:var(--r-m);padding:12px 14px;margin:8px 0 12px}
+details.mall{margin:10px 0}
+details.mall summary{cursor:pointer;font-weight:700;min-height:40px;display:flex;align-items:center}
+details.mall ol{margin:4px 0;padding-left:1.4em}
+
+/* ---------- Begreppskort ---------- */
+.fc-tools{display:grid;gap:10px;margin:10px 0 14px}
+.search{width:100%;min-height:48px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:16px var(--font)}
+.search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{min-height:40px;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.92rem;font-weight:650;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip-ova[aria-pressed="true"]{background:var(--warn);border-color:var(--warn);color:var(--surface)}
+.fc-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(min-width:640px){.fc-actions{grid-template-columns:repeat(4,auto);justify-content:start}}
+.fc-status{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.92rem}
+.fc-status b{color:var(--ink)}
+.fc-grid{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:600px){.fc-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.fc-grid{grid-template-columns:repeat(3,1fr)}}
+.fc{display:flex;flex-direction:column;gap:6px}
+.fc-flip{display:block;width:100%;padding:0;margin:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;perspective:1100px;border-radius:var(--r-m)}
+.fc-inner{display:grid;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.fc.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{grid-area:1/1;min-height:124px;padding:14px 16px;border-radius:var(--r-m);border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;justify-content:center;gap:6px;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.fc-back{transform:rotateY(180deg);background:var(--accent-soft);border-color:transparent}
+.fc-cat{font-size:.76rem;font-weight:650;color:var(--muted)}
+.fc-term{font:800 1.28rem/1.2 var(--font-round)}
+.fc-def{font-size:1rem;line-height:1.45}
+.fc[data-s="kan"] .fc-face{box-shadow:inset 5px 0 0 var(--ok)}
+.fc[data-s="ova"] .fc-face{box-shadow:inset 5px 0 0 var(--warn)}
+.fc-acts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fc-acts button{min-height:42px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font:inherit;font-size:.92rem;font-weight:700;cursor:pointer}
+.fc-acts .b-kan[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.fc-acts .b-ova[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.empty-state{grid-column:1/-1;background:var(--surface);border:1px dashed var(--line);border-radius:var(--r-m);padding:22px;text-align:center;color:var(--muted)}
+
+/* ---------- Quiz ---------- */
+.qpick{display:grid;gap:10px}
+@media(min-width:640px){.qpick{grid-template-columns:1fr 1fr}}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:16px;display:flex;flex-direction:column;gap:6px}
+.qcard h3{margin:0}
+.qcard p{margin:0;color:var(--muted);font-size:.93rem}
+.qcard .best{color:var(--ink);font-weight:650}
+.qcard .btn{margin-top:8px;align-self:flex-start}
+.qz-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.qz-prog{color:var(--muted);font-weight:650;font-size:.92rem;text-align:right}
+.qz-kind{color:var(--muted);font-weight:650;font-size:.9rem;margin:16px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qz-q{font-size:1.32rem;margin:.3em 0 .2em}
+.qz-sub{color:var(--muted);margin:0 0 14px}
+.qz-opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:10px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:1.02rem;font-weight:600;text-align:left;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--muted)}
+.opt kbd{flex:none;width:26px;height:26px;border-radius:8px;background:var(--surface-2);display:grid;place-items:center;font:700 .82rem var(--font);color:var(--muted)}
+.opt:disabled{cursor:default}
+.opt.is-right{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.opt.is-wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.opt.is-right kbd,.opt.is-wrong kbd{background:transparent;color:inherit}
+.qz-fb{margin:12px 0}
+.qz-fb .fb{font-weight:500}
+.qz-fb .fb strong{display:block;font-weight:800;margin-bottom:2px}
+.qz-done{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:22px 18px;text-align:center}
+.qz-score{font:800 3.2rem/1 var(--font-round);margin:8px 0}
+.rep{background:var(--warn-soft);color:var(--warn);border-radius:999px;padding:1px 9px;font-size:.8rem;font-weight:700}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-row">
+    <a class="brand" href="#start" aria-label="Till startsidan">
+      <svg viewBox="40 20 345 230" aria-hidden="true"><path fill="var(--accent)" d="M62 175C40 140 45 90 85 62C125 32 200 22 255 32C315 42 365 75 375 125C383 160 372 185 345 195C320 202 290 200 265 205C250 225 215 245 170 245C135 245 108 230 104 205C100 192 88 186 75 186C66 186 62 182 62 175Z"/></svg>
+      <span>Biologisk psykologi<small>Psykologi 1</small></span>
+    </a>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Byt till mörkt läge">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Avsnitt"></nav>
+</header>
+
+<main id="main">
+
+<!-- ================= START ================= -->
+<section id="start">
+  <div class="hero">
+    <h1>Plugga inför provet</h1>
+    <p class="lead">Biologisk psykologi, Psykologi 1. Provet har fem delar. Börja var du vill, allt du gör sparas på den här enheten.</p>
+  </div>
+
+  <h2>Provets fem delar</h2>
+  <div class="del-grid">
+    <a class="del" href="#hjarnan" style="--c:var(--b-frontal)">
+      <span class="del-n">1</span>
+      <span class="del-t">Hjärnans delar</span>
+      <span class="del-q">”En person har svårt med X. Vilken del av hjärnan kan vara påverkad? Motivera med en ledtråd ur texten.”</span>
+      <span class="del-tip"><b>Tips:</b> motiveringen är att upprepa funktionen, t.ex. ”Thalamus, eftersom thalamus tar emot information om beröring och smärta.”</span>
+      <span class="del-go">Öva hjärnans delar</span>
+    </a>
+    <a class="del" href="#amnen" style="--c:var(--b-parietal)">
+      <span class="del-n">2</span>
+      <span class="del-t">Signalsubstanser och hormoner</span>
+      <span class="del-q">”Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst.”</span>
+      <span class="del-go">Öva ämnena</span>
+    </a>
+    <a class="del" href="#tonar" style="--c:var(--b-occipital)">
+      <span class="del-n">3</span>
+      <span class="del-t">Tonårshjärnan</span>
+      <span class="del-q">Filmfrågorna.</span>
+      <span class="del-go">Öva filmfrågorna</span>
+    </a>
+    <a class="del" href="#skriv" style="--c:var(--b-temporal)">
+      <span class="del-n">4</span>
+      <span class="del-t">Skrivfrågor</span>
+      <span class="del-q">Frågor från texthäftet.</span>
+      <span class="del-tip"><b>Tips:</b> använd fackord.</span>
+      <span class="del-go">Öva skrivfrågorna</span>
+    </a>
+    <a class="del" href="#analys" style="--c:var(--b-cereb)">
+      <span class="del-n">5</span>
+      <span class="del-t">Analys</span>
+      <span class="del-q">Använd Del 1–4 för att lösa ett case.</span>
+      <span class="del-tip"><b>Tips:</b> använd fackord och femstegsmallen.</span>
+      <span class="del-go">Öva analys</span>
+    </a>
+  </div>
+
+  <div class="note"><span class="note-l">Lärarens råd</span>Skriv något på varje fråga. Varje poäng räknas.</div>
+
+  <h2>Så långt har du kommit</h2>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-n" id="stKan">0</div>
+      <div class="stat-l" id="stKanL">begrepp kan du</div>
+      <div class="bar"><i id="stKanBar"></i></div>
+    </div>
+    <div class="stat">
+      <div class="stat-n" id="stOva">0</div>
+      <div class="stat-l">begrepp att öva mer på</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n" id="stText">0</div>
+      <div class="stat-l" id="stTextL">skrivfrågor påbörjade</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n" id="stMap">–</div>
+      <div class="stat-l">bäst i hjärnkartan</div>
+    </div>
+  </div>
+  <h3 style="margin-top:18px">Bästa resultat per quiz</h3>
+  <ul class="qbest" id="stQuiz"></ul>
+  <div class="btn-row" style="margin-top:22px">
+    <button type="button" class="btn btn-danger" id="resetBtn">Nollställ alla framsteg</button>
+  </div>
+</section>
+
+<!-- ================= HJÄRNAN ================= -->
+<section id="hjarnan" class="wide" hidden>
+  <div class="narrow">
+    <h1>Hjärnans delar</h1>
+    <p class="lead">Del 1: ”En person har svårt med X. Vilken del kan vara påverkad?” Motivera genom att <b>upprepa funktionen</b>.</p>
+  </div>
+
+  <div class="map-layout">
+    <div class="map-card">
+      <div class="map-bar">
+        <div class="seg" role="group" aria-label="Läge för hjärnkartan">
+          <button type="button" data-mode="explore" aria-pressed="true">Utforska</button>
+          <button type="button" data-mode="practice" aria-pressed="false">Öva</button>
+        </div>
+        <button type="button" class="btn btn-sm" id="labelsBtn" aria-pressed="true">Visa namn</button>
+      </div>
+      <svg id="brainSvg" viewBox="0 0 420 320" role="group" aria-label="Schematisk hjärna sedd från sidan, framsidan till vänster">
+        <defs>
+          <clipPath id="clipCere"><path d="M62 175C40 140 45 90 85 62C125 32 200 22 255 32C315 42 365 75 375 125C383 160 372 185 345 195C320 202 290 200 265 205C250 225 215 245 170 245C135 245 108 230 104 205C100 192 88 186 75 186C66 186 62 182 62 175Z"/></clipPath>
+        </defs>
+        <path class="part" data-id="brainstem" d="M224 214C238 208 254 210 258 220L256 302C248 308 234 308 228 302L226 262C225 240 220 226 224 214Z"/>
+        <path class="part" data-id="cerebellum" d="M262 210C275 198 322 194 350 198C376 204 384 232 368 252C350 272 300 274 276 260C258 249 254 226 262 210Z"/>
+        <path class="folia" d="M270 222C300 213 342 213 372 222M268 236C300 228 344 229 376 238M276 250C304 243 340 245 366 254"/>
+        <polygon class="part" data-id="frontal" clip-path="url(#clipCere)" points="0,0 212,0 176,150 104,196 0,196"/>
+        <polygon class="part" data-id="parietal" clip-path="url(#clipCere)" points="212,0 326,0 312,148 250,142 176,150"/>
+        <polygon class="part" data-id="occipital" clip-path="url(#clipCere)" points="326,0 420,0 420,320 300,320 312,148"/>
+        <polygon class="part" data-id="temporal" clip-path="url(#clipCere)" points="104,196 176,150 250,142 312,148 300,320 0,320 0,196"/>
+        <path class="part cortex" data-id="cortex" d="M62 175C40 140 45 90 85 62C125 32 200 22 255 32C315 42 365 75 375 125C383 160 372 185 345 195C320 202 290 200 265 205C250 225 215 245 170 245C135 245 108 230 104 205C100 192 88 186 75 186C66 186 62 182 62 175Z"/>
+        <ellipse class="lz" cx="206" cy="160" rx="64" ry="54"/>
+        <ellipse class="part limbic" data-id="thalamus" cx="212" cy="128" rx="22" ry="13"/>
+        <path class="part" data-id="hippocampus" d="M174 197C196 207 228 201 245 183C255 172 257 161 251 151"/>
+        <ellipse class="part limbic" data-id="hypothalamus" cx="181" cy="152" rx="11" ry="8"/>
+        <circle class="part limbic" data-id="amygdala" cx="160" cy="190" r="9"/>
+        <g aria-hidden="true">
+          <line class="lead-line" x1="255" y1="21" x2="255" y2="29"/>
+          <text class="lbl" x="255" y="16" text-anchor="middle">Hjärnbarken</text>
+          <text class="lbl" x="108" y="104" text-anchor="middle">Pannloben</text>
+          <text class="lbl" x="264" y="80" text-anchor="middle">Hjässloben</text>
+          <text class="lbl" x="344" y="140" text-anchor="middle">Nackloben</text>
+          <text class="lbl" x="196" y="232" text-anchor="middle">Tinningloben</text>
+          <text class="lbl" x="320" y="241" text-anchor="middle">Lillhjärnan</text>
+          <text class="lbl" x="220" y="294" text-anchor="end">Hjärnstammen</text>
+          <text class="lbl lbl-s" x="212" y="111" text-anchor="middle">Thalamus</text>
+          <text class="lbl lbl-s" x="166" y="150" text-anchor="end">Hypotalamus</text>
+          <text class="lbl lbl-s" x="147" y="187" text-anchor="end">Amygdala</text>
+          <text class="lbl lbl-s" x="260" y="164" text-anchor="start">Hippocampus</text>
+          <text class="dir" x="10" y="314">← Fram</text>
+          <text class="dir" x="410" y="314" text-anchor="end">Bak →</text>
+        </g>
+      </svg>
+      <p class="map-note">Bilden är <b>schematisk</b>, inte en exakt karta. De limbiska delarna (rosa, i den streckade ringen) ligger egentligen djupt inne i hjärnan.</p>
+    </div>
+    <div class="map-side">
+      <div class="map-info" id="mapInfo" aria-live="polite"></div>
+      <div class="part-btns" id="partBtns" aria-label="Välj en del"></div>
+    </div>
+  </div>
+
+  <div class="narrow">
+    <h2>Alla delar (lärarens lista, bok s. 53)</h2>
+    <div id="brainTable"></div>
+
+    <h2>Limbiska systemet</h2>
+    <ul class="pts">
+      <li>Består av <b>thalamus, hippocampus, amygdala och hypotalamus</b>.</li>
+      <li>Finns i <b>tinningloben</b> (enligt boken).</li>
+    </ul>
+    <div class="tip"><span class="tip-l">Minnesknep</span>T-H-A-H: ”<b>T</b>olv <b>H</b>ungriga <b>A</b>por <b>H</b>oppar”</div>
+
+    <h2>Hjärnans uppbyggnad</h2>
+    <ul class="pts">
+      <li>Tre huvuddelar: <b>storhjärnan</b>, <b>lillhjärnan</b> och <b>hjärnstammen</b>. Förlängda märgen finns också med i bokens bild.</li>
+      <li>Storhjärnan har <b>två hjärnhalvor</b> med i stort sett samma uppgifter, men de behandlar information olika.</li>
+      <li>Ca <b>86 miljarder nervceller</b> (neuroner) i hjärnan.</li>
+      <li>Nervceller finns också i <b>ryggmärgen</b> och det <b>perifera nervsystemet</b>.</li>
+    </ul>
+
+    <h2>Broca och Wernicke</h2>
+    <div class="duo">
+      <div class="box">
+        <h3>Brocas område</h3>
+        <ul class="pts">
+          <li><b>Paul Broca</b>: patienten <b>”Tan”</b> kunde bara säga ett ord, ”tan”.</li>
+          <li>När han dog (<b>1861</b>) hittade Broca en skada i <b>främre tinningloben</b> (enligt boken).</li>
+          <li>Reglerar den <b>motoriska talförmågan</b>, alltså att <b>producera tal</b>.</li>
+        </ul>
+        <div class="tip"><span class="tip-l">Minnesknep</span>Broca = <b>B</b>ara ”tan”.</div>
+      </div>
+      <div class="box">
+        <h3>Wernickes område</h3>
+        <ul class="pts">
+          <li><b>Carl Wernicke</b>: en patient med <b>afasi</b> hade svårt att <b>förstå talat språk</b>.</li>
+          <li>Skadan satt i <b>temporalloben</b> (= tinningloben).</li>
+          <li>Gör att vi <b>förstår</b> språk.</li>
+        </ul>
+        <div class="tip"><span class="tip-l">Minnesknep</span>Wernicke = ”Va sa du?”</div>
+      </div>
+    </div>
+    <div class="trap"><h3>Obs!</h3>Andra källor placerar Brocas område i pannloben. <b>Skriv bokens version på provet</b> (främre tinningloben).</div>
+
+    <h2>Vänster och höger hjärnhalva</h2>
+    <div class="duo lr">
+      <div class="box">
+        <h3>Vänster</h3>
+        <ul class="pts">
+          <li><b>Logik, språk och analys</b></li>
+          <li>Detaljer, struktur och ordning</li>
+          <li>Matte, tal och skrivande</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Höger</h3>
+        <ul class="pts">
+          <li><b>Kreativitet, helhet och intuition</b></li>
+          <li>Bilder, känslor och rumslig förståelse</li>
+          <li>Musik, konst och mönsterigenkänning</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><span class="note-l">Myt</span>Halvorna samarbetar hela tiden via <b>hjärnbalken</b>. Att vara ”vänster- eller högerhjärnad” är en myt.</div>
+
+    <div class="btn-row"><button type="button" class="btn btn-primary" data-quiz="q1">Testa dig: Quiz Hjärnans delar</button></div>
+  </div>
+</section>
+
+<!-- ================= ÄMNEN ================= -->
+<section id="amnen" class="wide" hidden>
+  <div class="narrow">
+    <h1>Signalsubstanser och hormoner</h1>
+    <p class="lead">Del 2: ”Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst.” Leta efter <b>nyckelorden</b>.</p>
+    <div class="duo">
+      <div class="box"><h3>Signalsubstans</h3><p>Kemiskt ämne som <b>överför signaler mellan nervceller</b>.</p><p>Ofta <b>snabba, lokala</b> effekter.</p></div>
+      <div class="box"><h3>Hormon</h3><p>Kemiskt ämne som vanligen <b>transporteras med blodet</b>.</p><p>Påverkar <b>målceller</b>.</p></div>
+    </div>
+  </div>
+
+  <h2>De åtta ämnena</h2>
+  <div id="subTable"></div>
+
+  <div class="narrow">
+    <h2>Snabbrepetition</h2>
+    <div id="quickTable"></div>
+
+    <h2>Fällor</h2>
+    <div class="trap"><h3>Testosteron eller östrogen?</h3><ul>
+      <li>Muskler, lust och röst → <b>testosteron</b></li>
+      <li>Slemhinnor, skelett och mens → <b>östrogen</b></li>
+      <li>”Även män har ett könshormon för skelettet” → <b>östrogen</b></li>
+    </ul></div>
+    <div class="trap"><h3>Serotonin eller GABA?</h3><ul>
+      <li>Serotonin <b>reglerar</b> humör och sömn.</li>
+      <li>GABA <b>bromsar</b> nervaktivitet (”hämmande”, ”dåsig”).</li>
+    </ul></div>
+    <div class="trap"><h3>Noradrenalin eller dopamin?</h3><ul>
+      <li>Puls och vakenhet → <b>noradrenalin</b></li>
+      <li>Belöning och ”vill ha mer” → <b>dopamin</b></li>
+    </ul></div>
+
+    <h2>Stress (boken)</h2>
+    <ul class="pts">
+      <li>Inför ett prov aktiveras det <b>limbiska systemet</b>.</li>
+      <li>Man får mer <b>kortisol och adrenalin</b> (stresshormoner).</li>
+      <li>Stress är en <b>flyktreaktion</b> som våra förfäder hade vid fara.</li>
+      <li>Via <b>evolutionen</b> finns den som en nedärvd alarmreaktion i våra <b>gener</b>.</li>
+    </ul>
+
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" data-quiz="q2">Quiz: Signalsubstanser och hormoner</button>
+      <button type="button" class="btn" data-quiz="q3">Quiz: Vem är jag?</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TONÅRSHJÄRNAN ================= -->
+<section id="tonar" hidden>
+  <h1>Tonårshjärnan</h1>
+  <p class="lead">Del 3 bygger på filmen. Läs punkterna och skriv sedan svar på filmfrågorna längre ner.</p>
+  <a class="btn btn-primary" href="https://youtu.be/C9buw6Qx5E0" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+    Se filmen på YouTube
+  </a>
+  <p class="map-note">Filmen kräver internet. Resten av sidan fungerar utan.</p>
+
+  <h2>Hjärnan utvecklas hela livet</h2>
+  <ol class="tl">
+    <li><b class="when">0–2 år</b>Den <b>mest intensiva</b> utvecklingen.</li>
+    <li><b class="when">Tonåren</b>Hjärnan utvecklas <b>mycket</b> även nu.</li>
+    <li><b class="when">Ca 25 år</b>Hjärnan anses <b>fullt utvecklad</b>. Pannloben blir färdig <b>allra sist</b>.</li>
+    <li><b class="when">Resten av livet</b>Hjärnan fortsätter utvecklas, men <b>mindre</b>.</li>
+  </ol>
+
+  <h2>Pannloben blir klar sist</h2>
+  <ul class="pts">
+    <li>Pannloben = <b>”hjärnans beslutsfattarcentrum”</b>.</li>
+    <li>Hos tonåringar är detta inte fullt utvecklat: <b>framtidsplanering, överblick, att sålla intryck och riskbedömning</b>.</li>
+    <li>Därför tar tonåringar <b>mer risker</b>, är mer <b>känslomässigt styrda</b> och brister i att <b>överblicka och planera</b>.</li>
+  </ul>
+  <div class="tip"><span class="tip-l">Minnesknep</span>”<b>Gaspedalen är klar, men bromsen byggs fortfarande.</b>”</div>
+  <div class="gb" aria-label="Gaspedal och broms">
+    <div class="gb-row">
+      <div class="gb-top"><span><b>Gaspedalen:</b> känslor (amygdala) och belöning (dopamin)</span><span>reagerar starkt</span></div>
+      <div class="gb-track"><div class="gb-fill gb-gas"></div></div>
+    </div>
+    <div class="gb-row">
+      <div class="gb-top"><span><b>Bromsen:</b> pannloben</span><span>hänger inte med</span></div>
+      <div class="gb-track"><div class="gb-fill gb-brake"></div></div>
+    </div>
+  </div>
+
+  <h2>Filmfrågor (Del 3)</h2>
+  <p>Skriv först. Jämför sedan med modellsvaret och bocka av nyckelorden.</p>
+  <div id="w3"></div>
+</section>
+
+<!-- ================= STUDIER ================= -->
+<section id="studier" hidden>
+  <h1>Studier och perspektiv</h1>
+  <p class="lead">Kunna <b>syfte, metod, resultat och slutsats</b>. Dölj svaren och tryck på en rad i taget för att testa dig.</p>
+  <div class="btn-row">
+    <button type="button" class="btn" id="studHideAll">Dölj svaren i alla studier</button>
+    <button type="button" class="btn" id="studShowAll">Visa alla svar</button>
+  </div>
+
+  <h2>Hjärnans utveckling</h2>
+  <div data-studies="utv"></div>
+
+  <h2>Mäns och kvinnors hjärnor</h2>
+  <div data-studies="kon"></div>
+  <div class="box">
+    <h3>Slutsats</h3>
+    <ul class="pts">
+      <li><b>Mest likheter</b> och få skillnader.</li>
+      <li>Man vet inte om skillnaderna är <b>medfödda</b>, beror på <b>miljön</b> (flickor och pojkar behandlas olika) eller <b>båda</b>.</li>
+    </ul>
+  </div>
+  <div class="note"><span class="note-l">Lärarens slide</span>
+    <ul class="pts" style="margin:0">
+      <li>Ingen kan känna igen en kvinnlig eller manlig hjärna.</li>
+      <li>Många hjärnor är en <b>blandning</b>.</li>
+      <li>Skillnaderna påverkas av <b>kost, vikt, uppväxt, förväntningar och inlärning</b>.</li>
+    </ul>
+  </div>
+
+  <h2>Homosexuella och heterosexuella hjärnor</h2>
+  <div data-studies="sex"></div>
+
+  <h2>Biologiska perspektivet (bok s. 51)</h2>
+  <p>Fyra framsteg gjorde perspektivet stort:</p>
+  <div id="bioTable"></div>
+  <div class="tip"><span class="tip-l">Minnesknep</span>D-M-S-G = <b>D</b>arwin, <b>M</b>edicin, <b>S</b>canning, <b>G</b>ener</div>
+  <h3 style="margin-top:20px">Antaganden</h3>
+  <ul class="pts">
+    <li>Beteende kan förklaras av <b>hjärnans struktur och funktion</b>.</li>
+    <li>… av <b>signalsubstanser och hormoner</b> (fysiologisk faktor).</li>
+    <li>… av <b>arv</b> (genetisk faktor).</li>
+    <li>… av <b>evolutionsteorier</b>.</li>
+    <li>Forskning på <b>djur</b> kan generaliseras till människor.</li>
+  </ul>
+  <div class="box"><b>Freud</b> menade redan år <b>1900</b> att drifterna (den aggressiva och den sexuella) var <b>biologiska och medfödda</b>.</div>
+
+  <h2>Hjärnplasticitet</h2>
+  <ul class="pts">
+    <li>Före <b>1965</b> trodde man att hjärnan inte kunde förändras när den var färdigutvecklad.</li>
+    <li>Idag vet vi att hjärnan är <b>plastisk</b>: den kan ändra sin struktur genom <b>nya förbindelser mellan nervcellerna</b>.</li>
+    <li>1) Hjärnan <b>förändras när vi lär oss</b> nya saker.</li>
+    <li>2) Den <b>anpassar sig när den skadats</b>: andra delar kan ta över förlorade funktioner.</li>
+  </ul>
+  <div class="tip"><span class="tip-l">Minnesknep</span>Tänk <b>lera</b>: hjärnan formas av det du gör.</div>
+
+  <div class="btn-row"><button type="button" class="btn btn-primary" data-quiz="q4">Quiz: Blandade snabbfrågor</button></div>
+</section>
+
+<!-- ================= BEROENDE ================= -->
+<section id="beroende" hidden>
+  <h1>Beroende</h1>
+  <p class="lead">En blandning av <b>hjärnans belöningssystem</b>, <b>inlärda vanor</b> och <b>sociala faktorer</b>.</p>
+  <ul class="pts">
+    <li>Vanligaste beroendet i Sverige: <b>alkohol</b>.</li>
+    <li>Andra substanser: <b>opioider</b> (morfin, heroin), <b>cannabis</b> och <b>centralstimulantia</b> (kokain, amfetamin).</li>
+    <li>Substansberoende klassas som <b>beroendesjukdom</b>. Med en diagnos finns möjlighet till <b>vård och stöd</b>.</li>
+    <li>Beroendesjukdomar är ett av våra stora <b>folkhälsoproblem</b>.</li>
+  </ul>
+
+  <h2>Beroendespiralen</h2>
+  <p>Tryck på ett steg. Spiralen går runt: steg 5 leder tillbaka till steg 1.</p>
+  <div class="spiral" id="spiral"></div>
+
+  <h2>Riskbruk, missbruk, beroende</h2>
+  <div id="riskTable"></div>
+
+  <h2>5 symtom på beroende</h2>
+  <div data-hide>
+    <div class="hide-bar"><button type="button" class="btn btn-sm hide-btn">Dölj svar</button><span class="hide-hint">Tryck på en rad för att visa den</span></div>
+    <ul class="sym" id="symList"></ul>
+  </div>
+  <div class="tip"><span class="tip-l">Minnesknep</span>”<b>T</b>rötta <b>T</b>onåringar <b>K</b>an <b>A</b>ldrig <b>S</b>ova”</div>
+
+  <h2>Orsaker</h2>
+  <ul class="pts">
+    <li>Svåra förhållanden under <b>uppväxten</b>, <b>personlighet</b>, <b>biologisk sårbarhet</b> och <b>ärftlig benägenhet</b>. Både <b>arv och miljö</b> påverkar.</li>
+    <li><b>Psykisk ohälsa</b> och beroende kan orsaka varandra, åt båda hållen.</li>
+    <li><b>Självmedicinering</b>: det känns bättre för stunden.</li>
+    <li><b>Tillgängligheten</b> till substanser i samhället.</li>
+    <li>Biologin skiljer sig mellan människor. <b>Teori 1:</b> vissa har ett belöningssystem som behöver <b>mer stimulans</b>. <b>Teori 2:</b> vissa har ett <b>extra känsligt</b> belöningssystem.</li>
+  </ul>
+  <div class="box"><h3>Varför inte en enda orsak?</h3>Alla med svår uppväxt blir inte beroende, och vissa med en bra uppväxt blir det. <b>Flera faktorer samverkar.</b></div>
+
+  <h2>Andra beroenden</h2>
+  <div id="otherTable"></div>
+  <div class="box">
+    <h3>Fallet Ove</h3>
+    <ul class="pts">
+      <li>Pensionär som köper en dator, <b>vinner</b> på kasinospel och sedan <b>förlorar</b>.</li>
+      <li>Tar sms-lån och lån på bostaden. Kan inte berätta för någon.</li>
+      <li>Visar <b>positiv förstärkning</b> och hur lätt spelberoende <b>döljs</b>.</li>
+    </ul>
+  </div>
+
+  <h2>Att bli av med ett beroende</h2>
+  <p>Det är svårt eftersom:</p>
+  <ul class="pts">
+    <li>den <b>positiva förstärkningen</b> är kraftig,</li>
+    <li>beteendet har blivit <b>ett sätt att leva</b>,</li>
+    <li>man vill <b>undvika abstinensen</b>.</li>
+  </ul>
+  <p>Det finns ingen ”rätt” behandling. Exempel: <b>KBT</b>, <b>motiverande samtal</b> och <b>läkemedel</b> (t.ex. mot alkoholberoende).</p>
+  <div class="box">
+    <h3>Motiverande samtal (MI)</h3>
+    <ul class="pts">
+      <li>Utvecklat av <b>William F. Miller och Stephen Rollnick</b> runt <b>1990</b>.</li>
+      <li>Först för alkoholproblem, nu även inom socialtjänst, skola och kriminalvård.</li>
+      <li>Syfte: öka <b>motivationen</b> för en livsstilsförändring.</li>
+      <li>Beröringspunkter med <b>humanistisk psykologi</b>: tro på människans inneboende möjligheter.</li>
+      <li>Man lyssnar med <b>empati</b>, samtalar <b>jämlikt</b> och sätter personens <b>egna drivkrafter</b> i centrum.</li>
+    </ul>
+  </div>
+
+  <h2>Koppling till andra perspektiv</h2>
+  <h3>Försvarsmekanismer</h3>
+  <div id="defTable"></div>
+  <h3>Inlärning</h3>
+  <div id="learnTable"></div>
+</section>
+
+<!-- ================= SKRIV ================= -->
+<section id="skriv" hidden>
+  <h1>Skrivfrågor</h1>
+  <p class="lead">Del 4: frågor från texthäftet. Skriv först, jämför sedan med modellsvaret och bocka av nyckelorden.</p>
+  <div class="note"><span class="note-l">Lärarens råd</span>Använd <b>fackord</b>. Skriv något på varje fråga, varje poäng räknas.</div>
+  <p>Filmfrågorna (Del 3) finns under <a href="#tonar">Tonårshjärnan</a>.</p>
+  <div id="w4"></div>
+</section>
+
+<!-- ================= ANALYS ================= -->
+<section id="analys" hidden>
+  <h1>Analys</h1>
+  <p class="lead">Del 5: använd allt från Del 1–4 för att lösa ett case. Följ mallen och använd fackord.</p>
+
+  <h2>Femstegsmallen</h2>
+  <ol class="steps" id="mall"></ol>
+  <div class="tip"><span class="tip-l">Minnesknep</span>Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning</div>
+
+  <div id="cases"></div>
+</section>
+
+<!-- ================= BEGREPP ================= -->
+<section id="begrepp" class="wide" hidden>
+  <div class="narrow">
+    <h1>Begreppskort</h1>
+    <p class="lead">Tryck på ett kort för att vända det. Markera <b>Kan</b> eller <b>Öva mer</b>.</p>
+  </div>
+  <div class="fc-tools">
+    <label class="sr" for="fcSearch">Sök bland begreppen</label>
+    <input class="search" id="fcSearch" type="search" placeholder="Sök begrepp eller betydelse" autocomplete="off">
+    <div class="chips" id="fcCats" role="group" aria-label="Kategori"></div>
+    <div class="chips"><button type="button" class="chip chip-ova" id="fcOnlyOva" aria-pressed="false">Bara ”Öva mer”</button></div>
+    <div class="fc-actions">
+      <button type="button" class="btn btn-sm" id="fcShowAll">Visa alla</button>
+      <button type="button" class="btn btn-sm" id="fcHideAll">Dölj alla</button>
+      <button type="button" class="btn btn-sm" id="fcShuffle">Blanda</button>
+      <button type="button" class="btn btn-sm" id="fcReverse" aria-pressed="false">Vänd riktning</button>
+    </div>
+    <div class="fc-status" aria-live="polite"><span id="fcShown"></span><span>Kan: <b id="fcKan">0</b></span><span>Öva mer: <b id="fcOva">0</b></span></div>
+  </div>
+  <div class="fc-grid" id="fcGrid"></div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz" hidden>
+  <h1>Quiz</h1>
+  <div id="qzPick">
+    <p class="lead">Direkt rätt eller fel. Frågor du svarar fel på kommer tillbaka tills du klarar dem.</p>
+    <div class="qpick" id="qzList"></div>
+  </div>
+  <div id="qzRun" hidden>
+    <div class="qz-top">
+      <button type="button" class="btn btn-sm" id="qzQuit">Avsluta</button>
+      <span class="qz-prog" id="qzProg"></span>
+    </div>
+    <div class="bar"><i id="qzBar"></i></div>
+    <p class="qz-kind" id="qzKind"></p>
+    <h2 class="qz-q" id="qzQ" tabindex="-1"></h2>
+    <p class="qz-sub" id="qzSub"></p>
+    <div class="qz-opts" id="qzOpts"></div>
+    <div class="qz-fb" id="qzFb" aria-live="polite"></div>
+    <button type="button" class="btn btn-primary" id="qzNext" hidden>Nästa fråga</button>
+  </div>
+  <div id="qzDone" hidden></div>
+</section>
+
+</main>
+<footer>Innehållet kommer från lektionsfilerna, läroboken och lärarens exitpapers. Framsteg sparas bara i den här webbläsaren.</footer>
+
+<script>
+(() => {
+'use strict';
+
+/* ============ Hjälpfunktioner ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const slug = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const tipHTML = t => `<div class="tip"><span class="tip-l">Minnesknep</span>${t}</div>`;
+
+/* ============ Lagring ============ */
+const KEY = 'biopsyk1';
+const fresh = o => ({ cards: o.cards || {}, quiz: o.quiz || {}, text: o.text || {}, checks: o.checks || {}, map: o.map || null, theme: o.theme || null });
+let S;
+try { S = fresh(JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { S = fresh({}); }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* lagring ej tillgänglig */ } };
+
+/* ============ INNEHÅLL ============ */
+const BRAIN = [
+  { id: 'cortex', name: 'Hjärnbarken', fn: 'Hjärnans <b>yttre skikt</b>. <b>Rörelser och språk</b>, även sinnen, minnen, känslor och högre funktioner.', tip: 'Barken är skalet runt allt.', ask: 'Hjärnans yttre skikt: rörelser och språk' },
+  { id: 'frontal', name: 'Pannloben', fn: '<b>Personlighet, planering, omdömesförmåga, koncentration</b>, korttidsminne, att tankar blir ord. ”Hjärnans beslutsfattarcentrum”, <b>blir färdig sist</b>.', tip: 'Pannan = där du tänker ”vad händer om…?”', ask: 'Planering, omdöme och koncentration' },
+  { id: 'parietal', name: 'Hjässloben', fn: 'Kombinerar <b>doft, smak, konsistens och temperatur</b> till en helhetsupplevelse.', tip: 'Hjässan smakar på maten.', ask: 'Kombinerar doft, smak, konsistens och temperatur' },
+  { id: 'occipital', name: 'Nackloben', fn: '<b>Synen</b>. Synintryck blir bilder vi kan minnas.', tip: 'Synen sitter längst bak.', ask: 'Synen' },
+  { id: 'temporal', name: 'Tinningloben', fn: '<b>Hörseln</b>. Hörselintryck blir minnen. Här finns <b>limbiska systemet</b> (enligt boken).', tip: 'Tinningen sitter vid örat.', ask: 'Hörseln' },
+  { id: 'thalamus', name: 'Thalamus', limbic: true, fn: 'Information om <b>beröring och smärta</b> (och temperatur).', tip: '”Thal-AJ-mus”, det gör ont.', ask: 'Information om beröring och smärta' },
+  { id: 'hippocampus', name: 'Hippocampus', limbic: true, fn: 'Skapar <b>långtidsminnen</b>.', tip: 'Campus = skola = det du lär dig och minns.', ask: 'Skapar långtidsminnen' },
+  { id: 'amygdala', name: 'Amygdala', limbic: true, fn: '<b>Positiva och negativa känslor</b> och känslominnen.', tip: '”Amyg-DRAMA”, känslorna.', ask: 'Positiva och negativa känslor' },
+  { id: 'hypothalamus', name: 'Hypotalamus', limbic: true, fn: '<b>Hunger, törst, kroppstemperatur</b>, tillväxt och sexualdrift.', tip: 'Hypo = under: grundbehoven under allt annat.', ask: 'Hunger, törst och kroppstemperatur' },
+  { id: 'cerebellum', name: 'Lillhjärnan', alt: 'cerebellum', fn: '<b>Koordinerar rörelser</b>, <b>balanssinnet</b> och <b>procedurminnet</b> (gå, simma, cykla).', tip: 'Lilla hjärnan håller dig kvar på cykeln.', ask: 'Koordination, balans och procedurminne' },
+  { id: 'brainstem', name: 'Hjärnstammen', mapOnly: true, fn: 'En av hjärnans <b>tre huvuddelar</b>, tillsammans med storhjärnan och lillhjärnan. I bokens bild finns även <b>förlängda märgen</b>.' }
+];
+const BRAIN_BY = Object.fromEntries(BRAIN.map(b => [b.id, b]));
+
+const SUBST = [
+  { n: 'Dopamin', fn: 'Förväntan, <b>motivation, belöning</b>, att lära sig vad som känns belönande', sex: 'Bidrar till driv och längtan vid attraktion', rule: '”Jag längtar efter det här!”', keys: 'belöning, motivation, nästa nivå, lust att fortsätta', short: 'motivation' },
+  { n: 'Oxytocin', fn: 'Hormon och signalämne. Sociala processer, <b>beröring, närhet, anknytning</b>, mjölkutdrivning', sex: 'Kan frisättas vid beröring och orgasm. Trygghet och relation påverkar också', rule: '”Närhet – inte automatiskt kärlek”', keys: 'kram, hudkontakt, nyfödd, trygghet', short: 'närhet' },
+  { n: 'Endorfiner', fn: 'Kroppens egna <b>opioidsystem</b>, <b>minskar smärta</b>', sex: 'Välbehag och avslappning', rule: '”Naturlig smärtdämpning”', keys: 'smärta, slår i armbågen, efter löppass', short: 'smärtlindring' },
+  { n: 'Serotonin', fn: '<b>Stämningsläge, sömn</b> och impulskontroll', sex: 'Kan påverka lust och orgasm, men effekterna varierar', rule: '”Reglering, inte bara lycka”', keys: 'sinnesstämning, sömn, välbefinnande', short: 'reglering' },
+  { n: 'Noradrenalin', fn: 'Gör oss <b>alerta</b>, uppmärksamma och redo att reagera. <b>Snabbare puls</b>', sex: 'Kroppen blir mer aktiverad vid upphetsning', rule: '”Kroppens gaspedal”', keys: 'brandlarm, match, vaksam, stresspåslag', short: 'aktivering' },
+  { n: 'GABA', fn: 'Hjärnans viktigaste <b>hämmande</b> signalsubstans, <b>dämpar nervaktivitet</b>', sex: 'Ingår i nätverk som reglerar sexuell funktion, inget enkelt mönster', rule: '”Bromsen”', keys: 'dämpa, hämmande, lugnande, dåsig', short: 'broms' },
+  { n: 'Testosteron', fn: '<b>Könshormon som finns hos alla</b>. Sexuell lust, <b>muskler</b>, reproduktion, <b>mörkare röst</b> i puberteten', sex: 'Kan påverka sexlust, men tankar, känslor och relationer spelar också roll', rule: '”Hormon som påverkar lust – hos alla”', keys: 'muskelmassa, röst, sexlust', short: 'könshormon' },
+  { n: 'Östrogen', fn: '<b>Könshormon som finns hos alla</b>. Reproduktion, <b>slemhinnor, skelett, menscykel</b>', sex: 'Kan påverka lubrikation, kroppslig komfort och erektion', rule: '”Sexuell funktion”', keys: 'slemhinnor, skelett, mens', short: 'könshormon' }
+];
+
+const STUDIES = [
+  { id: 'giedd', g: 'utv', name: 'Jay Giedd m.fl.', meta: '1999 och 2006, publicerad i <i>Neuroscience</i>', rows: [
+    ['Syfte', 'Förstå hur <b>psykiska sjukdomar</b> uppstår genom att först studera den <b>friska hjärnan</b>.'],
+    ['Metod', '<b>Scanning</b> och hjärnavbildning.'],
+    ['Försökspersoner', '<b>2 000 personer</b> mellan <b>3 och 25 år</b> (bl.a. Giedds två egna barn).'],
+    ['Procedur', 'Hjärnan undersöktes <b>vartannat år</b>.'],
+    ['Resultat', 'Delar av <b>pannloben utvecklas mycket sent</b>.'],
+    ['Slutsats', 'Förklarar varför tonåringar <b>tar risker</b>, är mer <b>känslomässigt styrda</b> och brister i förmågan att <b>överblicka och planera</b>.']
+  ] },
+  { id: 'draganski', g: 'utv', name: 'Bogdan Draganski m.fl.', meta: '2006, publicerad i <i>Journal of Neuroscience</i>', rows: [
+    ['Syfte', 'Kan omfattande studier av abstrakt information få hjärnan att <b>”växa”</b>?'],
+    ['Metod', '<b>Experiment</b>.'],
+    ['Försökspersoner', 'Tyska studenter som läste <b>medicin</b>, plus en <b>kontrollgrupp</b> som inte studerade något alls.'],
+    ['Procedur', 'Hjärnorna scannades <b>tre månader före läkarexamen och efter</b>. Kontrollgruppen scannades också två gånger med tre månaders mellanrum.'],
+    ['Resultat', 'Strukturella skillnader i <b>hippocampus och hjässloben</b> (delar som har med minne och inlärning att göra).'],
+    ['Slutsats', 'Hjärnan kan ”växa” genom <b>fler förbindelser mellan nervceller</b> och mer aktivitet, via stimulering som studier, idrott, meditation, musik och datorspel.']
+  ] },
+  { id: 'witelson', g: 'kon', name: 'Sandra Witelson', meta: '2016, McMaster', rows: [
+    ['Resultat', 'Kvinnor har fler kopplingar <b>mellan hjärnhalvorna</b>. Män har fler kopplingar <b>från bakre till främre delen</b>.'],
+    ['Tolkning', 'Män kopplar oftare ihop uppfattning och koordination, kvinnor intuition och analys. Kan förklara varför män anses bättre på <b>en enskild uppgift</b> (cykla, navigera) och kvinnor på <b>multitasking</b>.'],
+    ['Asymmetri', 'Mannens hjärna är <b>asymmetrisk</b> med större höger hjärnhalva.']
+  ] },
+  { id: 'georgopoulos', g: 'kon', name: 'Apostolos Georgopoulos', meta: '2016, Minneapolis', rows: [
+    ['Resultat', 'Kvinnor <b>bearbetar information snabbare</b> vid många olika aktiviteter.'],
+    ['Vid skada', 'Män har lättare att <b>kompensera</b> (hjärnplasticitet) om hjärnan skadas.']
+  ] },
+  { id: 'joel', g: 'kon', name: 'Daphna Joel', meta: '2015', rows: [
+    ['Metod', '<b>MRI</b>, över <b>1 400 personer</b>.'],
+    ['Resultat', 'Det finns ingen ”manlig” eller ”kvinnlig” hjärna, bara <b>individuella skillnader</b>.'],
+    ['Enda slutsatsen', 'Män hade <b>större hippocampus</b>.']
+  ] },
+  { id: 'savic', g: 'sex', name: 'Ivanka Savic m.fl.', meta: 'Karolinska institutet', tip: '”Korsvis lika”', rows: [
+    ['Metod', '<b>MRI och PET</b>.'],
+    ['Försökspersoner', '<b>90 personer</b>: 25 heterosexuella män, 25 heterosexuella kvinnor, 20 homosexuella män och 20 homosexuella kvinnor.'],
+    ['Resultat', 'Homosexuella mäns hjärnor liknade <b>heterosexuella kvinnors</b>. Homosexuella kvinnors hjärnor liknade <b>heterosexuella mäns</b>.'],
+    ['Asymmetri', 'Heterosexuella män och homosexuella kvinnor hade något asymmetriska hjärnor med <b>större höger halva</b>. De andra två grupperna hade det inte.'],
+    ['Amygdala', '<b>Blodflödet till amygdala</b> följde samma mönster.']
+  ] }
+];
+
+const SPIRAL = [
+  { t: 'Belöning', d: 'Ett beteende ger välbehag → <b>dopamin</b> frisätts → vi vill upprepa. Det är <b>positiv förstärkning</b>, påverkad av vår biologi.' },
+  { t: 'Dopamindusch', d: 'Alkohol och narkotika ger <b>upp till 100 gånger starkare</b> effekt än en god måltid.' },
+  { t: 'Tolerans', d: 'Belöningssystemet <b>förändras permanent</b>. Det krävs <b>större dos</b> för samma effekt.' },
+  { t: 'Abstinens', d: 'Obehag utan substansen, <b>fysiskt och psykiskt</b> (nedstämdhet, irritation, extrem rastlöshet). Ett abrupt stopp av alkohol kan vara <b>livsfarligt</b>.' },
+  { t: 'Negativ förstärkning', d: 'Man fortsätter för att <b>slippa obehaget</b> → tillbaka till steg 1.' }
+];
+
+const SYMPTOMS = [
+  ['T', 'Trötta', 'Tankar på substansen hela tiden'],
+  ['T', 'Tonåringar', 'Tolerans'],
+  ['K', 'Kan', 'Kontrollförlust'],
+  ['A', 'Aldrig', 'Abstinens'],
+  ['S', 'Sova', 'Sociala och/eller ekonomiska problem']
+];
+
+const MALL = [
+  ['Biologi', 'Vilken roll spelar <b>dopamin</b> och <b>belöningssystemet</b>?'],
+  ['Hjärnan', '<b>Pannloben</b> (bromsen), <b>amygdala</b> (känslor), <b>tonårshjärnan</b>.'],
+  ['Inlärning', '<b>Positiv/negativ förstärkning</b>, <b>klassisk betingning</b>, <b>social inlärning</b>.'],
+  ['Vana eller beroende?', 'Jämför med de <b>5 symtomen</b>.'],
+  ['Lösning', 'Vad kan hjälpa, och <b>varför fungerar det</b>?']
+];
+
+const W3 = [
+  { id: 'w3-1', n: '1', q: 'Vad händer med hjärnan under tonåren?',
+    model: '<ul><li>Hjärnan <b>utvecklas mycket</b> i tonåren och blir färdig först vid <b>ca 25</b>.</li><li><b>Pannloben</b> blir klar sist, så <b>planering, överblick, att sålla intryck och riskbedömning</b> är inte färdigutvecklade.</li></ul>',
+    keys: ['utvecklas mycket', 'ca 25 år', 'pannloben', 'klar sist', 'planering', 'överblick', 'sålla intryck', 'riskbedömning'] },
+  { id: 'w3-2', n: '2', q: 'Varför kan tonåringar ha svårare att kontrollera impulser och känslor?',
+    model: '<ul><li>Känslorna (<b>amygdala</b>) reagerar starkt, men <b>pannloben</b> som fungerar som <b>broms</b> är inte färdig.</li><li>Därför är <b>impulser</b> svårare att stoppa och tonåringar blir mer <b>känslomässigt styrda</b>.</li></ul>',
+    keys: ['amygdala', 'känslor', 'pannloben', 'broms', 'inte färdig', 'impulser', 'känslomässigt styrda'] },
+  { id: 'w3-3', n: '3', q: 'Vilken roll spelar dopamin och belöningssystemet?',
+    model: '<ul><li>När något känns bra frisätts <b>dopamin</b> och vi vill upprepa beteendet (<b>positiv förstärkning</b>).</li><li>Tonåringar söker belöning, t.ex. <b>bekräftelse</b> och <b>nya upplevelser</b>, vilket kan styra beteendet.</li></ul>',
+    keys: ['dopamin', 'belöningssystemet', 'upprepa beteendet', 'positiv förstärkning', 'bekräftelse', 'nya upplevelser'] },
+  { id: 'w3-4', n: '4', q: 'Varför kan ungdomar vara mer benägna att ta risker?',
+    model: '<ul><li>Stark dragning mot <b>belöning</b> kombineras med en <b>pannlob</b> som ännu inte kan <b>bedöma risker</b> fullt ut.</li><li>Alltså en stark <b>gaspedal</b> och en svag <b>broms</b>.</li></ul>',
+    keys: ['belöning', 'pannloben', 'bedöma risker', 'gaspedal', 'broms'] },
+  { id: 'w3-5', n: '5', q: 'Festen', link: 'case-festen' },
+  { id: 'w3-6', n: '6', q: 'Varför är det viktigt att känna till hur tonårshjärnan fungerar? Ge två exempel.',
+    model: '<ul><li>Man <b>förstår sig själv</b> bättre och kan t.ex. <b>vänta med stora beslut</b> eller <b>undvika situationer med grupptryck</b>.</li><li><b>Föräldrar och lärare</b> kan stötta i stället för att döma.</li><li>Man ser också hur <b>appar och spel</b> använder belöningssystemet.</li></ul>',
+    keys: ['förstå sig själv', 'vänta med stora beslut', 'grupptryck', 'föräldrar och lärare', 'stötta', 'appar och spel', 'belöningssystemet'] }
+];
+
+const W4 = [
+  { id: 'w4-1', n: '1', topic: 'Hjärnan', q: 'Vad är Brocas område och vad är Wernickes område, och vilka funktioner styr de?',
+    model: '<ul><li>Brocas område hittades när <b>Paul Broca</b> undersökte patienten <b>”Tan”</b>, som bara kunde säga ett ord.</li><li>Han hade en skada i <b>främre tinningloben</b> (enligt boken), och området reglerar den <b>motoriska talförmågan</b>.</li><li><b>Wernickes område</b> hittades hos en patient med <b>afasi</b> som inte förstod talat språk.</li><li>Skadan satt i <b>temporalloben</b>, och området gör att vi <b>förstår språk</b>.</li></ul>',
+    keys: ['Broca', 'Tan', '1861', 'motorisk talförmåga', 'Wernicke', 'afasi', 'förstå språk', 'tinningloben'] },
+  { id: 'w4-2', n: '2', topic: 'Hjärnan', q: 'Vad menas med att hjärnan är plastisk?',
+    model: '<ul><li>Hjärnan kan förändra sin struktur genom <b>nya förbindelser mellan nervceller</b>.</li><li>Den förändras när vi <b>lär oss nya saker</b> och kan anpassa sig efter <b>skador</b>, så att <b>andra delar tar över</b> förlorade funktioner.</li><li>Före <b>1965</b> trodde man att det inte gick.</li></ul>',
+    keys: ['nya förbindelser', 'nervceller', 'lär oss', 'skada', 'andra delar tar över', '1965'] },
+  { id: 'w4-3', n: '3', topic: 'Studier', q: 'Vad kom Draganski m.fl. fram till 2006?',
+    model: '<ul><li><b>Medicinstudenters</b> hjärnor scannades tre månader före och efter läkarexamen och jämfördes med en <b>kontrollgrupp</b> som inte pluggade.</li><li>Studenterna fick strukturella förändringar i <b>hippocampus och hjässloben</b>.</li><li>Slutsatsen är att hjärnan kan <b>”växa”</b> av <b>stimulering</b> som studier, idrott, meditation och musik.</li></ul>',
+    keys: ['experiment', 'medicinstudenter', 'kontrollgrupp', 'hippocampus', 'hjässloben', 'växa', 'stimulering'] },
+  { id: 'w4-4', n: '4', topic: 'Studier', q: 'Vilka skillnader finns mellan en manlig och en kvinnlig hjärna?',
+    model: '<ul><li><b>Witelson</b> fann att kvinnor har fler kopplingar mellan hjärnhalvorna och män fler kopplingar bak–fram. Mannens hjärna är <b>asymmetrisk</b> med större höger halva.</li><li><b>Georgopoulos</b> fann att kvinnor bearbetar information snabbare vid många aktiviteter och att män kompenserar lättare vid skada.</li><li><b>Daphna Joel</b> fann ingen ”manlig” eller ”kvinnlig” hjärna, bara <b>individuella skillnader</b> (män hade större hippocampus).</li><li>Slutsatsen är att det finns <b>mest likheter</b>. Skillnaderna kan bero på <b>arv, miljö eller båda</b>.</li></ul>',
+    keys: ['Witelson', 'kopplingar', 'multitasking', 'asymmetrisk', 'Georgopoulos', 'Daphna Joel', 'individuella skillnader', 'hippocampus', 'arv och miljö'] },
+  { id: 'w4-5', n: '5', topic: 'Studier', q: 'Vad har forskarna kommit fram till om homosexuella och heterosexuella hjärnor?',
+    model: '<ul><li><b>Ivanka Savic</b> på <b>Karolinska</b> undersökte <b>90 personer</b> med <b>MRI och PET</b>.</li><li>Homosexuella mäns hjärnor liknade heterosexuella kvinnors (lika stora halvor), och homosexuella kvinnors hjärnor liknade heterosexuella mäns (höger halva något större).</li><li>Blodflödet till <b>amygdala</b> följde samma mönster.</li></ul>',
+    keys: ['Savic', 'Karolinska', '90 personer', 'MRI/PET', 'asymmetri', 'amygdala'] },
+  { id: 'w4-6', n: '6', topic: 'Beroende', q: 'Vad är skillnaden mellan riskbruk, missbruk och beroende?',
+    model: '<ul><li><b>Riskbruk</b> ökar risken för problem men utan kontrollförlust.</li><li><b>Missbruk</b> ger återkommande negativa konsekvenser för jobb, relationer eller hälsa, men inget starkt fysiologiskt beroende.</li><li><b>Beroende</b> innebär ett tvångsmässigt behov, kontrollförlust, tolerans och/eller abstinens.</li></ul>',
+    keys: ['riskbruk', 'missbruk', 'beroende', 'kontrollförlust', 'konsekvenser', 'tolerans', 'abstinens'] },
+  { id: 'w4-7', n: '7', topic: 'Beroende', q: 'Vad menas med tolerans och abstinens?',
+    model: '<ul><li><b>Tolerans</b> betyder att belöningssystemet förändras så att det krävs en <b>större dos</b> för samma effekt.</li><li><b>Abstinens</b> är obehaget som kommer om man slutar, både fysiskt och psykiskt (nedstämdhet, irritation, rastlöshet).</li><li>Att fortsätta för att slippa abstinensen är <b>negativ förstärkning</b>.</li></ul>',
+    keys: ['större dos', 'belöningssystemet', 'obehag', 'negativ förstärkning'] },
+  { id: 'w4-8', n: '8', topic: 'Beroende', q: 'Vilka är de 5 vanligaste symtomen på beroende?',
+    model: '<ul><li>Ständiga <b>tankar på substansen</b></li><li><b>Tolerans</b></li><li><b>Kontrollförlust</b></li><li><b>Abstinens</b></li><li><b>Sociala och/eller ekonomiska problem</b></li></ul>',
+    tip: '”Trötta Tonåringar Kan Aldrig Sova”',
+    keys: ['tankar på substansen', 'tolerans', 'kontrollförlust', 'abstinens', 'sociala problem', 'ekonomiska problem'] },
+  { id: 'w4-9', n: '9', topic: 'Beroende', q: 'Varför går det inte att förklara beroende med en enda orsak?',
+    model: '<ul><li>Många faktorer samverkar: <b>uppväxt, personlighet, biologisk sårbarhet, ärftlighet, psykisk ohälsa och tillgänglighet</b>.</li><li>Alla med svår uppväxt blir inte beroende, och vissa med en bra uppväxt blir det.</li><li>Människors <b>belöningssystem</b> skiljer sig också åt.</li><li>Därför påverkar både <b>arv och miljö</b>.</li></ul>',
+    keys: ['arv och miljö', 'uppväxt', 'personlighet', 'biologisk sårbarhet', 'psykisk ohälsa', 'självmedicinering', 'tillgänglighet'] },
+  { id: 'w4-10', n: '10', topic: 'Beroende', q: 'Varför är vissa substanser beroendeframkallande?',
+    model: '<ul><li>De påverkar hjärnans <b>belöningssystem</b> mycket kraftigt, med <b>upp till 100 gånger</b> starkare dopamineffekt än en god måltid.</li><li>Det ger en stark <b>positiv förstärkning</b>.</li><li>Sedan utvecklas <b>tolerans</b>, och <b>abstinensen</b> gör att man fortsätter (<b>negativ förstärkning</b>).</li></ul>',
+    keys: ['belöningssystemet', 'dopamin', '100 gånger', 'positiv förstärkning', 'tolerans', 'abstinens', 'negativ förstärkning'] },
+  { id: 'w4-11', n: '11', topic: 'Studier', q: 'Redogör för styrkor och svagheter hos Giedds och Draganskis studier.', note: 'Uppgift i boken. Modellsvaret är ett förslag.',
+    model: '<p><b>Giedd</b></p><ul><li>Styrkor: det stora <b>urvalet</b> (2 000 personer), att samma personer följdes <b>över tid</b> och att hjärnscanning är en <b>objektiv mätning</b>.</li><li>Svaghet: hans egna barn var med.</li><li>Svaghet: scanning visar hur hjärnan ser ut, medan kopplingen till risktagande är en tolkning.</li></ul><p><b>Draganski</b></p><ul><li>Styrka: ett experiment med <b>kontrollgrupp</b> och mätning <b>före och efter</b>.</li><li>Svaghet: alla var tyska medicinstudenter, vilket gör resultatet svårt att <b>generalisera</b> till alla.</li></ul>',
+    keys: ['urval', 'över tid', 'objektiv mätning', 'kontrollgrupp', 'före och efter', 'generalisera'] },
+  { id: 'w4-12', n: '12', topic: 'Biologiska perspektivet', q: 'Du blir nervös och stressad inför ett prov. Hur förklarar det biologiska perspektivet reaktionen?',
+    model: '<ul><li>Det <b>limbiska systemet</b> aktiveras och kroppen frisätter mer <b>kortisol och adrenalin</b>.</li><li>Stress är en <b>flyktreaktion</b> som våra förfäder hade vid fara.</li><li>Genom <b>evolutionen</b> har den blivit en nedärvd alarmreaktion i våra <b>gener</b>.</li></ul>',
+    keys: ['limbiska systemet', 'kortisol', 'adrenalin', 'flyktreaktion', 'förfäder', 'evolutionen', 'gener'] },
+  { id: 'w4-13', n: '13', topic: 'Biologiska perspektivet', q: 'Vilka fyra framsteg gjorde det biologiska perspektivet stort?',
+    model: '<ul><li><b>Darwins</b> evolutionsteori och <b>Mendels</b> arvslära (1800-talet)</li><li><b>Medicin</b> mot psykisk sjukdom (1950-talet)</li><li><b>Hjärnscanning</b> (1980-talet)</li><li>Kartläggningen av generna i <b>HUGO-projektet</b> (1990-talet)</li></ul>',
+    tip: 'D-M-S-G = Darwin, Medicin, Scanning, Gener',
+    keys: ['Darwin', 'Mendel', '1800-talet', 'medicin', '1950-talet', 'hjärnscanning', '1980-talet', 'HUGO', '1990-talet'] }
+];
+
+const CASES = [
+  { id: 'case-love', title: 'Case 1: Love', src: 'Från arbetsbladet',
+    text: '<p>Love är <b>16 år</b> och har bestämt sig för att lägga undan mobilen och sova. Ändå fortsätter Love att <b>scrolla</b>. Nya klipp och notiser lockar, och plötsligt har en timme gått.</p><p>Nästa dag är Love <b>trött</b> och har svårt att koncentrera sig i skolan.</p><p><b>Hur kan vi förstå Loves beteende utifrån signalsubstanser, hjärnans delar, beroende och tonårshjärnan?</b></p>',
+    help: ['Vilken roll kan dopamin och belöningssystemet spela?', 'Hur påverkar pannloben och tonårshjärnans utveckling förmågan att stå emot och tänka på konsekvenser?', 'Hur kan beteendet bli en vana, och vad skiljer en stark vana från ett beroende?', 'Vad skulle kunna hjälpa Love att bryta mönstret, och varför?'],
+    keys: ['dopamin', 'belöningssystemet', 'positiv förstärkning', 'partiell förstärkning', 'pannloben', '25 år', 'impulskontroll', 'klassisk betingning', 'vana', 'tolerans', 'abstinens', 'kontrollförlust', 'skärmberoende ej sjukdom', 'Folkhälsomyndigheten'],
+    answer: '<ul><li><b>Dopamin:</b> varje nytt klipp eller notis kan bli en liten belöning. Dopamin frisätts och Love vill ha mer, alltså <b>positiv förstärkning</b>. Love vet aldrig när nästa bra klipp kommer, vilket liknar <b>partiell förstärkning</b> som är svårast att släcka ut.</li><li><b>Pannloben:</b> Love är 16 och pannloben är färdig först runt <b>25</b>. Förmågan att stå emot och tänka ”jag blir trött i morgon” är svagare, så belöningen nu väger tyngre än konsekvensen sen.</li><li><b>Vana:</b> mobilen i sängen varje kväll gör att sängen blir en signal för att scrolla (<b>klassisk betingning</b>). Upprepning gör beteendet automatiskt.</li><li><b>Vana eller beroende:</b> en stark vana är automatisk men saknar <b>tolerans, abstinens och total kontrollförlust</b>. Ett beroende har dem, och personen fortsätter trots allvarliga konsekvenser. <b>Skärmberoende räknas inte som beroendesjukdom.</b> Love har en stark vana, men tröttheten i skolan är en negativ konsekvens att ta på allvar.</li><li><b>Lösning:</b> mobilen utanför sovrummet, som <b>Folkhälsomyndigheten</b> rekommenderar, tar bort både signalen och dopaminkicken. Avstängda notiser och en skärmtidsgräns blir en yttre broms när pannloben inte räcker. När förstärkningen uteblir släcks vanan så småningom ut.</li></ul>' },
+  { id: 'case-festen', title: 'Case 2: Festen', src: 'Filmuppgiften (Del 3, fråga 5)',
+    text: '<p>En <b>16-åring</b> är på en fest. Flera kompisar uppmuntrar personen att göra något <b>riskfyllt</b> som hen egentligen tvekar inför.</p><p><b>Hur kan hjärnans utveckling, dopamin och den sociala situationen bidra till att personen ändå gör det?</b></p>',
+    keys: ['social belöning', 'dopamin', 'amygdala', 'rädsla att hamna utanför', 'pannloben omogen', 'riskbedömning', 'social inlärning'],
+    answer: '<ul><li>Kompisarnas gillande blir en <b>social belöning</b> som frisätter <b>dopamin</b>.</li><li>Rädslan att hamna utanför väcker starka känslor via <b>amygdala</b>.</li><li><b>Pannloben</b>, som sköter <b>riskbedömning</b> och konsekvenstänkande, är inte färdig förrän vid <b>ca 25</b>, så bromsen är svag.</li><li>Personen gör dessutom som gruppen, vilket är <b>social inlärning</b>.</li></ul>' },
+  { id: 'case-alex', title: 'Case 3: Alex', src: 'Övning utan färdigt svar',
+    text: '<p><b>Alex, 17</b>, spelar ett mobilspel med <b>dagliga belöningar</b> och har börjat <b>köpa saker i spelet</b> för sina sparpengar. Alex blir <b>irriterad</b> när föräldrarna säger åt hen att sluta.</p><p><b>Analysera Alex beteende med femstegsmallen.</b></p>',
+    keys: ['dopamin', 'positiv förstärkning', 'partiell förstärkning', 'tonårshjärnan', 'pannloben', 'irritation som tecken på abstinens', 'ekonomiska problem', 'spel om pengar vs dataspel', 'KBT eller motiverande samtal'],
+    answer: null }
+];
+
+const CATS = ['Hjärnan', 'Signalsubstanser och hormoner', 'Perspektiv och studier', 'Beroende', 'Inlärning och försvarsmekanismer'];
+const TERMS = [
+  ['Hjärnan', 'Neuropsykologi', 'Del av biologisk psykologi om hur nervsystemet och hjärnan påverkar egenskaper och beteenden'],
+  ['Hjärnan', 'Nervcell (neuron)', 'Cell som skickar signaler. Ca 86 miljarder i hjärnan'],
+  ['Hjärnan', 'Storhjärnan', 'Största delen av hjärnan, med två hjärnhalvor'],
+  ['Hjärnan', 'Hjärnbalken', 'Förbinder hjärnhalvorna så att de samarbetar'],
+  ['Hjärnan', 'Hjärnstammen', 'En av hjärnans tre huvuddelar, tillsammans med storhjärnan och lillhjärnan'],
+  ['Hjärnan', 'Hjärnbarken', 'Hjärnans yttre skikt. Rörelser och språk, sinnen och högre funktioner'],
+  ['Hjärnan', 'Pannloben', 'Personlighet, planering, omdöme, koncentration. Hjärnans beslutsfattarcentrum, färdig sist'],
+  ['Hjärnan', 'Hjässloben', 'Kombinerar doft, smak, konsistens och temperatur'],
+  ['Hjärnan', 'Nackloben', 'Synen'],
+  ['Hjärnan', 'Tinningloben', 'Hörseln'],
+  ['Hjärnan', 'Limbiska systemet', 'Thalamus, hippocampus, amygdala och hypotalamus'],
+  ['Hjärnan', 'Thalamus', 'Information om beröring och smärta'],
+  ['Hjärnan', 'Hippocampus', 'Skapar långtidsminnen'],
+  ['Hjärnan', 'Amygdala', 'Positiva och negativa känslor och känslominnen'],
+  ['Hjärnan', 'Hypotalamus', 'Hunger, törst, kroppstemperatur, tillväxt och sexualdrift'],
+  ['Hjärnan', 'Lillhjärnan (cerebellum)', 'Koordinerar rörelser, balans och procedurminne'],
+  ['Hjärnan', 'Procedurminne', 'Minnet för att göra saker, t.ex. gå, simma och cykla'],
+  ['Hjärnan', 'Brocas område', 'Reglerar den motoriska talförmågan (att producera tal)'],
+  ['Hjärnan', 'Wernickes område', 'Gör att vi förstår talat språk'],
+  ['Hjärnan', 'Afasi', 'Språkstörning efter hjärnskada'],
+  ['Hjärnan', 'Hjärnplasticitet', 'Hjärnans förmåga att förändras genom nya förbindelser mellan nervceller'],
+  ['Signalsubstanser och hormoner', 'Signalsubstans', 'Kemiskt ämne som för signaler mellan nervceller, snabbt och lokalt'],
+  ['Signalsubstanser och hormoner', 'Hormon', 'Kemiskt ämne som färdas med blodet till målceller'],
+  ['Signalsubstanser och hormoner', 'Dopamin', 'Motivation, belöning, förväntan och längtan'],
+  ['Signalsubstanser och hormoner', 'Noradrenalin', 'Gör kroppen alert och ger snabbare puls. Kroppens gaspedal'],
+  ['Signalsubstanser och hormoner', 'GABA', 'Hämmar och dämpar nervaktivitet. Hjärnans broms'],
+  ['Signalsubstanser och hormoner', 'Serotonin', 'Reglerar stämningsläge, sömn och impulskontroll'],
+  ['Signalsubstanser och hormoner', 'Endorfiner', 'Kroppens egen smärtlindring (opioidsystemet)'],
+  ['Signalsubstanser och hormoner', 'Oxytocin', 'Beröring, närhet, anknytning och mjölkutdrivning'],
+  ['Signalsubstanser och hormoner', 'Testosteron', 'Könshormon hos alla: sexlust, muskler, reproduktion'],
+  ['Signalsubstanser och hormoner', 'Östrogen', 'Könshormon hos alla: reproduktion, slemhinnor, skelett, menscykel'],
+  ['Signalsubstanser och hormoner', 'Kortisol', 'Stresshormon'],
+  ['Signalsubstanser och hormoner', 'Adrenalin', 'Stresshormon'],
+  ['Signalsubstanser och hormoner', 'Belöningssystemet', 'Hjärnans system som frisätter dopamin vid välbehag så att vi vill upprepa beteendet'],
+  ['Perspektiv och studier', 'Biologiska perspektivet', 'Beteende förklaras av hjärnan, signalsubstanser, hormoner, arv och evolution'],
+  ['Perspektiv och studier', 'HUGO-projektet', 'Kartläggning av människans gener på 1990-talet'],
+  ['Perspektiv och studier', 'Evolutionsteorin', 'Darwins teori från 1800-talet om hur arter utvecklas'],
+  ['Perspektiv och studier', 'Tonårshjärnan', 'Hjärnan utvecklas mycket i tonåren och är färdig först runt 25 år'],
+  ['Perspektiv och studier', 'Kontrollgrupp', 'Grupp som inte får behandlingen och används för jämförelse (t.ex. i Draganskis studie)'],
+  ['Beroende', 'Riskbruk', 'Användning som ökar risken för problem, utan kontrollförlust'],
+  ['Beroende', 'Missbruk', 'Återkommande negativa konsekvenser, men inget starkt fysiologiskt beroende än'],
+  ['Beroende', 'Beroende', 'Tvångsmässigt behov, kontrollförlust, tolerans och/eller abstinens'],
+  ['Beroende', 'Beroendesjukdom', 'Diagnostiserat beroende som ger rätt till vård och stöd'],
+  ['Beroende', 'Tolerans', 'Det krävs större dos för samma effekt'],
+  ['Beroende', 'Abstinens', 'Obehag, fysiskt och psykiskt, när man inte får substansen'],
+  ['Beroende', 'Kontrollförlust', 'Kan inte låta bli eller begränsa sitt intag'],
+  ['Beroende', 'Självmedicinering', 'Använda alkohol eller droger för att må bättre för stunden vid psykisk ohälsa'],
+  ['Beroende', 'Opioider', 'T.ex. morfin och heroin'],
+  ['Beroende', 'Centralstimulantia', 'T.ex. kokain och amfetamin'],
+  ['Beroende', 'Spelberoende', 'Beroende av spel om pengar, kan diagnostiseras som beroendesjukdom'],
+  ['Beroende', 'Dataspelsberoende', 'Överdrivet dataspelande, räknas inte som sjukdom'],
+  ['Beroende', 'Skärmberoende', 'Omdiskuterat begrepp, räknas inte som beroendesjukdom'],
+  ['Beroende', 'Motiverande samtal (MI)', 'Samtalsmetod med empati och jämlikhet som ökar motivationen till förändring (Miller och Rollnick)'],
+  ['Beroende', 'KBT', 'Kognitiv beteendeterapi, en psykologisk behandlingsmetod'],
+  ['Inlärning och försvarsmekanismer', 'Positiv förstärkning', 'Något behagligt tillförs och beteendet ökar'],
+  ['Inlärning och försvarsmekanismer', 'Negativ förstärkning', 'Något obehagligt tas bort och beteendet ökar'],
+  ['Inlärning och försvarsmekanismer', 'Partiell förstärkning', 'Belöning bara ibland, svårast att släcka ut'],
+  ['Inlärning och försvarsmekanismer', 'Klassisk betingning', 'En signal kopplas ihop med en reaktion (t.ex. soffan väcker sug)'],
+  ['Inlärning och försvarsmekanismer', 'Social inlärning', 'Man lär sig genom att härma andra'],
+  ['Inlärning och försvarsmekanismer', 'Vanemässig inlärning', 'Upprepade beteenden blir automatiska'],
+  ['Inlärning och försvarsmekanismer', 'Förnekelse', '”Jag har inga problem.”'],
+  ['Inlärning och försvarsmekanismer', 'Rationalisering', 'Bortförklarar med en rimlig ursäkt: ”Jag dricker för stressen.”'],
+  ['Inlärning och försvarsmekanismer', 'Projektion', 'Lägger skulden på andra: ”Det är samhällets fel.”']
+].map(([c, t, d]) => ({ id: slug(t), c, t, d }));
+const TERM_BY = Object.fromEntries(TERMS.map(t => [t.id, t]));
+
+/* ---- Quiz ---- */
+const BRAIN_POOL = ['Hjärnbarken', 'Pannloben', 'Hjässloben', 'Nackloben', 'Tinningloben', 'Thalamus', 'Hippocampus', 'Amygdala', 'Hypotalamus', 'Lillhjärnan', 'Brocas område', 'Wernickes område'];
+const SUB_POOL = SUBST.map(s => s.n);
+const QUIZZES = [
+  { id: 'q1', name: 'Hjärnans delar', desc: 'Lärarens exitpaper (Del 1)', kind: 'En person har…', sub: 'Vilken del av hjärnan kan vara påverkad?', pool: BRAIN_POOL, items: [
+    { q: 'Svårt att styra sina rörelser och problem med språket.', a: 'Hjärnbarken', ex: 'Hjärnbarken, eftersom hjärnbarken styr rörelser och språk.' },
+    { q: 'Svårt att planera, koncentrera sig och tänka på konsekvenser.', a: 'Pannloben', ex: 'Pannloben, eftersom pannloben sköter planering, koncentration och omdömesförmåga.' },
+    { q: 'Svårt att kombinera intryck av doft, smak, konsistens och temperatur.', a: 'Hjässloben', ex: 'Hjässloben, eftersom hjässloben kombinerar doft, smak, konsistens och temperatur till en helhetsupplevelse.' },
+    { q: 'Kraftigt försämrad syn efter en hjärnskada.', a: 'Nackloben', ex: 'Nackloben, eftersom nackloben tar hand om synen.' },
+    { q: 'Svårt att bearbeta hörselintryck.', a: 'Tinningloben', ex: 'Tinningloben, eftersom tinningloben tar hand om hörseln.' },
+    { q: 'Svårt att bearbeta information om beröring och smärta.', a: 'Thalamus', ex: 'Thalamus, eftersom thalamus tar emot information om beröring och smärta.' },
+    { q: 'Minns gamla saker men har svårt att skapa nya långtidsminnen.', a: 'Hippocampus', ex: 'Hippocampus, eftersom hippocampus skapar långtidsminnen.', trap: ['Lillhjärnan'] },
+    { q: 'Reagerar ovanligt svagt på sådant som brukar skapa starka känslor.', a: 'Amygdala', ex: 'Amygdala, eftersom amygdala styr positiva och negativa känslor.' },
+    { q: 'Känner inte hunger och törst normalt och har svårt att reglera kroppstemperaturen.', a: 'Hypotalamus', ex: 'Hypotalamus, eftersom hypotalamus styr hunger, törst och kroppstemperatur.', trap: ['Thalamus'] },
+    { q: 'Svårt med balansen, rörelserna blir klumpiga och okoordinerade.', a: 'Lillhjärnan', ex: 'Lillhjärnan, eftersom lillhjärnan koordinerar rörelser och balanssinnet.', trap: ['Hjärnbarken'] },
+    { q: 'Kan bara säga ett ord men förstår vad andra säger.', a: 'Brocas område', ex: 'Brocas område, eftersom Brocas område reglerar den motoriska talförmågan (att producera tal). Tänk: Bara ”tan”.', trap: ['Wernickes område'] },
+    { q: 'Pratar men förstår inte talat språk.', a: 'Wernickes område', ex: 'Wernickes område, eftersom Wernickes område gör att vi förstår talat språk. Tänk: ”Va sa du?”', trap: ['Brocas område'] },
+    { q: 'Har glömt hur man cyklar eller simmar.', a: 'Lillhjärnan', ex: 'Lillhjärnan, eftersom lillhjärnan sköter procedurminnet (gå, simma, cykla).', trap: ['Hippocampus'] }
+  ] },
+  { id: 'q2', name: 'Signalsubstanser och hormoner', desc: 'Lärarens exitpaper (Del 2)', kind: 'Situation', sub: 'Vilket hormon eller vilken signalsubstans passar bäst?', pool: SUB_POOL, items: [
+    { q: 'Brandlarm: Alex blir vaksam, pulsen stiger och kroppen gör sig redo att agera.', a: 'Noradrenalin', ex: 'Noradrenalin gör oss alerta och redo att reagera, med snabbare puls. ”Brandlarm” är ett nyckelord.', trap: ['Dopamin'] },
+    { q: 'Könshormon med betydelse för menscykeln och slemhinnornas funktion.', a: 'Östrogen', ex: 'Östrogen: reproduktion, slemhinnor, skelett och menscykel.', trap: ['Testosteron'] },
+    { q: 'Kim löser en svår uppgift och får lust att fortsätta med nästa utmaning (belöning och motivation).', a: 'Dopamin', ex: 'Dopamin = belöning och motivation, lust att fortsätta.', trap: ['Noradrenalin'] },
+    { q: 'Efter en intensiv dag behöver hjärnan dämpa överdriven nervaktivitet (hämmande, lugnande).', a: 'GABA', ex: 'GABA är hjärnans viktigaste hämmande signalsubstans och dämpar nervaktivitet. ”Bromsen”.', trap: ['Serotonin'] },
+    { q: 'Två nära vänner kramas länge och känner trygghet och närhet.', a: 'Oxytocin', ex: 'Oxytocin hör ihop med beröring, närhet och trygghet. ”Kram” är ett nyckelord.' },
+    { q: 'Könshormon som hos både kvinnor och män bidrar till sexuell lust och muskelutveckling.', a: 'Testosteron', ex: 'Testosteron finns hos alla och påverkar sexuell lust och muskler.', trap: ['Östrogen'] },
+    { q: 'Ämne som reglerar både sinnesstämning och sömn.', a: 'Serotonin', ex: 'Serotonin reglerar stämningsläge och sömn. ”Reglering, inte bara lycka.”', trap: ['GABA'] },
+    { q: 'Sam känner välbehag efter ett löppass och obehaget känns mindre (smärtlindring).', a: 'Endorfiner', ex: 'Endorfiner är kroppens egna opioidsystem och minskar smärta. ”Efter löppass” är ett nyckelord.' },
+    { q: 'Ett läkemedel förstärker hjärnans hämmande signalering, vilket ger dåsighet och avslappning.', a: 'GABA', ex: 'GABA = bromsen. ”Hämmande” och ”dåsig” pekar på GABA, inte serotonin.', trap: ['Serotonin'] },
+    { q: 'Robin vill fortsätta spela ett mobilspel för att nå nästa nivå (belöningssystemet).', a: 'Dopamin', ex: '”Nästa nivå” = belöning och motivation = dopamin.', trap: ['Noradrenalin'] },
+    { q: 'Även män har ett könshormon som bidrar till skelettets hälsa och påverkar sexuell funktion.', a: 'Östrogen', ex: 'Fälla! Östrogen finns hos alla och är viktigt för skelettet.', trap: ['Testosteron'] },
+    { q: 'Inför en viktig match blir spelaren alert och fokuserad (vakenhet och stresspåslag).', a: 'Noradrenalin', ex: 'Alert, vakenhet och stresspåslag = noradrenalin, kroppens gaspedal.', trap: ['Dopamin'] },
+    { q: 'Slår i armbågen, och kroppens egna smärtdämpande system hjälper till efter en stund.', a: 'Endorfiner', ex: 'Endorfiner = naturlig smärtdämpning. ”Slår i armbågen” är ett nyckelord.' },
+    { q: 'Signalsubstans som reglerar välbefinnande, sinnesstämning och sömn.', a: 'Serotonin', ex: 'Serotonin reglerar välbefinnande, sinnesstämning och sömn.', trap: ['GABA'] },
+    { q: 'Könshormon som ger ökad muskelmassa och mörkare röst hos många pojkar i puberteten.', a: 'Testosteron', ex: 'Testosteron: muskler, lust och mörkare röst i puberteten.', trap: ['Östrogen'] },
+    { q: 'Förälder med hudkontakt med sitt nyfödda barn. Hormonet är kopplat till anknytning och mjölkutdrivning.', a: 'Oxytocin', ex: 'Oxytocin: hudkontakt, nyfödd, anknytning och mjölkutdrivning.' }
+  ] },
+  { id: 'q3', name: 'Vem är jag?', desc: 'Arbetsbladet, steg 1', kind: 'Vem är jag?', sub: 'Välj rätt ämne.', pool: SUB_POOL, items: [
+    { q: 'Jag dämpar nervaktiviteten och kallas ”hjärnans broms”.', a: 'GABA', ex: 'GABA är hjärnans viktigaste hämmande signalsubstans, ”bromsen”.', trap: ['Serotonin'] },
+    { q: 'Jag har betydelse för motivation, belöning och längtan.', a: 'Dopamin', ex: 'Dopamin = förväntan, motivation och belöning. ”Jag längtar efter det här!”' },
+    { q: 'Jag är ett könshormon som påverkar slemhinnor, skelett och sexuell funktion.', a: 'Östrogen', ex: 'Östrogen är ett könshormon hos alla: reproduktion, slemhinnor, skelett och menscykel.', trap: ['Testosteron'] },
+    { q: 'Jag kan minska smärta och bidra till välbehag och avslappning.', a: 'Endorfiner', ex: 'Endorfiner är kroppens egna opioidsystem, ”naturlig smärtdämpning”.' },
+    { q: 'Jag gör kroppen alert och kan bidra till snabbare puls.', a: 'Noradrenalin', ex: 'Noradrenalin gör oss alerta och ger snabbare puls, ”kroppens gaspedal”.', trap: ['Dopamin'] },
+    { q: 'Jag kan frisättas vid beröring och är inblandad i social närhet.', a: 'Oxytocin', ex: 'Oxytocin hör ihop med beröring, närhet och anknytning.' },
+    { q: 'Jag påverkar stämningsläge, sömn och impulskontroll.', a: 'Serotonin', ex: 'Serotonin reglerar stämningsläge, sömn och impulskontroll.', trap: ['GABA'] },
+    { q: 'Jag är ett könshormon som har betydelse för sexlust och muskler.', a: 'Testosteron', ex: 'Testosteron är ett könshormon hos alla: sexuell lust, muskler och reproduktion.', trap: ['Östrogen'] }
+  ] },
+  { id: 'q4', name: 'Blandade snabbfrågor', desc: 'Studier, beroende och perspektiv', kind: 'Snabbfråga', sub: '', items: [
+    { q: 'Vilken del blir färdig sist, och vid vilken ålder?', a: 'Pannloben, ca 25 år', d: ['Amygdala, ca 25 år', 'Pannloben, ca 2 år', 'Lillhjärnan, ca 25 år', 'Hippocampus, ca 16 år'], ex: 'Pannloben, ”hjärnans beslutsfattarcentrum”, blir färdig sist, runt 25 år.' },
+    { q: 'Vilka två delar förändrades hos Draganskis medicinstudenter?', a: 'Hippocampus och hjässloben', d: ['Amygdala och pannloben', 'Thalamus och nackloben', 'Hippocampus och tinningloben', 'Pannloben och lillhjärnan'], ex: 'Strukturella skillnader i hippocampus och hjässloben, delar som har med minne och inlärning att göra.' },
+    { q: 'Hur många försökspersoner, och vilka åldrar, hade Giedd?', a: '2 000 personer, 3–25 år', d: ['90 personer, 3–25 år', 'Över 1 400 personer, 3–25 år', '2 000 personer, 0–2 år'], ex: 'Giedd följde 2 000 personer mellan 3 och 25 år och undersökte hjärnan vartannat år.' },
+    { q: 'Vilka fyra delar ingår i limbiska systemet?', a: 'Thalamus, hippocampus, amygdala, hypotalamus', d: ['Pannloben, hippocampus, amygdala, lillhjärnan', 'Thalamus, nackloben, amygdala, hjärnstammen', 'Hjässloben, tinningloben, pannloben, nackloben', 'Thalamus, hippocampus, lillhjärnan, hjärnbalken'], ex: 'T-H-A-H: ”Tolv Hungriga Apor Hoppar”.' },
+    { q: 'Vad betyder att hjärnan är plastisk?', a: 'Den kan förändras genom nya förbindelser mellan nervceller', d: ['Den kan inte förändras när den är färdigutvecklad', 'Den utvecklas bara under de första två åren', 'Den består av två lika hjärnhalvor'], ex: 'Plastisk = hjärnan kan ändra sin struktur genom nya förbindelser mellan nervcellerna. Tänk lera.' },
+    { q: 'Före vilket år trodde man att hjärnan inte kunde förändras?', a: '1965', d: ['1861', '1900', '1999', '2006'], ex: 'Före 1965 trodde man att en färdigutvecklad hjärna inte kunde förändras.' },
+    { q: 'Vad kom Daphna Joel fram till?', a: 'Ingen manlig eller kvinnlig hjärna, bara individuella skillnader', d: ['Kvinnor har fler kopplingar mellan hjärnhalvorna', 'Kvinnor bearbetar information snabbare vid många aktiviteter', 'Mannens hjärna har en större höger hjärnhalva'], ex: 'Daphna Joel (2015, MRI, över 1 400 personer): ingen ”manlig” eller ”kvinnlig” hjärna. Enda slutsatsen var att män hade större hippocampus. De andra svaren är Witelsons och Georgopoulos resultat.' },
+    { q: 'Vems hjärnor liknade homosexuella mäns i Savics studie?', a: 'Heterosexuella kvinnors', d: ['Heterosexuella mäns', 'Homosexuella kvinnors', 'Ingen grupps'], ex: '”Korsvis lika”: homosexuella mäns hjärnor liknade heterosexuella kvinnors.' },
+    { q: 'Vad är tolerans?', a: 'Det krävs större dos för samma effekt', d: ['Obehag när man inte får substansen', 'Man kan inte låta bli eller begränsa sitt intag', 'Användning som ökar risken för problem', 'Belöning bara ibland'], ex: 'Tolerans: belöningssystemet förändras och det krävs större dos för samma effekt.' },
+    { q: 'Varför är abstinens kopplat till negativ förstärkning?', a: 'Man fortsätter för att ta bort obehaget', d: ['Man fortsätter för att få mer välbehag', 'Man behöver större dos för samma effekt', 'Man härmar andra som använder'], ex: 'Något obehagligt (abstinensen) tas bort och beteendet ökar = negativ förstärkning.' },
+    { q: 'Vilket räknas som beroendesjukdom: spel om pengar eller dataspel?', a: 'Spel om pengar', d: ['Dataspel', 'Båda', 'Inget av dem'], ex: 'Spel om pengar kan diagnostiseras som beroendesjukdom. Dataspelsberoende räknas inte som sjukdom.' },
+    { q: 'Vilket är det vanligaste beroendet i Sverige?', a: 'Alkohol', d: ['Cannabis', 'Opioider', 'Centralstimulantia', 'Spel om pengar'], ex: 'Alkohol är det vanligaste beroendet i Sverige.' },
+    { q: 'Hur mycket starkare dopamineffekt kan alkohol och narkotika ge än en god måltid?', a: 'Upp till 100 gånger', d: ['Upp till 2 gånger', 'Upp till 10 gånger', 'Upp till 1 000 gånger'], ex: 'Upp till 100 gånger starkare: en ”dopamindusch”.' },
+    { q: 'Vilka utvecklade motiverande samtal (MI)?', a: 'Miller och Rollnick, ca 1990', d: ['Broca och Wernicke, 1861', 'Darwin och Mendel, 1800-talet', 'Giedd och Draganski, 2006'], ex: 'William F. Miller och Stephen Rollnick utvecklade MI runt 1990, först för alkoholproblem.' },
+    { q: 'Vad förbinder hjärnhalvorna?', a: 'Hjärnbalken', d: ['Hjärnstammen', 'Hjärnbarken', 'Thalamus', 'Lillhjärnan'], ex: 'Hjärnbalken förbinder hjärnhalvorna så att de samarbetar.' },
+    { q: 'Vilket projekt kartlade generna på 1990-talet?', a: 'HUGO-projektet', d: ['Evolutionsteorin', 'Mendels arvslära', 'Draganskis experiment'], ex: 'HUGO-projektet kartlade människans gener på 1990-talet.' },
+    { q: 'Vilka stresshormoner nämner boken?', a: 'Kortisol och adrenalin', d: ['Dopamin och serotonin', 'Oxytocin och endorfiner', 'Testosteron och östrogen'], ex: 'Inför ett prov aktiveras limbiska systemet och man får mer kortisol och adrenalin.' },
+    { q: 'Hur många nervceller har vi ungefär i hjärnan?', a: 'Ca 86 miljarder', d: ['Ca 86 miljoner', 'Ca 8,6 miljarder', 'Ca 860 miljarder'], ex: 'Ca 86 miljarder nervceller (neuroner) finns i hjärnan.' }
+  ] }
+];
+const QUIZ_BY = Object.fromEntries(QUIZZES.map(q => [q.id, q]));
+
+/* ============ Tabeller och dölj-läge ============ */
+const hideBar = () => '<div class="hide-bar"><button type="button" class="btn btn-sm hide-btn">Dölj svar</button><span class="hide-hint">Tryck på en rad för att visa den</span></div>';
+function tableHTML(cols, rows, keep) {
+  let h = `<div class="tbl${keep ? ' tbl-keep' : ''}" data-hide>${hideBar()}<table><thead><tr>${cols.map(c => `<th scope="col">${c.h}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(r => {
+    h += '<tr data-row>' + r.map((cell, i) => i === 0
+      ? `<th scope="row" data-label="${cols[i].h}">${cell}</th>`
+      : `<td class="${cols[i].ans ? 'ans' : ''}" data-label="${cols[i].h}"><div>${cell}</div></td>`).join('') + '</tr>';
+  });
+  return h + '</tbody></table></div>';
+}
+function setHide(c, on) {
+  c.classList.toggle('hiding', on);
+  $$('[data-row]', c).forEach(r => { r.classList.remove('rev'); if (on) r.tabIndex = 0; else r.removeAttribute('tabindex'); });
+  const b = $('.hide-btn', c);
+  if (b) b.textContent = on ? 'Visa alla svar' : 'Dölj svar';
+}
+document.addEventListener('click', e => {
+  const hb = e.target.closest('.hide-btn');
+  if (hb) { const c = hb.closest('[data-hide]'); setHide(c, !c.classList.contains('hiding')); return; }
+  const row = e.target.closest('[data-row]');
+  if (row && !e.target.closest('a,button')) {
+    const c = row.closest('[data-hide]');
+    if (c && c.classList.contains('hiding')) row.classList.toggle('rev');
+  }
+});
+document.addEventListener('keydown', e => {
+  const row = e.target.closest && e.target.closest('[data-row]');
+  if (row && (e.key === 'Enter' || e.key === ' ')) {
+    const c = row.closest('[data-hide]');
+    if (c && c.classList.contains('hiding')) { e.preventDefault(); row.classList.toggle('rev'); }
+  }
+});
+
+function renderTables() {
+  $('#brainTable').innerHTML = tableHTML(
+    [{ h: 'Del' }, { h: 'Funktion', ans: true }, { h: 'Minnesknep', ans: true }],
+    BRAIN.filter(b => !b.mapOnly).map(b => [b.name + (b.alt ? ` <span style="font-weight:500;color:var(--muted)">(${b.alt})</span>` : ''), b.fn, `<span class="knep">${b.tip}</span>`]));
+
+  $('#subTable').innerHTML = tableHTML(
+    [{ h: 'Ämne' }, { h: 'Funktion', ans: true }, { h: 'Sex och närhet', ans: true }, { h: 'Minnesregel', ans: true }, { h: 'Nyckelord i frågor', ans: true }],
+    SUBST.map(s => [s.n, s.fn, s.sex, `<span class="knep">${s.rule}</span>`, `<i>${s.keys}</i>`]));
+
+  $('#quickTable').innerHTML = tableHTML([{ h: 'Ämne' }, { h: 'Kort sagt', ans: true }],
+    [['Dopamin', 'motivation'], ['Oxytocin', 'närhet'], ['Endorfiner', 'smärtlindring'], ['Noradrenalin', 'aktivering'], ['Serotonin', 'reglering'], ['GABA', 'broms'], ['Testosteron', 'könshormon'], ['Östrogen', 'könshormon']].map(([a, b]) => [a, `<b>${b}</b>`]), true);
+
+  $('#bioTable').innerHTML = tableHTML([{ h: 'När' }, { h: 'Framsteg', ans: true }], [
+    ['1800-talet', '<b>Darwins evolutionsteori</b> och <b>Mendels</b> lära om arv och genetik'],
+    ['1950-talet', '<b>Medicin</b> mot psykisk sjukdom'],
+    ['1980-talet', '<b>Hjärnscanningstekniker</b>'],
+    ['1990-talet', 'Kartläggning av <b>generna</b> (HUGO-projektet)']
+  ], true);
+
+  $('#riskTable').innerHTML = tableHTML([{ h: 'Begrepp' }, { h: 'Betydelse', ans: true }], [
+    ['Riskbruk', 'Användning som <b>ökar risken</b> för skador eller problem, men utan tydlig kontrollförlust'],
+    ['Missbruk', 'Användningen leder till <b>återkommande negativa konsekvenser</b> (jobb, relationer, hälsa), men inget starkt fysiologiskt beroende än'],
+    ['Beroende', '<b>Tvångsmässigt behov</b>, förlorad kontroll, tolerans och/eller abstinens']
+  ], true);
+
+  $('#otherTable').innerHTML = tableHTML([{ h: 'Beroende' }, { h: 'Fakta', ans: true }], [
+    ['Spelberoende (pengar)', '<ul><li>Snabb respons och ett sätt att försöka <b>vinna tillbaka</b> förlorade pengar.</li><li><b>Lätt att dölja.</b></li><li><b>Kan diagnostiseras som beroendesjukdom.</b></li><li>68 000 barn lever med någon som har ett allvarligt spelberoende.</li><li>I Sverige spelar vi för över 40 miljarder kr per år. Spelbolagen behåller 27–28 miljarder.</li></ul>'],
+    ['Sexberoende', '<ul><li>Överdrivet och utan kontroll.</li><li><b>Skam</b> gör det svårt att söka hjälp.</li></ul>'],
+    ['Träningsberoende', '<ul><li>Livet kretsar kring träning, även vid sjukdom eller skador.</li></ul>'],
+    ['Dataspel', '<ul><li>Att nå <b>nästa nivå</b> triggar belöningssystemet.</li><li>Kallas dataspelsberoende men räknas <b>INTE som sjukdom</b>, till skillnad från spel om pengar.</li></ul>'],
+    ['”Skärmberoende”', '<ul><li>Diskuteras och räknas <b>INTE som beroendesjukdom</b>.</li><li><b>Folkhälsomyndigheten (2024):</b> barn under 2 år ska inte använda skärmar, äldre barn ska begränsa användningen, och skärmar ska inte användas vid läggdags eller i sovrummet.</li></ul>']
+  ], false);
+
+  $('#defTable').innerHTML = tableHTML([{ h: 'Försvarsmekanism' }, { h: 'Exempel', ans: true }], [
+    ['Förnekelse', '”Jag har inga problem, jag kan sluta när jag vill.”'],
+    ['Rationalisering', '”Jag dricker för att hantera stressen.”'],
+    ['Projektion', '”Det är samhällets fel att jag dricker.”']
+  ], true);
+
+  $('#learnTable').innerHTML = tableHTML([{ h: 'Inlärning' }, { h: 'Exempel', ans: true }], [
+    ['Klassisk betingning', 'Dricker man alltid vin framför TV:n kan <b>TV:n eller soffan</b> i sig väcka sug.'],
+    ['Instrumentell (operant) inlärning', '<b>Positiv förstärkning</b> (eufori, avslappning, social belöning) och <b>negativ förstärkning</b> (substansen tar bort ångest, abstinens eller stress).'],
+    ['Social inlärning', 'Ungdomar ser äldre eller jämnåriga dricka eller röka och <b>härmar</b> för status och gemenskap.'],
+    ['Vanemässig inlärning', 'Upprepade beteenden blir <b>automatiska</b>, t.ex. en snus till kaffet även utan nikotinsug.']
+  ], false);
+
+  $('#symList').innerHTML = SYMPTOMS.map(([L, w, s]) => `<li data-row><span class="L" aria-hidden="true">${L}</span><span class="w">${w}</span><span class="ans"><div><b>${s}</b></div></span></li>`).join('');
+
+  $('#mall').innerHTML = MALL.map(([t, d]) => `<li><b>${t}:</b> ${d}</li>`).join('');
+}
+
+/* ============ Studiekort ============ */
+function renderStudies() {
+  $$('[data-studies]').forEach(box => {
+    box.innerHTML = STUDIES.filter(s => s.g === box.dataset.studies).map(s => `
+      <article class="study" id="st-${s.id}" data-hide>
+        <header class="study-h"><div><h3>${s.name}</h3><p class="study-meta">${s.meta}</p></div><button type="button" class="btn btn-sm hide-btn">Dölj svar</button></header>
+        <dl>${s.rows.map(([k, v]) => `<div class="srow" data-row><dt>${k}</dt><dd class="ans"><div>${v}</div></dd></div>`).join('')}</dl>
+        ${s.tip ? tipHTML(s.tip) : ''}
+      </article>`).join('');
+  });
+  $('#studHideAll').addEventListener('click', () => $$('#studier .study').forEach(c => setHide(c, true)));
+  $('#studShowAll').addEventListener('click', () => $$('#studier .study').forEach(c => setHide(c, false)));
+}
+
+/* ============ Hjärnkarta ============ */
+const svg = $('#brainSvg');
+const mapInfo = $('#mapInfo');
+let mapMode = 'explore';
+let mapSel = null;
+let P = null; // övningsläge
+let labelsOn = true;
+const partEls = id => $$(`.part[data-id="${id}"]`, svg);
+
+function initMap() {
+  $$('.part', svg).forEach(p => {
+    const b = BRAIN_BY[p.dataset.id];
+    p.setAttribute('tabindex', '0');
+    p.setAttribute('role', 'button');
+    p.setAttribute('aria-label', b.name);
+  });
+  svg.addEventListener('click', e => { const p = e.target.closest('.part'); if (p) onPart(p.dataset.id); });
+  svg.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('part')) { e.preventDefault(); onPart(e.target.dataset.id); }
+  });
+  $('#partBtns').innerHTML = BRAIN.map(b => `<button type="button" data-part="${b.id}" aria-pressed="false">${b.name}</button>`).join('');
+  $('#partBtns').addEventListener('click', e => { const b = e.target.closest('[data-part]'); if (b) onPart(b.dataset.part); });
+  $$('.seg button').forEach(b => b.addEventListener('click', () => setMapMode(b.dataset.mode)));
+  $('#labelsBtn').addEventListener('click', () => { labelsOn = !labelsOn; applyLabels(); });
+  setMapMode('explore');
+}
+function applyLabels() {
+  const on = labelsOn && mapMode === 'explore';
+  svg.classList.toggle('no-labels', !on);
+  const lb = $('#labelsBtn');
+  lb.setAttribute('aria-pressed', String(on));
+  lb.disabled = mapMode !== 'explore';
+}
+function clearMarks() { $$('.part', svg).forEach(p => p.classList.remove('sel', 'good', 'wrong')); svg.classList.remove('has-sel'); }
+function setMapMode(m) {
+  mapMode = m;
+  $$('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+  $('#partBtns').hidden = m !== 'explore';
+  clearMarks(); mapSel = null;
+  applyLabels();
+  if (m === 'explore') {
+    mapInfo.innerHTML = '<p class="empty">Tryck på en del av hjärnan, eller välj ett namn nedanför, för att se funktion och minnesknep.</p>';
+    $$('#partBtns button').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  } else startPractice();
+}
+function onPart(id) { if (mapMode === 'explore') selectPart(id); else practiceAnswer(id); }
+function selectPart(id) {
+  const b = BRAIN_BY[id];
+  clearMarks();
+  if (mapSel === id) { mapSel = null; setMapMode('explore'); return; }
+  mapSel = id;
+  svg.classList.add('has-sel');
+  partEls(id).forEach(p => p.classList.add('sel'));
+  $$('#partBtns button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.part === id)));
+  mapInfo.innerHTML = `<h3>${b.name}${b.alt ? ` <span style="font-weight:500;font-size:1rem;color:var(--muted)">(${b.alt})</span>` : ''}</h3>
+    ${b.limbic ? '<span class="tag tag-limbic">Limbiska systemet</span>' : ''}
+    <p>${b.fn}</p>${b.tip ? tipHTML(b.tip) : ''}`;
+}
+function startPractice() {
+  P = { order: shuffle(BRAIN.filter(b => b.ask).map(b => b.id)), i: 0, score: 0, missed: false, locked: false };
+  showPrompt();
+}
+function showPrompt() {
+  clearMarks();
+  const b = BRAIN_BY[P.order[P.i]];
+  P.missed = false; P.locked = false;
+  mapInfo.innerHTML = `<span class="pp-n">Fråga ${P.i + 1} av ${P.order.length} · ${P.score} rätt direkt</span>
+    <p style="margin:6px 0 0">Tryck på delen som sköter:</p><strong class="pp-ask">${b.ask}</strong>
+    <div id="ppFb"></div>`;
+}
+function practiceAnswer(id) {
+  if (!P || P.locked) return;
+  const target = P.order[P.i];
+  const fb = $('#ppFb');
+  if (id === target) {
+    P.locked = true;
+    if (!P.missed) P.score++;
+    const b = BRAIN_BY[id];
+    partEls(id).forEach(p => p.classList.add('good'));
+    fb.innerHTML = `<div class="fb fb-ok">Rätt, det är ${b.name}!</div>${b.tip ? tipHTML(b.tip) : ''}<button type="button" class="btn btn-primary" id="ppNext">${P.i + 1 < P.order.length ? 'Nästa' : 'Se resultat'}</button>`;
+    $('#ppNext').addEventListener('click', () => { P.i++; if (P.i < P.order.length) showPrompt(); else finishPractice(); });
+    $('#ppNext').focus({ preventScroll: true });
+  } else {
+    P.missed = true;
+    const els = partEls(id);
+    els.forEach(p => p.classList.add('wrong'));
+    setTimeout(() => els.forEach(p => p.classList.remove('wrong')), 700);
+    fb.innerHTML = `<div class="fb fb-bad">Nej, det där är ${BRAIN_BY[id].name}. Försök igen.</div>`;
+  }
+}
+function finishPractice() {
+  clearMarks();
+  const total = P.order.length;
+  if (!S.map || P.score > S.map.best) { S.map = { best: P.score, total }; save(); }
+  mapInfo.innerHTML = `<h3>Klart!</h3><p><b>${P.score} av ${total}</b> rätt på första försöket. Bästa: ${S.map.best} av ${total}.</p><button type="button" class="btn btn-primary" id="ppAgain">Öva igen</button>`;
+  $('#ppAgain').addEventListener('click', startPractice);
+}
+
+/* ============ Beroendespiralen ============ */
+function renderSpiral() {
+  const R = 100, C = 150;
+  const pt = deg => [C + R * Math.cos(deg * Math.PI / 180), C + R * Math.sin(deg * Math.PI / 180)];
+  let arcs = '';
+  for (let i = 0; i < 5; i++) {
+    const a0 = -90 + i * 72 + 24, a1 = -90 + (i + 1) * 72 - 24;
+    const [x0, y0] = pt(a0), [x1, y1] = pt(a1);
+    arcs += `<path class="arc" data-arc="${i}" d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}" marker-end="url(#arrHead)"/>`;
+  }
+  const nodes = SPIRAL.map((s, i) => {
+    const [x, y] = pt(-90 + i * 72);
+    return `<button type="button" class="node" data-step="${i}" aria-pressed="false" style="left:${(x / 3).toFixed(2)}%;top:${(y / 3).toFixed(2)}%"><b>${i + 1}</b><span>${s.t}</span></button>`;
+  }).join('');
+  $('#spiral').innerHTML = `
+    <div class="ring">
+      <svg viewBox="0 0 300 300" aria-hidden="true"><defs><marker id="arrHead" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path class="arr-head" d="M0 0L10 5L0 10z"/></marker></defs>${arcs}</svg>
+      ${nodes}
+      <div class="ring-c" id="ringC"><small>Beroendespiralen</small><strong>5 steg runt</strong></div>
+    </div>
+    <div class="sp-detail" id="spDetail" aria-live="polite"></div>`;
+  $('#spiral').addEventListener('click', e => {
+    const n = e.target.closest('.node'); if (n) setStep(+n.dataset.step);
+    if (e.target.closest('#spNext')) setStep((curStep + 1) % 5);
+  });
+  setStep(0);
+}
+let curStep = 0;
+function setStep(i) {
+  curStep = i;
+  $$('#spiral .node').forEach(n => n.setAttribute('aria-pressed', String(+n.dataset.step === i)));
+  $$('#spiral .arc').forEach(a => a.classList.toggle('on', +a.dataset.arc === i));
+  $('#ringC').innerHTML = `<small>Steg ${i + 1} av 5</small><strong>${SPIRAL[i].t}</strong>`;
+  $('#spDetail').innerHTML = `<h3>${i + 1}. ${SPIRAL[i].t}</h3><p>${SPIRAL[i].d}</p><button type="button" class="btn btn-sm" id="spNext">${i === 4 ? 'Tillbaka till steg 1' : 'Nästa steg'}</button>`;
+}
+
+/* ============ Skrivträning ============ */
+function keysHTML(id, keys) {
+  if (!keys || !keys.length) return '';
+  return `<fieldset class="keys" data-key="${id}"><legend>Rätta dig själv: bocka av nyckelorden du fick med <span class="kcount"></span></legend>
+    <div class="kwrap">${keys.map((k, i) => `<label class="kchip"><input type="checkbox" data-i="${i}"><span>${k}</span></label>`).join('')}</div></fieldset>`;
+}
+function writeArea(id, label) {
+  return `<label class="sr" for="ta-${id}">${label}</label><textarea id="ta-${id}" data-key="${id}" rows="5" placeholder="Skriv ditt svar här…"></textarea>`;
+}
+function wqHTML(q) {
+  if (q.link) {
+    return `<article class="wq"><div class="wq-head"><span class="wq-n">${q.n}</span><h3>${q.q}</h3></div>
+      <p>En 16-åring på en fest gör något riskfyllt. Den här frågan tränar du som <b>Case 2</b> under Analys.</p>
+      <a class="btn" href="#analys" data-anchor="case-festen">Gå till Case 2: Festen</a></article>`;
+  }
+  return `<article class="wq" id="${q.id}">
+    <div class="wq-head"><span class="wq-n">${q.n}</span><h3>${q.q}</h3></div>
+    ${q.topic ? `<span class="tag">${q.topic}</span>` : ''}
+    ${q.note ? `<p class="map-note">${q.note}</p>` : ''}
+    ${writeArea(q.id, 'Ditt svar')}
+    <div class="wq-actions"><button type="button" class="btn reveal" aria-expanded="false" aria-controls="m-${q.id}" data-show="Visa modellsvar" data-hide-t="Dölj modellsvar">Visa modellsvar</button><span class="saved" aria-live="polite"></span></div>
+    <div class="model" id="m-${q.id}" hidden><h4>Modellsvar</h4>${q.model}${q.tip ? tipHTML(q.tip) : ''}</div>
+    ${keysHTML(q.id, q.keys)}
+  </article>`;
+}
+function caseHTML(c) {
+  return `<h2 id="${c.id}">${c.title}</h2>
+  <article class="wq">
+    <span class="tag">${c.src}</span>
+    <div class="case-text">${c.text}</div>
+    ${c.help ? `<h4>Stödfrågor</h4><ul class="pts">${c.help.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
+    <details class="mall"><summary>Femstegsmallen</summary><ol>${MALL.map(([t, d]) => `<li><b>${t}:</b> ${d}</li>`).join('')}</ol></details>
+    ${writeArea(c.id, 'Din analys')}
+    <div class="wq-actions">${c.answer
+      ? `<button type="button" class="btn reveal" aria-expanded="false" aria-controls="m-${c.id}" data-show="Visa exempelsvar" data-hide-t="Dölj exempelsvar">Visa exempelsvar</button>`
+      : '<span class="map-note" style="margin:0">Inget färdigt exempelsvar. Använd mallen och nyckelorden.</span>'}<span class="saved" aria-live="polite"></span></div>
+    ${c.answer ? `<div class="model" id="m-${c.id}" hidden><h4>Exempelsvar</h4>${c.answer}</div>` : ''}
+    ${keysHTML(c.id, c.keys)}
+  </article>`;
+}
+function renderWriting() {
+  $('#w3').innerHTML = W3.map(wqHTML).join('');
+  $('#w4').innerHTML = W4.map(wqHTML).join('');
+  $('#cases').innerHTML = CASES.map(caseHTML).join('');
+  hydrateWriting();
+}
+function updateKCount(fs) {
+  const all = $$('input', fs), n = all.filter(x => x.checked).length;
+  $('.kcount', fs).textContent = `(${n} av ${all.length})`;
+}
+function hydrateWriting() {
+  $$('textarea[data-key]').forEach(ta => { ta.value = S.text[ta.dataset.key] || ''; });
+  $$('.keys').forEach(fs => {
+    const on = S.checks[fs.dataset.key] || [];
+    $$('input', fs).forEach(x => { x.checked = on.includes(+x.dataset.i); });
+    updateKCount(fs);
+  });
+}
+const saveTimers = new Map();
+document.addEventListener('input', e => {
+  const ta = e.target.closest && e.target.closest('textarea[data-key]');
+  if (!ta) return;
+  const k = ta.dataset.key;
+  if (ta.value.trim()) S.text[k] = ta.value; else delete S.text[k];
+  const flag = ta.parentElement.querySelector('.saved');
+  clearTimeout(saveTimers.get(k));
+  saveTimers.set(k, setTimeout(() => { save(); if (flag) { flag.textContent = 'Sparat'; setTimeout(() => { flag.textContent = ''; }, 1500); } }, 400));
+});
+document.addEventListener('change', e => {
+  const cb = e.target.closest && e.target.closest('.keys input[type=checkbox]');
+  if (!cb) return;
+  const fs = cb.closest('.keys');
+  S.checks[fs.dataset.key] = $$('input', fs).filter(x => x.checked).map(x => +x.dataset.i);
+  save(); updateKCount(fs);
+});
+document.addEventListener('click', e => {
+  const r = e.target.closest('.reveal');
+  if (!r) return;
+  const m = document.getElementById(r.getAttribute('aria-controls'));
+  const open = m.hidden;
+  m.hidden = !open;
+  r.setAttribute('aria-expanded', String(open));
+  r.textContent = open ? r.dataset.hideT : r.dataset.show;
+});
+window.addEventListener('pagehide', save);
+
+/* ============ Begreppskort ============ */
+const FC = { cat: 'Alla', q: '', onlyOva: false, reverse: false, order: TERMS.map(t => t.id), flipped: new Set() };
+function fcFilter() {
+  const q = FC.q.trim().toLowerCase();
+  return FC.order.map(id => TERM_BY[id]).filter(t =>
+    (FC.cat === 'Alla' || t.c === FC.cat) &&
+    (!FC.onlyOva || S.cards[t.id] === 'ova') &&
+    (!q || (t.t + ' ' + t.d).toLowerCase().includes(q)));
+}
+function cardHTML(t) {
+  const s = S.cards[t.id] || '';
+  const f = FC.flipped.has(t.id);
+  const term = `<span class="fc-cat">${t.c}</span><span class="fc-term">${t.t}</span>`;
+  const def = `<span class="fc-cat">${FC.reverse ? 'Vilket begrepp?' : t.t}</span><span class="fc-def">${t.d}</span>`;
+  const front = FC.reverse ? def : term, back = FC.reverse ? term : def;
+  return `<div class="fc${f ? ' flipped' : ''}" data-id="${t.id}" data-s="${s}">
+    <button type="button" class="fc-flip" aria-label="Vänd kortet">
+      <span class="fc-inner"><span class="fc-face fc-front"${f ? ' aria-hidden="true"' : ''}>${front}</span><span class="fc-face fc-back"${f ? '' : ' aria-hidden="true"'}>${back}</span></span>
+    </button>
+    <div class="fc-acts"><button type="button" class="b-kan" aria-pressed="${s === 'kan'}">Kan</button><button type="button" class="b-ova" aria-pressed="${s === 'ova'}">Öva mer</button></div>
+  </div>`;
+}
+function renderCards() {
+  const list = fcFilter();
+  const grid = $('#fcGrid');
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty-state">${FC.onlyOva && !Object.values(S.cards).includes('ova')
+      ? 'Du har inga kort markerade som ”Öva mer” än. Markera kort du är osäker på så samlas de här.'
+      : 'Inga kort matchar. Rensa sökningen eller välj en annan kategori.'}</div>`;
+  } else grid.innerHTML = list.map(cardHTML).join('');
+  $('#fcShown').textContent = `Visar ${list.length} av ${TERMS.length}`;
+  fcCounts();
+}
+function fcCounts() {
+  const v = TERMS.map(t => S.cards[t.id]);
+  $('#fcKan').textContent = v.filter(x => x === 'kan').length;
+  $('#fcOva').textContent = v.filter(x => x === 'ova').length;
+}
+function setFlip(el, on) {
+  el.classList.toggle('flipped', on);
+  const [fr, bk] = $$('.fc-face', el);
+  if (on) { fr.setAttribute('aria-hidden', 'true'); bk.removeAttribute('aria-hidden'); }
+  else { bk.setAttribute('aria-hidden', 'true'); fr.removeAttribute('aria-hidden'); }
+  if (on) FC.flipped.add(el.dataset.id); else FC.flipped.delete(el.dataset.id);
+}
+function initCards() {
+  $('#fcCats').innerHTML = ['Alla', ...CATS].map(c => `<button type="button" class="chip" data-cat="${c}" aria-pressed="${c === 'Alla'}">${c}</button>`).join('');
+  $('#fcCats').addEventListener('click', e => {
+    const b = e.target.closest('[data-cat]'); if (!b) return;
+    FC.cat = b.dataset.cat;
+    $$('#fcCats .chip').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    renderCards();
+  });
+  $('#fcSearch').addEventListener('input', e => { FC.q = e.target.value; renderCards(); });
+  $('#fcOnlyOva').addEventListener('click', e => { FC.onlyOva = !FC.onlyOva; e.currentTarget.setAttribute('aria-pressed', String(FC.onlyOva)); renderCards(); });
+  $('#fcShowAll').addEventListener('click', () => $$('#fcGrid .fc').forEach(el => setFlip(el, true)));
+  $('#fcHideAll').addEventListener('click', () => $$('#fcGrid .fc').forEach(el => setFlip(el, false)));
+  $('#fcShuffle').addEventListener('click', () => { FC.order = shuffle(FC.order); renderCards(); });
+  $('#fcReverse').addEventListener('click', e => {
+    FC.reverse = !FC.reverse; FC.flipped.clear();
+    e.currentTarget.setAttribute('aria-pressed', String(FC.reverse));
+    renderCards();
+  });
+  $('#fcGrid').addEventListener('click', e => {
+    const card = e.target.closest('.fc'); if (!card) return;
+    if (e.target.closest('.fc-flip')) { setFlip(card, !card.classList.contains('flipped')); return; }
+    const kb = e.target.closest('.b-kan, .b-ova'); if (!kb) return;
+    const val = kb.classList.contains('b-kan') ? 'kan' : 'ova';
+    const id = card.dataset.id;
+    if (S.cards[id] === val) delete S.cards[id]; else S.cards[id] = val;
+    const s = S.cards[id] || '';
+    card.dataset.s = s;
+    $('.b-kan', card).setAttribute('aria-pressed', String(s === 'kan'));
+    $('.b-ova', card).setAttribute('aria-pressed', String(s === 'ova'));
+    save(); fcCounts();
+  });
+  renderCards();
+}
+
+/* ============ Quiz ============ */
+let QZ = null;
+function renderQuizPick() {
+  $('#qzList').innerHTML = QUIZZES.map(q => {
+    const b = S.quiz[q.id];
+    return `<div class="qcard"><h3>${q.name}</h3><p>${q.desc} · ${q.items.length} frågor</p>
+      <p class="best">${b ? `Bästa: ${b.best} av ${b.total} rätt direkt` : '<span style="color:var(--muted);font-weight:500">Inte gjort än</span>'}</p>
+      <button type="button" class="btn btn-primary" data-quiz="${q.id}">Starta</button></div>`;
+  }).join('');
+}
+function makeOpts(quiz, it) {
+  let pool = (it.d || quiz.pool).filter(x => x !== it.a);
+  const pick = (it.trap || []).filter(t => pool.includes(t)).slice(0, 3);
+  pool = shuffle(pool.filter(x => !pick.includes(x)));
+  while (pick.length < 3 && pool.length) pick.push(pool.pop());
+  return shuffle([it.a, ...pick]);
+}
+function startQuiz(id) {
+  const quiz = QUIZ_BY[id];
+  QZ = { quiz, queue: shuffle(quiz.items.map((it, k) => Object.assign({ k }, it))), wrong: new Set(), first: 0, done: 0, total: quiz.items.length, answered: false };
+  $('#qzPick').hidden = true; $('#qzDone').hidden = true; $('#qzRun').hidden = false;
+  nextQ();
+}
+function nextQ() {
+  if (!QZ.queue.length) return endQuiz();
+  const it = QZ.queue[0];
+  QZ.cur = it; QZ.answered = false; QZ.opts = makeOpts(QZ.quiz, it);
+  $('#qzProg').textContent = `Klara: ${QZ.done} av ${QZ.total}`;
+  $('#qzBar').style.width = (QZ.done / QZ.total * 100) + '%';
+  $('#qzKind').innerHTML = `${QZ.quiz.name}${QZ.wrong.has(it.k) ? ' <span class="rep">Repetition</span>' : ''}`;
+  $('#qzQ').textContent = it.q;
+  $('#qzSub').textContent = QZ.quiz.sub;
+  $('#qzSub').hidden = !QZ.quiz.sub;
+  $('#qzOpts').innerHTML = QZ.opts.map((o, i) => `<button type="button" class="opt" data-i="${i}"><kbd>${i + 1}</kbd><span></span></button>`).join('');
+  $$('#qzOpts .opt span').forEach((sp, i) => { sp.textContent = QZ.opts[i]; });
+  $('#qzFb').innerHTML = '';
+  $('#qzNext').hidden = true;
+}
+function answer(i) {
+  if (!QZ || QZ.answered) return;
+  QZ.answered = true;
+  const it = QZ.cur, choice = QZ.opts[i], ok = choice === it.a;
+  QZ.queue.shift();
+  if (ok) { QZ.done++; if (!QZ.wrong.has(it.k)) QZ.first++; }
+  else { QZ.wrong.add(it.k); QZ.queue.push(it); }
+  $$('#qzOpts .opt').forEach((b, j) => {
+    b.disabled = true;
+    if (QZ.opts[j] === it.a) b.classList.add('is-right');
+    else if (j === i) b.classList.add('is-wrong');
+  });
+  $('#qzFb').innerHTML = ok
+    ? `<div class="fb fb-ok"><strong>Rätt!</strong>${it.ex}</div>`
+    : `<div class="fb fb-bad"><strong>Inte riktigt. Rätt svar: ${it.a}</strong>${it.ex} Frågan kommer tillbaka.</div>`;
+  $('#qzProg').textContent = `Klara: ${QZ.done} av ${QZ.total}`;
+  $('#qzBar').style.width = (QZ.done / QZ.total * 100) + '%';
+  const nb = $('#qzNext');
+  nb.textContent = QZ.queue.length ? 'Nästa fråga' : 'Se resultat';
+  nb.hidden = false;
+  nb.focus({ preventScroll: true });
+  nb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+function endQuiz() {
+  const { quiz, first, total } = QZ;
+  const prev = S.quiz[quiz.id];
+  const isBest = !prev || first > prev.best;
+  if (isBest) { S.quiz[quiz.id] = { best: first, total }; save(); }
+  $('#qzRun').hidden = true;
+  const d = $('#qzDone');
+  d.hidden = false;
+  d.innerHTML = `<div class="qz-done"><h2 style="margin:0">${quiz.name}</h2>
+    <div class="qz-score">${first} / ${total}</div>
+    <p>rätt på första försöket. Alla frågor är nu avklarade.</p>
+    <p style="color:var(--muted)">${isBest ? 'Nytt bästa resultat!' : `Bästa: ${S.quiz[quiz.id].best} av ${total}`}</p>
+    <div class="btn-row" style="justify-content:center"><button type="button" class="btn btn-primary" data-quiz="${quiz.id}">Gör om quizet</button><button type="button" class="btn" id="qzBack">Välj ett annat quiz</button></div></div>`;
+  QZ = null;
+  window.scrollTo(0, 0);
+}
+function quitQuiz() {
+  QZ = null;
+  $('#qzRun').hidden = true; $('#qzDone').hidden = true; $('#qzPick').hidden = false;
+  renderQuizPick();
+}
+function initQuiz() {
+  renderQuizPick();
+  $('#qzOpts').addEventListener('click', e => { const b = e.target.closest('.opt'); if (b) answer(+b.dataset.i); });
+  $('#qzNext').addEventListener('click', () => { nextQ(); $('#qzQ').focus({ preventScroll: true }); window.scrollTo(0, 0); });
+  $('#qzQuit').addEventListener('click', quitQuiz);
+  document.addEventListener('click', e => {
+    const s = e.target.closest('[data-quiz]');
+    if (s) { if (location.hash !== '#quiz') { suppressQuizReset = true; location.hash = 'quiz'; } startQuiz(s.dataset.quiz); return; }
+    if (e.target.closest('#qzBack')) quitQuiz();
+  });
+  document.addEventListener('keydown', e => {
+    if (!QZ || $('#quiz').hidden || e.target.matches('input,textarea')) return;
+    if (/^[1-4]$/.test(e.key) && !QZ.answered) answer(+e.key - 1);
+  });
+}
+let suppressQuizReset = false;
+
+/* ============ Start och framsteg ============ */
+function renderStart() {
+  const v = TERMS.map(t => S.cards[t.id]);
+  const kan = v.filter(x => x === 'kan').length;
+  $('#stKan').textContent = kan;
+  $('#stKanL').textContent = `av ${TERMS.length} begrepp kan du`;
+  $('#stKanBar').style.width = (kan / TERMS.length * 100) + '%';
+  $('#stOva').textContent = v.filter(x => x === 'ova').length;
+  const writable = [...W3.filter(q => !q.link), ...W4, ...CASES].map(q => q.id);
+  $('#stText').textContent = writable.filter(id => S.text[id]).length;
+  $('#stTextL').textContent = `av ${writable.length} skrivuppgifter påbörjade`;
+  $('#stMap').textContent = S.map ? `${S.map.best}/${S.map.total}` : '–';
+  $('#stQuiz').innerHTML = QUIZZES.map(q => {
+    const b = S.quiz[q.id];
+    return `<li><span>${q.name}</span><span>${b ? `${b.best} av ${b.total}` : '<span class="none">Inte gjort</span>'}</span></li>`;
+  }).join('');
+}
+$('#resetBtn').addEventListener('click', () => {
+  if (!confirm('Nollställa alla framsteg? Markerade begrepp, quizresultat, hjärnkartan och allt du skrivit raderas.')) return;
+  S = fresh({ theme: S.theme });
+  save();
+  FC.flipped.clear();
+  hydrateWriting();
+  renderCards();
+  renderQuizPick();
+  renderStart();
+  if (mapMode === 'practice') startPractice();
+});
+
+/* ============ Tema ============ */
+const themeBtn = $('#themeBtn');
+const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+const effTheme = () => S.theme || (mq && mq.matches ? 'dark' : 'light');
+function applyTheme() {
+  if (S.theme) document.documentElement.setAttribute('data-theme', S.theme);
+  else document.documentElement.removeAttribute('data-theme');
+  const dark = effTheme() === 'dark';
+  themeBtn.dataset.dark = String(dark);
+  themeBtn.setAttribute('aria-label', dark ? 'Byt till ljust läge' : 'Byt till mörkt läge');
+}
+themeBtn.addEventListener('click', () => { S.theme = effTheme() === 'dark' ? 'light' : 'dark'; save(); applyTheme(); });
+if (mq && mq.addEventListener) mq.addEventListener('change', applyTheme);
+
+/* ============ Navigering ============ */
+const TABS = [['start', 'Start'], ['hjarnan', 'Hjärnan'], ['amnen', 'Ämnen'], ['tonar', 'Tonårshjärnan'], ['studier', 'Studier'], ['beroende', 'Beroende'], ['skriv', 'Skriv'], ['analys', 'Analys'], ['begrepp', 'Begrepp'], ['quiz', 'Quiz']];
+$('#tabs').innerHTML = TABS.map(([id, n]) => `<a class="tab" href="#${id}">${n}</a>`).join('');
+let pendingAnchor = null;
+const currentId = () => { const h = location.hash.slice(1); return TABS.some(t => t[0] === h) ? h : 'start'; };
+function show(id) {
+  $$('main > section').forEach(s => { s.hidden = s.id !== id; });
+  $$('.tab').forEach(a => { if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  const tabs = $('#tabs'), t = $('.tab[aria-current]', tabs);
+  if (t) tabs.scrollTo({ left: t.offsetLeft - tabs.clientWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
+  if (id === 'start') renderStart();
+  if (id === 'quiz' && !suppressQuizReset && !QZ) quitQuiz();
+  suppressQuizReset = false;
+  const anchor = pendingAnchor && document.getElementById(pendingAnchor);
+  pendingAnchor = null;
+  if (anchor) requestAnimationFrame(() => anchor.scrollIntoView());
+  else window.scrollTo(0, 0);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-anchor]');
+  if (!a) return;
+  pendingAnchor = a.dataset.anchor;
+  if (a.getAttribute('href') === location.hash) { e.preventDefault(); show(currentId()); }
+});
+window.addEventListener('hashchange', () => show(currentId()));
+
+/* ============ Start ============ */
+applyTheme();
+renderTables();
+renderStudies();
+renderSpiral();
+renderWriting();
+initMap();
+initCards();
+initQuiz();
+show(currentId());
+})();
+</script>
+</body>
+</html>
