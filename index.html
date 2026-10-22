@@ -176,30 +176,49 @@ footer{max-width:760px;margin:0 auto;padding-block:0 40px;padding-left:max(16px,
 .study .tip{margin:6px 0 10px}
 
 /* ---------- Start ---------- */
-.hero{padding:6px 0 4px}
-.hero+h2{margin-top:1.2em}
-.hero h1{font-size:clamp(2.2rem,10vw,3.4rem);line-height:1.02;margin:.15em 0 .25em}
-.del-grid{display:grid;gap:10px}
-@media(min-width:640px){.del-grid{grid-template-columns:1fr 1fr}.del-grid .del:last-child{grid-column:1/-1}}
-.del{display:grid;grid-template-columns:54px 1fr;gap:2px 14px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);text-decoration:none;color:var(--ink);align-content:start}
-.del:hover{border-color:var(--muted)}
-.del-n{grid-row:1/span 4;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font:800 1.9rem/1 var(--font-round);background:var(--c);color:var(--ink)}
-.del>span:not(.del-n){grid-column:2}
-.del-t{font-family:var(--font-round);font-weight:780;font-size:1.12rem;line-height:1.25}
-.del-q{color:var(--muted);font-size:.93rem}
-.del-tip{font-size:.9rem;margin-top:4px}
-.del-go{color:var(--accent);font-weight:700;font-size:.92rem;margin-top:6px}
-.stats{display:grid;gap:10px;grid-template-columns:1fr 1fr}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:13px 14px}
-.stat-n{font:800 1.9rem/1 var(--font-round)}
-.stat-l{color:var(--muted);font-size:.88rem;margin-top:4px}
 .bar{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-top:10px}
 .bar>i{display:block;height:100%;width:0;background:var(--ok);border-radius:99px;transition:width .3s}
-.qbest{list-style:none;padding:0;margin:10px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m)}
-.qbest li{display:flex;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}
-.qbest li:first-child{border-top:0}
-.qbest span:last-child{font-weight:700;white-space:nowrap}
-.qbest .none{color:var(--muted);font-weight:500}
+
+/* ---------- Kvällsplan ---------- */
+.plan-top{display:grid;gap:12px;margin:6px 0 16px}
+.plan-prog{display:grid;gap:2px;font-weight:650;color:var(--muted);font-size:.93rem}
+.btn-big{min-height:54px;font-size:1.04rem;padding:12px 18px;width:100%}
+@media(min-width:640px){.btn-big{width:auto;justify-self:start}}
+.plan{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l)}
+.step[data-state="next"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.step[data-state="done"]{background:transparent}
+.step[data-state="done"] h3,.step[data-state="done"] .step-body>p:not(.step-status){color:var(--muted)}
+.step-n{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:800 1.1rem/1 var(--font-round);background:var(--surface-2);color:var(--ink)}
+.step[data-state="next"] .step-n{background:var(--accent);color:var(--accent-ink)}
+.step[data-state="done"] .step-n{background:var(--ok-soft);color:var(--ok)}
+.step-body h3{margin:7px 0 4px}
+.step-body p{margin:0 0 4px;font-size:.95rem}
+.step-body .step-status{color:var(--muted);font-size:.87rem;font-weight:650}
+.step-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.done-chk{position:relative;display:inline-flex}
+.done-chk input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer}
+.done-chk span{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:650;font-size:.93rem}
+.done-chk span::before{content:"";width:16px;height:16px;border-radius:5px;border:2px solid var(--muted);flex:none}
+.done-chk input:checked+span{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.done-chk input:checked+span::before{background:var(--ok);border-color:var(--ok);box-shadow:inset 0 0 0 2px var(--ok-soft)}
+.done-chk input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.exam{list-style:none;padding:0;margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m)}
+.exam li+li{border-top:1px solid var(--line)}
+.exam a{display:grid;gap:2px;padding:12px 14px;color:var(--ink);text-decoration:none}
+.exam a span{color:var(--muted);font-size:.93rem}
+.exam a:hover b{color:var(--accent)}
+
+/* ---------- Snabbkoll ---------- */
+.sk-jump{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0}
+a.chip{display:inline-flex;align-items:center;text-decoration:none}
+.sk{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden;margin:10px 0}
+.sk-row{display:grid;gap:2px 16px;padding:11px 14px;border-top:1px solid var(--line)}
+.sk-row:first-child{border-top:0}
+.sk-t{font-weight:750;font-family:var(--font-round)}
+.sk-k{display:block;margin-top:5px;font-size:.93rem}
+.sk-nk{display:block;font-style:italic;color:var(--muted);font-size:.9rem;margin-top:2px}
+@media(min-width:600px){.sk-row{grid-template-columns:190px minmax(0,1fr)}}
 
 /* ---------- Hjärnkarta ---------- */
 .map-layout{display:grid;gap:14px}
@@ -335,6 +354,27 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
 
 /* ---------- Begreppskort ---------- */
 .fc-tools{display:grid;gap:10px;margin:10px 0 14px}
+.fc-tools .seg{justify-self:start}
+.fc-row{display:flex;flex-wrap:wrap;gap:6px}
+details.fc-more{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:0 14px}
+details.fc-more summary{min-height:46px;display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:650;list-style:none}
+details.fc-more summary::-webkit-details-marker{display:none}
+details.fc-more summary::before{content:"▸";width:16px;color:var(--muted)}
+details.fc-more[open] summary::before{content:"▾"}
+details.fc-more summary span{color:var(--muted);font-weight:600}
+details.fc-more[open]{padding-bottom:14px}
+details.fc-more .search{margin-bottom:10px}
+.solo{max-width:560px}
+.solo-top{display:grid;gap:6px;color:var(--muted);font-weight:650;font-size:.92rem;margin-bottom:10px}
+.solo-top .bar{margin-top:0}
+.solo .fc-face{min-height:220px;padding:22px 20px}
+.solo .fc-term{font-size:1.85rem}
+.solo .fc-def{font-size:1.15rem}
+.solo .fc-acts{gap:8px}
+.solo .fc-acts button{min-height:54px;font-size:1.05rem}
+.solo-nav{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
+.solo-done{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:20px}
+.solo-done h3{margin-top:0}
 .search{width:100%;min-height:48px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:16px var(--font)}
 .search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -373,6 +413,8 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
 .qcard p{margin:0;color:var(--muted);font-size:.93rem}
 .qcard .best{color:var(--ink);font-weight:650}
 .qcard .btn{margin-top:8px;align-self:flex-start}
+.qcard-main{background:var(--accent-soft);border-color:transparent}
+.btn:disabled{opacity:.55;cursor:default}
 .qz-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
 .qz-prog{color:var(--muted);font-weight:650;font-size:.92rem;text-align:right}
 .qz-kind{color:var(--muted);font-weight:650;font-size:.9rem;margin:16px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -418,80 +460,50 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
 
 <!-- ================= START ================= -->
 <section id="start">
-  <div class="hero">
-    <h1>Plugga inför provet</h1>
-    <p class="lead">Biologisk psykologi, Psykologi 1. Provet har fem delar. Börja var du vill, allt du gör sparas på den här enheten.</p>
+  <h1>Kvällen före provet</h1>
+  <p class="lead">Följ stegen i ordning och bocka av dem. Allt du gör sparas på den här enheten.</p>
+  <div class="plan-top">
+    <div class="plan-prog"><span id="planCount"></span><div class="bar"><i id="planBar"></i></div></div>
+    <button type="button" class="btn btn-primary btn-big" id="planNext"></button>
   </div>
+  <ol class="plan" id="plan"></ol>
 
-  <h2>Provets fem delar</h2>
-  <div class="del-grid">
-    <a class="del" href="#hjarnan" style="--c:var(--b-frontal)">
-      <span class="del-n">1</span>
-      <span class="del-t">Hjärnans delar</span>
-      <span class="del-q">”En person har svårt med X. Vilken del av hjärnan kan vara påverkad? Motivera med en ledtråd ur texten.”</span>
-      <span class="del-tip"><b>Tips:</b> motiveringen är att upprepa funktionen, t.ex. ”Thalamus, eftersom thalamus tar emot information om beröring och smärta.”</span>
-      <span class="del-go">Öva hjärnans delar</span>
-    </a>
-    <a class="del" href="#amnen" style="--c:var(--b-parietal)">
-      <span class="del-n">2</span>
-      <span class="del-t">Signalsubstanser och hormoner</span>
-      <span class="del-q">”Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst.”</span>
-      <span class="del-go">Öva ämnena</span>
-    </a>
-    <a class="del" href="#tonar" style="--c:var(--b-occipital)">
-      <span class="del-n">3</span>
-      <span class="del-t">Tonårshjärnan</span>
-      <span class="del-q">Filmfrågorna.</span>
-      <span class="del-go">Öva filmfrågorna</span>
-    </a>
-    <a class="del" href="#skriv" style="--c:var(--b-temporal)">
-      <span class="del-n">4</span>
-      <span class="del-t">Skrivfrågor</span>
-      <span class="del-q">Frågor från texthäftet.</span>
-      <span class="del-tip"><b>Tips:</b> använd fackord.</span>
-      <span class="del-go">Öva skrivfrågorna</span>
-    </a>
-    <a class="del" href="#analys" style="--c:var(--b-cereb)">
-      <span class="del-n">5</span>
-      <span class="del-t">Analys</span>
-      <span class="del-q">Använd Del 1–4 för att lösa ett case.</span>
-      <span class="del-tip"><b>Tips:</b> använd fackord och femstegsmallen.</span>
-      <span class="del-go">Öva analys</span>
-    </a>
-  </div>
+  <h2>Så ser provet ut</h2>
+  <ul class="exam">
+    <li><a href="#hjarnan"><b>Del 1: Hjärnans delar</b><span>”En person har svårt med X. Vilken del av hjärnan kan vara påverkad? Motivera med en ledtråd ur texten.”</span></a></li>
+    <li><a href="#amnen"><b>Del 2: Signalsubstanser och hormoner</b><span>”Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst.”</span></a></li>
+    <li><a href="#tonar"><b>Del 3: Tonårshjärnan</b><span>Filmfrågorna.</span></a></li>
+    <li><a href="#skriv"><b>Del 4: Skrivfrågor</b><span>Frågor från texthäftet.</span></a></li>
+    <li><a href="#analys"><b>Del 5: Analys</b><span>Använd Del 1–4 för att lösa ett case.</span></a></li>
+  </ul>
 
-  <div class="note"><span class="note-l">Lärarens råd</span>Skriv något på varje fråga. Varje poäng räknas.</div>
+  <h2>Kom ihåg på provet</h2>
+  <ul class="pts">
+    <li><b>Skriv något på varje fråga.</b> Varje poäng räknas.</li>
+    <li><b>Del 1:</b> motivera genom att upprepa funktionen, t.ex. ”Thalamus, eftersom thalamus tar emot information om beröring och smärta.”</li>
+    <li><b>Del 4–5:</b> använd fackord.</li>
+  </ul>
 
-  <h2>Så långt har du kommit</h2>
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-n" id="stKan">0</div>
-      <div class="stat-l" id="stKanL">begrepp kan du</div>
-      <div class="bar"><i id="stKanBar"></i></div>
-    </div>
-    <div class="stat">
-      <div class="stat-n" id="stOva">0</div>
-      <div class="stat-l">begrepp att öva mer på</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n" id="stText">0</div>
-      <div class="stat-l" id="stTextL">skrivfrågor påbörjade</div>
-    </div>
-    <div class="stat">
-      <div class="stat-n" id="stMap">–</div>
-      <div class="stat-l">bäst i hjärnkartan</div>
-    </div>
-  </div>
-  <h3 style="margin-top:18px">Bästa resultat per quiz</h3>
-  <ul class="qbest" id="stQuiz"></ul>
-  <div class="btn-row" style="margin-top:22px">
-    <button type="button" class="btn btn-danger" id="resetBtn">Nollställ alla framsteg</button>
+  <div class="btn-row" style="margin-top:28px">
+    <button type="button" class="btn btn-sm btn-danger" id="resetBtn">Nollställ alla framsteg</button>
     <span class="saved" id="resetDone" hidden>Allt är nollställt.</span>
   </div>
   <div class="reset-confirm" id="resetConfirm" hidden>
-    <p><b>Nollställa allt?</b> Markerade begrepp, quizresultat, hjärnkartan och allt du skrivit raderas. Det går inte att ångra.</p>
+    <p><b>Nollställa allt?</b> Planen, markerade begrepp, quizresultat och allt du skrivit raderas. Det går inte att ångra.</p>
     <div class="btn-row"><button type="button" class="btn btn-danger-solid" id="resetYes">Ja, nollställ</button><button type="button" class="btn" id="resetNo">Avbryt</button></div>
   </div>
+</section>
+
+<!-- ================= SNABBKOLL ================= -->
+<section id="snabb" hidden>
+  <h1>Snabbkoll</h1>
+  <p class="lead">Det viktigaste för varje del av provet. Läs igenom, eller dölj svaren och testa dig själv.</p>
+  <div class="btn-row">
+    <button type="button" class="btn btn-primary" id="skToggle">Dölj alla svar</button>
+    <span class="hide-hint" id="skHint" style="display:inline" hidden>Tryck på en rad för att visa svaret</span>
+  </div>
+  <nav class="sk-jump" aria-label="Hoppa till en del" id="skJump"></nav>
+  <div id="skBody"></div>
 </section>
 
 <!-- ================= HJÄRNAN ================= -->
@@ -703,7 +715,7 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
     </div>
   </div>
 
-  <h2>Filmfrågor (Del 3)</h2>
+  <h2 id="filmfragor">Filmfrågor (Del 3)</h2>
   <p>Skriv först. Jämför sedan med modellsvaret och bocka av nyckelorden.</p>
   <div id="w3"></div>
 </section>
@@ -863,29 +875,44 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
 <section id="begrepp" class="wide" hidden>
   <div class="narrow">
     <h1>Begreppskort</h1>
-    <p class="lead">Tryck på ett kort för att vända det. Markera <b>Kan</b> eller <b>Öva mer</b>.</p>
+    <p class="lead">Tryck på kortet för att vända det. Välj <b>Kan</b> eller <b>Öva mer</b> så kommer nästa kort.</p>
   </div>
   <div class="fc-tools">
-    <label class="sr" for="fcSearch">Sök bland begreppen</label>
-    <input class="search" id="fcSearch" type="search" placeholder="Sök begrepp eller betydelse" autocomplete="off">
-    <div class="chips" id="fcCats" role="group" aria-label="Kategori"></div>
-    <div class="chips"><button type="button" class="chip chip-ova" id="fcOnlyOva" aria-pressed="false">Bara ”Öva mer”</button></div>
-    <div class="fc-actions">
-      <button type="button" class="btn btn-sm" id="fcShowAll">Visa alla</button>
-      <button type="button" class="btn btn-sm" id="fcHideAll">Dölj alla</button>
-      <button type="button" class="btn btn-sm" id="fcShuffle">Blanda</button>
-      <button type="button" class="btn btn-sm" id="fcReverse" aria-pressed="false">Vänd riktning</button>
+    <div class="seg" id="fcMode" role="group" aria-label="Visning">
+      <button type="button" data-fcmode="one" aria-pressed="true">Ett i taget</button>
+      <button type="button" data-fcmode="grid" aria-pressed="false">Alla kort</button>
     </div>
+    <div class="fc-row">
+      <button type="button" class="chip chip-ova" id="fcOnlyOva" aria-pressed="false">Bara ”Öva mer”</button>
+      <button type="button" class="chip" id="fcShuffle">Blanda</button>
+      <button type="button" class="chip" id="fcReverse" aria-pressed="false">Vänd riktning</button>
+      <button type="button" class="chip" id="fcShowAll" hidden>Visa alla</button>
+      <button type="button" class="chip" id="fcHideAll" hidden>Dölj alla</button>
+    </div>
+    <details class="fc-more">
+      <summary>Sök och välj kategori: <span id="fcMoreLbl">&nbsp;Alla</span></summary>
+      <label class="sr" for="fcSearch">Sök bland begreppen</label>
+      <input class="search" id="fcSearch" type="search" placeholder="Sök begrepp eller betydelse" autocomplete="off">
+      <div class="chips" id="fcCats" role="group" aria-label="Kategori"></div>
+    </details>
     <div class="fc-status" aria-live="polite"><span id="fcShown"></span><span>Kan: <b id="fcKan">0</b></span><span>Öva mer: <b id="fcOva">0</b></span></div>
   </div>
-  <div class="fc-grid" id="fcGrid"></div>
+  <div class="solo" id="fcSolo">
+    <div class="solo-top"><span id="soloPos"></span><div class="bar"><i id="soloBar"></i></div></div>
+    <div id="soloCard"></div>
+    <div class="solo-nav" id="soloNav">
+      <button type="button" class="btn" id="soloPrev">Föregående</button>
+      <button type="button" class="btn" id="soloNext">Hoppa över</button>
+    </div>
+  </div>
+  <div class="fc-grid" id="fcGrid" hidden></div>
 </section>
 
 <!-- ================= QUIZ ================= -->
 <section id="quiz" hidden>
   <h1>Quiz</h1>
   <div id="qzPick">
-    <p class="lead">Direkt rätt eller fel. Frågor du svarar fel på kommer tillbaka tills du klarar dem.</p>
+    <p class="lead">Direkt rätt eller fel. Frågor du svarar fel på kommer tillbaka tills du klarar dem, och sparas i ”Det du missat”.</p>
     <div class="qpick" id="qzList"></div>
   </div>
   <div id="qzRun" hidden>
@@ -905,7 +932,6 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
 </section>
 
 </main>
-<footer>Innehållet kommer från lektionsfilerna, läroboken och lärarens exitpapers. Framsteg sparas bara i den här webbläsaren.</footer>
 
 <script>
 (() => {
@@ -920,7 +946,7 @@ const tipHTML = t => `<div class="tip"><span class="tip-l">Minnesknep</span>${t}
 
 /* ============ Lagring ============ */
 const KEY = 'biopsyk1';
-const fresh = o => ({ cards: o.cards || {}, quiz: o.quiz || {}, text: o.text || {}, checks: o.checks || {}, map: o.map || null, theme: o.theme || null });
+const fresh = o => ({ cards: o.cards || {}, quiz: o.quiz || {}, text: o.text || {}, checks: o.checks || {}, map: o.map || null, plan: o.plan || {}, missed: o.missed || {}, theme: o.theme || null });
 let S;
 try { S = fresh(JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { S = fresh({}); }
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* lagring ej tillgänglig */ } };
@@ -1233,6 +1259,84 @@ const QUIZZES = [
 ];
 const QUIZ_BY = Object.fromEntries(QUIZZES.map(q => [q.id, q]));
 
+/* ============ Snabbkoll ============ */
+const SNABB = [
+  { id: 'sk-1', nav: 'Del 1', h: 'Del 1: Hjärnans delar', rows: [
+    ['Hjärnbarken', 'Yttre skiktet. <b>Rörelser och språk</b>.', 'Barken är skalet runt allt.'],
+    ['Pannloben', '<b>Planering, omdöme, koncentration</b>, personlighet. Beslutsfattarcentrum, <b>färdig sist</b>.', 'Pannan = där du tänker ”vad händer om…?”'],
+    ['Hjässloben', 'Kombinerar <b>doft, smak, konsistens och temperatur</b>.', 'Hjässan smakar på maten.'],
+    ['Nackloben', '<b>Synen</b>.', 'Synen sitter längst bak.'],
+    ['Tinningloben', '<b>Hörseln</b>. Limbiska systemet finns här (enligt boken).', 'Tinningen sitter vid örat.'],
+    ['Thalamus', '<b>Beröring och smärta</b>.', '”Thal-AJ-mus”, det gör ont.'],
+    ['Hippocampus', 'Skapar <b>långtidsminnen</b>.', 'Campus = skola = det du lär dig och minns.'],
+    ['Amygdala', '<b>Positiva och negativa känslor</b>, känslominnen.', '”Amyg-DRAMA”, känslorna.'],
+    ['Hypotalamus', '<b>Hunger, törst, kroppstemperatur</b>, tillväxt och sexualdrift.', 'Hypo = under: grundbehoven under allt annat.'],
+    ['Lillhjärnan', '<b>Koordination, balans</b> och <b>procedurminne</b> (gå, simma, cykla).', 'Lilla hjärnan håller dig kvar på cykeln.'],
+    ['Limbiska systemet', 'Thalamus, hippocampus, amygdala och hypotalamus.', '”Tolv Hungriga Apor Hoppar”'],
+    ['Brocas område', '<b>Producera tal</b> (motorisk talförmåga). Patienten ”Tan”, 1861. Främre tinningloben (enligt boken).', 'Broca = Bara ”tan”.'],
+    ['Wernickes område', '<b>Förstå talat språk</b>. Patient med afasi. Temporalloben (= tinningloben).', 'Wernicke = ”Va sa du?”'],
+    ['Hjärnbalken', 'Förbinder hjärnhalvorna så att de samarbetar.']
+  ], after: '<div class="note"><span class="note-l">Så svarar du på Del 1</span>Delen + ”eftersom” + funktionen: ”<b>Thalamus, eftersom thalamus tar emot information om beröring och smärta.</b>”</div>' },
+  { id: 'sk-2', nav: 'Del 2', h: 'Del 2: Signalsubstanser och hormoner', rows: [
+    ['Dopamin', '<b>Motivation och belöning</b>, förväntan, längtan.<span class="sk-nk">Nyckelord: belöning, nästa nivå, lust att fortsätta</span>', '”Jag längtar efter det här!”'],
+    ['Oxytocin', '<b>Närhet</b>, beröring, anknytning, mjölkutdrivning.<span class="sk-nk">Nyckelord: kram, hudkontakt, nyfödd, trygghet</span>', '”Närhet – inte automatiskt kärlek”'],
+    ['Endorfiner', '<b>Smärtlindring</b>, kroppens egna opioidsystem.<span class="sk-nk">Nyckelord: smärta, slår i armbågen, efter löppass</span>', '”Naturlig smärtdämpning”'],
+    ['Serotonin', '<b>Reglering</b> av stämningsläge, sömn och impulskontroll.<span class="sk-nk">Nyckelord: sinnesstämning, sömn, välbefinnande</span>', '”Reglering, inte bara lycka”'],
+    ['Noradrenalin', '<b>Aktivering</b>: alert, redo att reagera, snabbare puls.<span class="sk-nk">Nyckelord: brandlarm, match, vaksam, stresspåslag</span>', '”Kroppens gaspedal”'],
+    ['GABA', '<b>Broms</b>: hämmar och dämpar nervaktivitet.<span class="sk-nk">Nyckelord: dämpa, hämmande, lugnande, dåsig</span>', '”Bromsen”'],
+    ['Testosteron', '<b>Könshormon hos alla</b>: sexlust, muskler, mörkare röst i puberteten.<span class="sk-nk">Nyckelord: muskelmassa, röst, sexlust</span>', '”Hormon som påverkar lust – hos alla”'],
+    ['Östrogen', '<b>Könshormon hos alla</b>: reproduktion, slemhinnor, skelett, menscykel.<span class="sk-nk">Nyckelord: slemhinnor, skelett, mens</span>', '”Sexuell funktion”'],
+    ['Kortisol och adrenalin', '<b>Stresshormoner</b>. Inför ett prov aktiveras limbiska systemet.']
+  ], after: '<div class="trap"><h3>Fällor</h3><ul><li>Muskler, lust, röst → <b>testosteron</b>. Slemhinnor, skelett, mens → <b>östrogen</b> (även hos män).</li><li>Humör och sömn → <b>serotonin</b>. ”Hämmande”, ”dåsig” → <b>GABA</b>.</li><li>Puls och vakenhet → <b>noradrenalin</b>. Belöning, ”vill ha mer” → <b>dopamin</b>.</li></ul></div>' },
+  { id: 'sk-3', nav: 'Del 3', h: 'Del 3: Tonårshjärnan', rows: [
+    ['Fullt utvecklad', 'Ca <b>25 år</b>. Pannloben blir klar <b>allra sist</b>.'],
+    ['Mest intensivt', '<b>0–2 år</b>, men hjärnan utvecklas mycket i tonåren också.'],
+    ['Inte färdigt hos tonåringar', '<b>Framtidsplanering, överblick, att sålla intryck, riskbedömning</b>.'],
+    ['Därför', 'Tar <b>mer risker</b>, är mer <b>känslomässigt styrda</b>, brister i att överblicka och planera.'],
+    ['Gas och broms', 'Gasen (<b>amygdala</b> och <b>dopamin</b>) reagerar starkt. Bromsen (<b>pannloben</b>) hänger inte med.', '”Gaspedalen är klar, men bromsen byggs fortfarande.”'],
+    ['Giedd (1999, 2006)', '<b>2 000 personer, 3–25 år</b>, undersöktes vartannat år. Delar av <b>pannloben utvecklas mycket sent</b>.']
+  ] },
+  { id: 'sk-4', nav: 'Del 4: studier', h: 'Del 4: Studier och perspektiv', rows: [
+    ['Draganski (2006)', '<b>Experiment</b>: medicinstudenter och en kontrollgrupp, scannade före och efter läkarexamen. <b>Hippocampus och hjässloben</b> förändrades. Hjärnan kan ”växa”.'],
+    ['Witelson (2016)', 'Kvinnor fler kopplingar <b>mellan hjärnhalvorna</b>, män <b>bak–fram</b>. Mannens hjärna är <b>asymmetrisk</b> med större höger halva.'],
+    ['Georgopoulos (2016)', 'Kvinnor bearbetar information <b>snabbare vid många aktiviteter</b>. Män <b>kompenserar lättare</b> om hjärnan skadas.'],
+    ['Daphna Joel (2015)', 'MRI, över 1 400 personer. <b>Ingen manlig eller kvinnlig hjärna</b>, bara individuella skillnader. Män hade större hippocampus.'],
+    ['Mäns och kvinnors hjärnor', '<b>Mest likheter</b>. Skillnaderna kan bero på arv, miljö eller båda.'],
+    ['Savic (Karolinska)', '<b>90 personer</b>, MRI och PET. Homosexuella mäns hjärnor liknade heterosexuella kvinnors, homosexuella kvinnors liknade heterosexuella mäns. Amygdala följde samma mönster.', '”Korsvis lika”'],
+    ['Hjärnplasticitet', 'Hjärnan ändrar sig genom <b>nya förbindelser</b> när vi lär oss och efter skador. Före <b>1965</b> trodde man att det inte gick.', 'Tänk lera.'],
+    ['Biologiska perspektivet', 'Darwin och Mendel (1800-talet), medicin (1950-talet), hjärnscanning (1980-talet), gener i HUGO-projektet (1990-talet).', 'D-M-S-G = Darwin, Medicin, Scanning, Gener'],
+    ['Stress inför prov', 'Limbiska systemet aktiveras: mer <b>kortisol och adrenalin</b>. En <b>flyktreaktion</b>, nedärvd via evolutionen.']
+  ] },
+  { id: 'sk-5', nav: 'Del 4: beroende', h: 'Del 4: Beroende', rows: [
+    ['Riskbruk', 'Ökar risken för problem, <b>utan kontrollförlust</b>.'],
+    ['Missbruk', '<b>Återkommande negativa konsekvenser</b>, men inget starkt fysiologiskt beroende än.'],
+    ['Beroende', '<b>Tvångsmässigt behov</b>, kontrollförlust, tolerans och/eller abstinens.'],
+    ['5 symtom', 'Tankar på substansen, tolerans, kontrollförlust, abstinens, sociala och/eller ekonomiska problem.', '”Trötta Tonåringar Kan Aldrig Sova”'],
+    ['Beroendespiralen', 'Belöning (dopamin) → dopamindusch (<b>upp till 100 gånger</b> starkare än en god måltid) → tolerans → abstinens → negativ förstärkning → igen.'],
+    ['Tolerans', 'Det krävs <b>större dos</b> för samma effekt.'],
+    ['Abstinens', 'Obehag utan substansen. Man fortsätter för att slippa det = <b>negativ förstärkning</b>.'],
+    ['Sjukdom eller inte?', '<b>Spel om pengar</b> kan diagnostiseras som beroendesjukdom. <b>Dataspel</b> och ”skärmberoende” räknas inte som sjukdom.'],
+    ['Orsaker', 'Både <b>arv och miljö</b>: uppväxt, personlighet, biologisk sårbarhet, psykisk ohälsa, självmedicinering, tillgänglighet.'],
+    ['Behandling', '<b>KBT</b>, <b>motiverande samtal</b> (Miller och Rollnick, ca 1990) och läkemedel.'],
+    ['Vanligast i Sverige', '<b>Alkohol</b>.']
+  ] },
+  { id: 'sk-6', nav: 'Del 5', h: 'Del 5: Analys', rows: MALL.map(([t, d], i) => [`${i + 1}. ${t}`, d]),
+    after: tipHTML('Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning') }
+];
+let skHidden = false;
+function renderSnabb() {
+  $('#skJump').innerHTML = SNABB.map(b => `<a class="chip" href="#snabb" data-anchor="${b.id}">${b.nav}</a>`).join('');
+  $('#skBody').innerHTML = SNABB.map(b => `<h2 id="${b.id}">${b.h}</h2>
+    <div class="sk" data-hide>${b.rows.map(([t, a, k]) => `<div class="sk-row" data-row><div class="sk-t">${t}</div><div class="ans"><div>${a}${k ? `<span class="sk-k"><span class="knep">${k}</span></span>` : ''}</div></div></div>`).join('')}</div>
+    ${b.after || ''}`).join('');
+  $('#skToggle').addEventListener('click', () => {
+    skHidden = !skHidden;
+    $$('#skBody .sk').forEach(c => setHide(c, skHidden));
+    $('#skToggle').textContent = skHidden ? 'Visa alla svar' : 'Dölj alla svar';
+    $('#skHint').hidden = !skHidden;
+  });
+}
+
 /* ============ Tabeller och dölj-läge ============ */
 const hideBar = () => '<div class="hide-bar"><button type="button" class="btn btn-sm hide-btn">Dölj svar</button><span class="hide-hint">Tryck på en rad för att visa den</span></div>';
 function tableHTML(cols, rows, keep) {
@@ -1354,7 +1458,7 @@ function initMap() {
   });
   $('#partBtns').innerHTML = BRAIN.map(b => `<button type="button" data-part="${b.id}" aria-pressed="false">${b.name}</button>`).join('');
   $('#partBtns').addEventListener('click', e => { const b = e.target.closest('[data-part]'); if (b) onPart(b.dataset.part); });
-  $$('.seg button').forEach(b => b.addEventListener('click', () => setMapMode(b.dataset.mode)));
+  $$('#hjarnan .seg button').forEach(b => b.addEventListener('click', () => setMapMode(b.dataset.mode)));
   $('#labelsBtn').addEventListener('click', () => { labelsOn = !labelsOn; applyLabels(); });
   setMapMode('explore');
 }
@@ -1368,7 +1472,7 @@ function applyLabels() {
 function clearMarks() { $$('.part', svg).forEach(p => p.classList.remove('sel', 'good', 'wrong')); svg.classList.remove('has-sel'); }
 function setMapMode(m) {
   mapMode = m;
-  $$('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+  $$('#hjarnan .seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
   $('#partBtns').hidden = m !== 'explore';
   clearMarks(); mapSel = null;
   applyLabels();
@@ -1553,7 +1657,7 @@ document.addEventListener('click', e => {
 window.addEventListener('pagehide', save);
 
 /* ============ Begreppskort ============ */
-const FC = { cat: 'Alla', q: '', onlyOva: false, reverse: false, order: TERMS.map(t => t.id), flipped: new Set() };
+const FC = { mode: 'one', cat: 'Alla', q: '', onlyOva: false, reverse: false, order: TERMS.map(t => t.id), flipped: new Set(), list: [], pos: 0 };
 function fcFilter() {
   const q = FC.q.trim().toLowerCase();
   return FC.order.map(id => TERM_BY[id]).filter(t =>
@@ -1574,16 +1678,48 @@ function cardHTML(t) {
     <div class="fc-acts"><button type="button" class="b-kan" aria-pressed="${s === 'kan'}">Kan</button><button type="button" class="b-ova" aria-pressed="${s === 'ova'}">Öva mer</button></div>
   </div>`;
 }
-function renderCards() {
-  const list = fcFilter();
-  const grid = $('#fcGrid');
-  if (!list.length) {
-    grid.innerHTML = `<div class="empty-state">${FC.onlyOva && !Object.values(S.cards).includes('ova')
-      ? 'Du har inga kort markerade som ”Öva mer” än. Markera kort du är osäker på så samlas de här.'
-      : 'Inga kort matchar. Rensa sökningen eller välj en annan kategori.'}</div>`;
-  } else grid.innerHTML = list.map(cardHTML).join('');
-  $('#fcShown').textContent = `Visar ${list.length} av ${TERMS.length}`;
+const emptyMsg = () => FC.onlyOva && !Object.values(S.cards).includes('ova')
+  ? 'Du har inga kort markerade som ”Öva mer” just nu. Markera kort du är osäker på så samlas de här.'
+  : 'Inga kort matchar. Rensa sökningen eller välj en annan kategori.';
+function renderCards(resetPos) {
+  FC.list = fcFilter();
+  if (resetPos) FC.pos = 0;
+  const one = FC.mode === 'one';
+  $('#fcSolo').hidden = !one; $('#fcGrid').hidden = one;
+  $('#fcShowAll').hidden = one; $('#fcHideAll').hidden = one;
+  $('#fcShown').textContent = `${FC.list.length} kort i urvalet`;
+  $('#fcMoreLbl').textContent = ' ' + FC.cat + (FC.q.trim() ? `, ”${FC.q.trim()}”` : '');
+  if (one) renderSolo();
+  else $('#fcGrid').innerHTML = FC.list.length ? FC.list.map(cardHTML).join('') : `<div class="empty-state">${emptyMsg()}</div>`;
   fcCounts();
+}
+function renderSolo() {
+  const box = $('#soloCard'), n = FC.list.length;
+  if (!n) {
+    box.innerHTML = `<div class="empty-state">${emptyMsg()}</div>`;
+    $('#soloPos').textContent = ''; $('#soloBar').style.width = '0'; $('#soloNav').hidden = true;
+    return;
+  }
+  if (FC.pos >= n) {
+    const v = FC.list.map(t => S.cards[t.id]);
+    const ova = v.filter(x => x === 'ova').length;
+    box.innerHTML = `<div class="solo-done"><h3>Klart, du har gått igenom ${n} kort!</h3>
+      <p>Kan: <b>${v.filter(x => x === 'kan').length}</b>. Öva mer: <b>${ova}</b>.</p>
+      <div class="btn-row">${ova ? '<button type="button" class="btn btn-primary" id="soloOva">Kör Öva mer-korten</button>' : ''}<button type="button" class="btn" id="soloRestart">Börja om</button></div></div>`;
+    $('#soloPos').textContent = `${n} av ${n} kort`; $('#soloBar').style.width = '100%'; $('#soloNav').hidden = true;
+    return;
+  }
+  $('#soloNav').hidden = false;
+  box.innerHTML = cardHTML(FC.list[FC.pos]);
+  $('#soloPos').textContent = `Kort ${FC.pos + 1} av ${n}`;
+  $('#soloBar').style.width = (FC.pos / n * 100) + '%';
+  $('#soloPrev').disabled = FC.pos === 0;
+}
+function soloStep(d) {
+  const t = FC.list[FC.pos];
+  if (t) FC.flipped.delete(t.id);
+  FC.pos = Math.max(0, Math.min(FC.list.length, FC.pos + d));
+  renderSolo();
 }
 function fcCounts() {
   const v = TERMS.map(t => S.cards[t.id]);
@@ -1597,73 +1733,118 @@ function setFlip(el, on) {
   else { bk.setAttribute('aria-hidden', 'true'); fr.removeAttribute('aria-hidden'); }
   if (on) FC.flipped.add(el.dataset.id); else FC.flipped.delete(el.dataset.id);
 }
+function onCardClick(e) {
+  const card = e.target.closest('.fc'); if (!card) return;
+  if (e.target.closest('.fc-flip')) { setFlip(card, !card.classList.contains('flipped')); return; }
+  const kb = e.target.closest('.b-kan, .b-ova'); if (!kb) return;
+  const val = kb.classList.contains('b-kan') ? 'kan' : 'ova';
+  const id = card.dataset.id;
+  if (FC.mode === 'one') { S.cards[id] = val; save(); fcCounts(); soloStep(1); return; }
+  if (S.cards[id] === val) delete S.cards[id]; else S.cards[id] = val;
+  const s = S.cards[id] || '';
+  card.dataset.s = s;
+  $('.b-kan', card).setAttribute('aria-pressed', String(s === 'kan'));
+  $('.b-ova', card).setAttribute('aria-pressed', String(s === 'ova'));
+  save(); fcCounts();
+}
+function setOnlyOva(on) { FC.onlyOva = on; $('#fcOnlyOva').setAttribute('aria-pressed', String(on)); FC.flipped.clear(); renderCards(true); }
 function initCards() {
   $('#fcCats').innerHTML = ['Alla', ...CATS].map(c => `<button type="button" class="chip" data-cat="${c}" aria-pressed="${c === 'Alla'}">${c}</button>`).join('');
   $('#fcCats').addEventListener('click', e => {
     const b = e.target.closest('[data-cat]'); if (!b) return;
     FC.cat = b.dataset.cat;
     $$('#fcCats .chip').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    renderCards();
+    renderCards(true);
   });
-  $('#fcSearch').addEventListener('input', e => { FC.q = e.target.value; renderCards(); });
-  $('#fcOnlyOva').addEventListener('click', e => { FC.onlyOva = !FC.onlyOva; e.currentTarget.setAttribute('aria-pressed', String(FC.onlyOva)); renderCards(); });
+  $('#fcMode').addEventListener('click', e => {
+    const b = e.target.closest('[data-fcmode]'); if (!b) return;
+    FC.mode = b.dataset.fcmode;
+    $$('#fcMode button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    renderCards(false);
+  });
+  $('#fcSearch').addEventListener('input', e => { FC.q = e.target.value; renderCards(true); });
+  $('#fcOnlyOva').addEventListener('click', () => setOnlyOva(!FC.onlyOva));
   $('#fcShowAll').addEventListener('click', () => $$('#fcGrid .fc').forEach(el => setFlip(el, true)));
   $('#fcHideAll').addEventListener('click', () => $$('#fcGrid .fc').forEach(el => setFlip(el, false)));
-  $('#fcShuffle').addEventListener('click', () => { FC.order = shuffle(FC.order); renderCards(); });
+  $('#fcShuffle').addEventListener('click', () => { FC.order = shuffle(FC.order); FC.flipped.clear(); renderCards(true); });
   $('#fcReverse').addEventListener('click', e => {
     FC.reverse = !FC.reverse; FC.flipped.clear();
     e.currentTarget.setAttribute('aria-pressed', String(FC.reverse));
-    renderCards();
+    renderCards(false);
   });
-  $('#fcGrid').addEventListener('click', e => {
-    const card = e.target.closest('.fc'); if (!card) return;
-    if (e.target.closest('.fc-flip')) { setFlip(card, !card.classList.contains('flipped')); return; }
-    const kb = e.target.closest('.b-kan, .b-ova'); if (!kb) return;
-    const val = kb.classList.contains('b-kan') ? 'kan' : 'ova';
-    const id = card.dataset.id;
-    if (S.cards[id] === val) delete S.cards[id]; else S.cards[id] = val;
-    const s = S.cards[id] || '';
-    card.dataset.s = s;
-    $('.b-kan', card).setAttribute('aria-pressed', String(s === 'kan'));
-    $('.b-ova', card).setAttribute('aria-pressed', String(s === 'ova'));
-    save(); fcCounts();
+  $('#fcGrid').addEventListener('click', onCardClick);
+  $('#soloCard').addEventListener('click', e => {
+    if (e.target.closest('#soloOva')) { setOnlyOva(true); return; }
+    if (e.target.closest('#soloRestart')) { FC.flipped.clear(); renderCards(true); return; }
+    onCardClick(e);
   });
-  renderCards();
+  $('#soloPrev').addEventListener('click', () => soloStep(-1));
+  $('#soloNext').addEventListener('click', () => soloStep(1));
+  document.addEventListener('keydown', e => {
+    if (FC.mode !== 'one' || shownId !== 'begrepp' || e.target.matches('input,textarea')) return;
+    if (e.key === 'ArrowRight') soloStep(1);
+    if (e.key === 'ArrowLeft') soloStep(-1);
+  });
+  renderCards(true);
 }
 
 /* ============ Quiz ============ */
+const ALL_ITEMS = QUIZZES.flatMap(q => q.items.map((it, i) => Object.assign({ key: `${q.id}:${i}`, pool: q.pool, sub: q.sub, src: q.name }, it)));
+const ITEM_BY = Object.fromEntries(ALL_ITEMS.map(it => [it.key, it]));
+const MIX_N = 20;
+const EXTRA = {
+  mix: { id: 'mix', name: 'Slutprov', desc: `${MIX_N} blandade frågor från alla quiz` },
+  missed: { id: 'missed', name: 'Det du missat', desc: 'Frågor du har svarat fel på' }
+};
+const quizMeta = id => QUIZ_BY[id] || EXTRA[id];
+const missedKeys = () => Object.keys(S.missed).filter(k => ITEM_BY[k]);
+function quizItems(id) {
+  if (id === 'mix') return shuffle(ALL_ITEMS).slice(0, MIX_N);
+  if (id === 'missed') return missedKeys().map(k => ITEM_BY[k]);
+  return ALL_ITEMS.filter(it => it.key.startsWith(id + ':'));
+}
 let QZ = null;
 function renderQuizPick() {
-  $('#qzList').innerHTML = QUIZZES.map(q => {
-    const b = S.quiz[q.id];
-    return `<div class="qcard"><h3>${q.name}</h3><p>${q.desc} · ${q.items.length} frågor</p>
-      <p class="best">${b ? `Bästa: ${b.best} av ${b.total} rätt direkt` : '<span style="color:var(--muted);font-weight:500">Inte gjort än</span>'}</p>
-      <button type="button" class="btn btn-primary" data-quiz="${q.id}">Starta</button></div>`;
-  }).join('');
+  const m = missedKeys().length;
+  const card = (id, desc, n, cls) => {
+    const meta = quizMeta(id), b = S.quiz[id];
+    const best = id === 'missed' ? '' : `<p class="best">${b ? `Bästa: ${b.best} av ${b.total} rätt direkt` : '<span style="color:var(--muted);font-weight:500">Inte gjort än</span>'}</p>`;
+    return `<div class="qcard${cls ? ' ' + cls : ''}"><h3>${meta.name}</h3><p>${desc}</p>${best}
+      <button type="button" class="btn${n ? ' btn-primary' : ''}" data-quiz="${id}"${n ? '' : ' disabled'}>${n ? 'Starta' : 'Inget att repetera än'}</button></div>`;
+  };
+  $('#qzList').innerHTML =
+    card('mix', `${MIX_N} blandade frågor från alla quiz. Bra som sista koll.`, MIX_N, 'qcard-main') +
+    card('missed', m ? `${m} frågor du har svarat fel på. Kör tills listan är tom.` : 'Frågor du svarar fel på hamnar här.', m, 'qcard-main') +
+    QUIZZES.map(q => card(q.id, `${q.desc}, ${q.items.length} frågor`, q.items.length)).join('');
 }
-function makeOpts(quiz, it) {
-  let pool = (it.d || quiz.pool).filter(x => x !== it.a);
+function makeOpts(it) {
+  let pool = (it.d || it.pool).filter(x => x !== it.a);
   const pick = (it.trap || []).filter(t => pool.includes(t)).slice(0, 3);
   pool = shuffle(pool.filter(x => !pick.includes(x)));
   while (pick.length < 3 && pool.length) pick.push(pool.pop());
   return shuffle([it.a, ...pick]);
 }
 function startQuiz(id) {
-  const quiz = QUIZ_BY[id];
-  QZ = { quiz, queue: shuffle(quiz.items.map((it, k) => Object.assign({ k }, it))), wrong: new Set(), first: 0, done: 0, total: quiz.items.length, answered: false };
+  const items = quizItems(id);
+  if (!items.length) { quitQuiz(); return; }
+  QZ = { id, meta: quizMeta(id), queue: shuffle(items), wrong: new Set(), first: 0, done: 0, total: items.length, answered: false };
   $('#qzPick').hidden = true; $('#qzDone').hidden = true; $('#qzRun').hidden = false;
   nextQ();
+}
+function qzProgress() {
+  $('#qzProg').textContent = `Klara: ${QZ.done} av ${QZ.total}`;
+  $('#qzBar').style.width = (QZ.done / QZ.total * 100) + '%';
 }
 function nextQ() {
   if (!QZ.queue.length) return endQuiz();
   const it = QZ.queue[0];
-  QZ.cur = it; QZ.answered = false; QZ.opts = makeOpts(QZ.quiz, it);
-  $('#qzProg').textContent = `Klara: ${QZ.done} av ${QZ.total}`;
-  $('#qzBar').style.width = (QZ.done / QZ.total * 100) + '%';
-  $('#qzKind').innerHTML = `${QZ.quiz.name}${QZ.wrong.has(it.k) ? ' <span class="rep">Repetition</span>' : ''}`;
+  QZ.cur = it; QZ.answered = false; QZ.opts = makeOpts(it);
+  qzProgress();
+  const label = QUIZ_BY[QZ.id] ? QZ.meta.name : `${QZ.meta.name}: ${it.src}`;
+  $('#qzKind').innerHTML = `${label}${QZ.wrong.has(it.key) ? ' <span class="rep">Repetition</span>' : ''}`;
   $('#qzQ').textContent = it.q;
-  $('#qzSub').textContent = QZ.quiz.sub;
-  $('#qzSub').hidden = !QZ.quiz.sub;
+  $('#qzSub').textContent = it.sub;
+  $('#qzSub').hidden = !it.sub;
   $('#qzOpts').innerHTML = QZ.opts.map((o, i) => `<button type="button" class="opt" data-i="${i}"><kbd>${i + 1}</kbd><span></span></button>`).join('');
   $$('#qzOpts .opt span').forEach((sp, i) => { sp.textContent = QZ.opts[i]; });
   $('#qzFb').innerHTML = '';
@@ -1672,10 +1853,11 @@ function nextQ() {
 function answer(i) {
   if (!QZ || QZ.answered) return;
   QZ.answered = true;
-  const it = QZ.cur, choice = QZ.opts[i], ok = choice === it.a;
+  const it = QZ.cur, ok = QZ.opts[i] === it.a;
   QZ.queue.shift();
-  if (ok) { QZ.done++; if (!QZ.wrong.has(it.k)) QZ.first++; }
-  else { QZ.wrong.add(it.k); QZ.queue.push(it); }
+  if (ok) { QZ.done++; if (!QZ.wrong.has(it.key)) { QZ.first++; delete S.missed[it.key]; } }
+  else { QZ.wrong.add(it.key); QZ.queue.push(it); S.missed[it.key] = 1; }
+  save();
   $$('#qzOpts .opt').forEach((b, j) => {
     b.disabled = true;
     if (QZ.opts[j] === it.a) b.classList.add('is-right');
@@ -1684,8 +1866,7 @@ function answer(i) {
   $('#qzFb').innerHTML = ok
     ? `<div class="fb fb-ok"><strong>Rätt!</strong>${it.ex}</div>`
     : `<div class="fb fb-bad"><strong>Inte riktigt. Rätt svar: ${it.a}</strong>${it.ex} Frågan kommer tillbaka.</div>`;
-  $('#qzProg').textContent = `Klara: ${QZ.done} av ${QZ.total}`;
-  $('#qzBar').style.width = (QZ.done / QZ.total * 100) + '%';
+  qzProgress();
   const nb = $('#qzNext');
   nb.textContent = QZ.queue.length ? 'Nästa fråga' : 'Se resultat';
   nb.hidden = false;
@@ -1693,18 +1874,33 @@ function answer(i) {
   nb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 function endQuiz() {
-  const { quiz, first, total } = QZ;
-  const prev = S.quiz[quiz.id];
-  const isBest = !prev || first > prev.best;
-  if (isBest) { S.quiz[quiz.id] = { best: first, total }; save(); }
+  const { id, meta, first, total } = QZ;
+  let line = '';
+  if (id !== 'missed') {
+    const prev = S.quiz[id];
+    const isBest = !prev || first > prev.best;
+    if (isBest) S.quiz[id] = { best: first, total };
+    line = isBest ? 'Nytt bästa resultat!' : `Bästa: ${S.quiz[id].best} av ${total}`;
+  }
+  const planId = { q1: 'q1', q2: 'q2', mix: 'slut' }[id];
+  if (planId) S.plan[planId] = true;
+  save();
+  const m = missedKeys().length;
+  const missText = m ? `${m} frågor finns i ”Det du missat”.` : 'Inga missade frågor kvar att repetera.';
   $('#qzRun').hidden = true;
   const d = $('#qzDone');
   d.hidden = false;
-  d.innerHTML = `<div class="qz-done"><h2 style="margin:0">${quiz.name}</h2>
+  d.innerHTML = `<div class="qz-done"><h2 style="margin:0">${meta.name}</h2>
     <div class="qz-score">${first} / ${total}</div>
     <p>rätt på första försöket. Alla frågor är nu avklarade.</p>
-    <p style="color:var(--muted)">${isBest ? 'Nytt bästa resultat!' : `Bästa: ${S.quiz[quiz.id].best} av ${total}`}</p>
-    <div class="btn-row" style="justify-content:center"><button type="button" class="btn btn-primary" data-quiz="${quiz.id}">Gör om quizet</button><button type="button" class="btn" id="qzBack">Välj ett annat quiz</button></div></div>`;
+    <p style="color:var(--muted)">${line ? line + ' ' : ''}${missText}</p>
+    <div class="btn-row" style="justify-content:center">
+      ${m && id !== 'missed' ? `<button type="button" class="btn btn-primary" data-quiz="missed">Öva på det du missat (${m})</button>` : ''}
+      ${m && id === 'missed' ? `<button type="button" class="btn btn-primary" data-quiz="missed">Repetera igen (${m})</button>` : ''}
+      ${id !== 'missed' ? `<button type="button" class="btn" data-quiz="${id}">Gör om</button>` : ''}
+      <a class="btn" href="#start">Tillbaka till planen</a>
+      <button type="button" class="btn" id="qzBack">Alla quiz</button>
+    </div></div>`;
   QZ = null;
   window.scrollTo(0, 0);
 }
@@ -1724,28 +1920,71 @@ function initQuiz() {
     if (e.target.closest('#qzBack')) quitQuiz();
   });
   document.addEventListener('keydown', e => {
-    if (!QZ || $('#quiz').hidden || e.target.matches('input,textarea')) return;
+    if (!QZ || shownId !== 'quiz' || e.target.matches('input,textarea')) return;
     if (/^[1-4]$/.test(e.key) && !QZ.answered) answer(+e.key - 1);
   });
 }
 
-/* ============ Start och framsteg ============ */
+/* ============ Kvällsplan och start ============ */
+const PLAN = [
+  { id: 'snabb', t: 'Läs snabbkollen', d: 'Allt viktigaste på en sida, ordnat efter provets delar. Läs lugnt uppifrån och ner.', go: ['snabb'], btn: 'Öppna snabbkollen' },
+  { id: 'q1', t: 'Del 1: quiz om hjärnans delar', d: 'Motivera tyst för dig själv varje gång: ”X, eftersom X …”.', quiz: 'q1', btn: 'Starta quizet' },
+  { id: 'q2', t: 'Del 2: quiz om signalsubstanser och hormoner', d: 'Leta efter nyckelorden i varje situation.', quiz: 'q2', btn: 'Starta quizet' },
+  { id: 'kort', t: 'Begreppskort', d: 'Gå igenom korten ett i taget och välj Kan eller Öva mer. Kör sedan bara Öva mer-korten.', go: ['begrepp'], btn: 'Öppna korten' },
+  { id: 'del3', t: 'Del 3: tonårshjärnan', d: 'Läs punkterna och skriv korta svar på filmfrågorna.', go: ['tonar', 'filmfragor'], btn: 'Öppna filmfrågorna' },
+  { id: 'del4', t: 'Del 4: skrivfrågor', d: 'Välj de frågor du är osäkrast på. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['skriv'], btn: 'Öppna skrivfrågorna' },
+  { id: 'del5', t: 'Del 5: analys', d: 'Lös Case 1 (Love) med femstegsmallen.', go: ['analys', 'case-love'], btn: 'Öppna caset' },
+  { id: 'slut', t: 'Slutprov', d: 'Blandade frågor från alla quiz. Kör sedan ”Det du missat” tills listan är tom.', quiz: 'mix', btn: 'Starta slutprovet' }
+];
+function stepStatus(p) {
+  const best = id => { const b = S.quiz[id]; return b ? `Bäst: ${b.best} av ${b.total}` : 'Inte gjort än'; };
+  if (p.id === 'q1' || p.id === 'q2') return best(p.id);
+  if (p.id === 'kort') {
+    const v = TERMS.map(t => S.cards[t.id]);
+    return `${v.filter(x => x === 'kan').length} av ${TERMS.length} kan, ${v.filter(x => x === 'ova').length} att öva mer på`;
+  }
+  if (p.id === 'del3') { const ids = W3.filter(q => !q.link).map(q => q.id); return `${ids.filter(i => S.text[i]).length} av ${ids.length} filmfrågor besvarade`; }
+  if (p.id === 'del4') return `${W4.filter(q => S.text[q.id]).length} av ${W4.length} skrivfrågor besvarade`;
+  if (p.id === 'del5') return S.text['case-love'] ? 'Case 1 påbörjat' : 'Inte påbörjat';
+  if (p.id === 'slut') { const m = missedKeys().length; return best('mix') + (m ? `. ${m} missade frågor att repetera` : ''); }
+  return '';
+}
 function renderStart() {
-  const v = TERMS.map(t => S.cards[t.id]);
-  const kan = v.filter(x => x === 'kan').length;
-  $('#stKan').textContent = kan;
-  $('#stKanL').textContent = `av ${TERMS.length} begrepp kan du`;
-  $('#stKanBar').style.width = (kan / TERMS.length * 100) + '%';
-  $('#stOva').textContent = v.filter(x => x === 'ova').length;
-  const writable = [...W3.filter(q => !q.link), ...W4, ...CASES].map(q => q.id);
-  $('#stText').textContent = writable.filter(id => S.text[id]).length;
-  $('#stTextL').textContent = `av ${writable.length} skrivuppgifter påbörjade`;
-  $('#stMap').textContent = S.map ? `${S.map.best}/${S.map.total}` : '–';
-  $('#stQuiz').innerHTML = QUIZZES.map(q => {
-    const b = S.quiz[q.id];
-    return `<li><span>${q.name}</span><span>${b ? `${b.best} av ${b.total}` : '<span class="none">Inte gjort</span>'}</span></li>`;
+  const next = PLAN.findIndex(p => !S.plan[p.id]);
+  const done = PLAN.filter(p => S.plan[p.id]).length;
+  $('#planCount').textContent = `${done} av ${PLAN.length} steg klara`;
+  $('#planBar').style.width = (done / PLAN.length * 100) + '%';
+  const nb = $('#planNext');
+  if (next === -1) { nb.textContent = 'Alla steg klara! Läs snabbkollen en sista gång'; nb.dataset.step = 'snabb'; }
+  else { nb.textContent = done ? `Fortsätt med steg ${next + 1}: ${PLAN[next].t}` : `Börja med steg 1: ${PLAN[0].t}`; nb.dataset.step = PLAN[next].id; }
+  $('#plan').innerHTML = PLAN.map((p, i) => {
+    const st = S.plan[p.id] ? 'done' : (i === next ? 'next' : 'todo');
+    const status = stepStatus(p);
+    return `<li class="step" data-state="${st}">
+      <span class="step-n" aria-hidden="true">${S.plan[p.id] ? '✓' : i + 1}</span>
+      <div class="step-body"><h3>${p.t}</h3><p>${p.d}</p>${status ? `<p class="step-status">${status}</p>` : ''}
+        <div class="step-acts"><button type="button" class="btn btn-sm${st === 'next' ? ' btn-primary' : ''}" data-plan="${p.id}">${p.btn}</button>
+        <label class="done-chk"><input type="checkbox" id="plan-${p.id}" data-plan-done="${p.id}"${S.plan[p.id] ? ' checked' : ''}><span>Klar</span></label></div>
+      </div></li>`;
   }).join('');
 }
+function runStep(id) {
+  const p = PLAN.find(x => x.id === id);
+  if (!p) return;
+  if (p.quiz) { go('quiz'); startQuiz(p.quiz); window.scrollTo(0, 0); }
+  else go(p.go[0], p.go[1]);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-plan]'); if (b) runStep(b.dataset.plan); });
+$('#planNext').addEventListener('click', e => runStep(e.currentTarget.dataset.step));
+document.addEventListener('change', e => {
+  const c = e.target.closest && e.target.closest('[data-plan-done]');
+  if (!c) return;
+  const id = c.dataset.planDone;
+  if (c.checked) S.plan[id] = true; else delete S.plan[id];
+  save(); renderStart();
+  const again = document.getElementById('plan-' + id);
+  if (again) again.focus({ preventScroll: true });
+});
 $('#resetBtn').addEventListener('click', () => {
   $('#resetConfirm').hidden = false; $('#resetBtn').hidden = true; $('#resetDone').hidden = true;
   $('#resetYes').focus();
@@ -1757,7 +1996,7 @@ $('#resetYes').addEventListener('click', () => {
   save();
   FC.flipped.clear();
   hydrateWriting();
-  renderCards();
+  renderCards(true);
   renderQuizPick();
   renderStart();
   if (mapMode === 'practice') startPractice();
@@ -1781,7 +2020,7 @@ if (mq && mq.addEventListener) mq.addEventListener('change', syncThemeBtn);
 new MutationObserver(syncThemeBtn).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
 /* ============ Navigering ============ */
-const TABS = [['start', 'Start'], ['hjarnan', 'Hjärnan'], ['amnen', 'Ämnen'], ['tonar', 'Tonårshjärnan'], ['studier', 'Studier'], ['beroende', 'Beroende'], ['skriv', 'Skriv'], ['analys', 'Analys'], ['begrepp', 'Begrepp'], ['quiz', 'Quiz']];
+const TABS = [['start', 'Start'], ['snabb', 'Snabbkoll'], ['hjarnan', 'Hjärnan'], ['amnen', 'Ämnen'], ['tonar', 'Tonårshjärnan'], ['studier', 'Studier'], ['beroende', 'Beroende'], ['skriv', 'Skriv'], ['analys', 'Analys'], ['begrepp', 'Begrepp'], ['quiz', 'Quiz']];
 $('#tabs').innerHTML = TABS.map(([id, n]) => `<a class="tab" href="#${id}">${n}</a>`).join('');
 let pendingAnchor = null;
 let shownId = null;
@@ -1819,6 +2058,7 @@ window.addEventListener('popstate', onUrl);
 
 /* ============ Start ============ */
 applyTheme();
+renderSnabb();
 renderTables();
 renderStudies();
 renderSpiral();
