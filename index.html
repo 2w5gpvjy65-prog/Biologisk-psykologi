@@ -428,6 +428,7 @@ details.fc-more .search{margin-bottom:10px}
 .qcard .best{color:var(--ink);font-weight:650}
 .qcard .btn{margin-top:8px;align-self:flex-start}
 .qcard-main{background:var(--accent-soft);border-color:transparent}
+.qg{font-size:1.12rem;margin:1.8em 0 .6em}
 .btn:disabled{opacity:.55;cursor:default}
 .qz-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
 .qz-prog{color:var(--muted);font-weight:650;font-size:.92rem;text-align:right}
@@ -893,7 +894,6 @@ details.fc-more .search{margin-bottom:10px}
   <nav class="case-jump" aria-label="Hoppa till ett case">
     <a class="chip" href="#analys" data-anchor="case-alkohol">Alex och alkoholen</a>
     <a class="chip" href="#analys" data-anchor="case-love">Love och mobilen</a>
-    <a class="chip" href="#analys" data-anchor="case-festen">Festen</a>
     <a class="chip" href="#analys" data-anchor="case-alex">Alex och mobilspelet</a>
   </nav>
 
@@ -945,8 +945,8 @@ details.fc-more .search{margin-bottom:10px}
 <section id="quiz" hidden>
   <h1>Quiz</h1>
   <div id="qzPick">
-    <p class="lead">Direkt rätt eller fel. Frågor du svarar fel på kommer tillbaka tills du klarar dem, och sparas i ”Det du missat”.</p>
-    <div class="qpick" id="qzList"></div>
+    <p class="lead"><span id="qzTotal"></span> frågor om allt som kan komma på provet. Du får direkt rätt eller fel. Frågor du svarar fel på kommer tillbaka tills du klarar dem och sparas i ”Det du missat”.</p>
+    <div id="qzList"></div>
   </div>
   <div id="qzRun" hidden>
     <div class="qz-top">
@@ -1076,51 +1076,53 @@ const MALL = [
 ];
 
 const W3 = [
-  { id: 'w3-1', n: '1', q: 'Vad händer med hjärnan under tonåren?',
-    model: '<ul><li>Hjärnan <b>utvecklas mycket</b> i tonåren och blir färdig först vid <b>ca 25</b>.</li><li><b>Pannloben</b> blir klar sist, så <b>planering, överblick, att sålla intryck och riskbedömning</b> är inte färdigutvecklade.</li></ul>',
+  { id: 'w3-1', n: '1', q: 'Hjärnans utveckling: Vad händer med hjärnan under tonåren? Beskriv några viktiga förändringar som sker.',
+    model: '<ul><li>Den mest intensiva utvecklingen sker <b>0–2 år</b>, men hjärnan <b>utvecklas mycket</b> även i tonåren. Den blir färdig först vid <b>ca 25</b>.</li><li><b>Pannloben</b> blir klar sist, så <b>planering, överblick, att sålla intryck och riskbedömning</b> är inte färdigutvecklade.</li></ul>',
     keys: ['utvecklas mycket', 'ca 25 år', 'pannloben', 'klar sist', 'planering', 'överblick', 'sålla intryck', 'riskbedömning'] },
-  { id: 'w3-2', n: '2', q: 'Varför kan tonåringar ha svårare att kontrollera impulser och känslor?',
-    model: '<ul><li>Känslorna (<b>amygdala</b>) reagerar starkt, men <b>pannloben</b> som fungerar som <b>broms</b> är inte färdig.</li><li>Därför är <b>impulser</b> svårare att stoppa och tonåringar blir mer <b>känslomässigt styrda</b>.</li></ul>',
+  { id: 'w3-2', n: '2', q: 'Känslor och impulser: Varför kan tonåringar ibland ha svårare att kontrollera sina impulser och känslor än vuxna? Koppla ditt svar till hjärnans utveckling.',
+    model: '<ul><li>Känslorna (<b>amygdala</b>) reagerar starkt, men <b>pannloben</b> som fungerar som <b>broms</b> är inte färdig.</li><li>Därför är <b>impulser</b> svårare att stoppa och tonåringar blir mer <b>känslomässigt styrda</b>.</li><li>Hos vuxna är pannloben färdig (runt 25), så bromsen fungerar bättre.</li></ul>',
     keys: ['amygdala', 'känslor', 'pannloben', 'broms', 'inte färdig', 'impulser', 'känslomässigt styrda'] },
-  { id: 'w3-3', n: '3', q: 'Vilken roll spelar dopamin och belöningssystemet?',
+  { id: 'w3-3', n: '3', q: 'Dopamin och belöning: Vilken roll spelar dopamin och hjärnans belöningssystem? Hur kan det påverka ungdomars beteenden?',
     model: '<ul><li>När något känns bra frisätts <b>dopamin</b> och vi vill upprepa beteendet (<b>positiv förstärkning</b>).</li><li>Tonåringar söker belöning, t.ex. <b>bekräftelse</b> och <b>nya upplevelser</b>, vilket kan styra beteendet.</li></ul>',
     keys: ['dopamin', 'belöningssystemet', 'upprepa beteendet', 'positiv förstärkning', 'bekräftelse', 'nya upplevelser'] },
-  { id: 'w3-4', n: '4', q: 'Varför kan ungdomar vara mer benägna att ta risker?',
+  { id: 'w3-4', n: '4', q: 'Risktagande: Varför kan ungdomar vara mer benägna att ta risker? Förklara utifrån hur hjärnan fungerar och utvecklas under tonåren.',
     model: '<ul><li>Stark dragning mot <b>belöning</b> kombineras med en <b>pannlob</b> som ännu inte kan <b>bedöma risker</b> fullt ut.</li><li>Alltså en stark <b>gaspedal</b> och en svag <b>broms</b>.</li></ul>',
     keys: ['belöning', 'pannloben', 'bedöma risker', 'gaspedal', 'broms'] },
-  { id: 'w3-5', n: '5', q: 'Festen', link: 'case-festen' },
-  { id: 'w3-6', n: '6', q: 'Varför är det viktigt att känna till hur tonårshjärnan fungerar? Ge två exempel.',
+  { id: 'case-festen', n: '5', q: 'Tillämpning: En 16-åring befinner sig på en fest. Flera kompisar uppmuntrar personen att göra något riskfyllt som hen egentligen är tveksam till. Hur kan hjärnans utveckling, dopamin och den sociala situationen bidra till att personen ändå väljer att göra det?',
+    model: '<ul><li>Kompisarnas gillande blir en <b>social belöning</b> som frisätter <b>dopamin</b>.</li><li>Rädslan att hamna utanför väcker starka känslor via <b>amygdala</b>.</li><li><b>Pannloben</b>, som sköter <b>riskbedömning</b> och konsekvenstänkande, är inte färdig förrän vid <b>ca 25</b>, så bromsen är svag.</li><li>Personen gör dessutom som gruppen, vilket är <b>social inlärning</b>.</li></ul>',
+    keys: ['social belöning', 'dopamin', 'amygdala', 'rädsla att hamna utanför', 'pannloben omogen', 'riskbedömning', 'social inlärning'] },
+  { id: 'w3-6', n: '6', q: 'Reflektion: Varför kan det vara viktigt att känna till hur tonårshjärnan fungerar? Ge minst två exempel på hur den kunskapen kan vara användbar i vardagen.',
     model: '<ul><li>Man <b>förstår sig själv</b> bättre och kan t.ex. <b>vänta med stora beslut</b> eller <b>undvika situationer med grupptryck</b>.</li><li><b>Föräldrar och lärare</b> kan stötta i stället för att döma.</li><li>Man ser också hur <b>appar och spel</b> använder belöningssystemet.</li></ul>',
     keys: ['förstå sig själv', 'vänta med stora beslut', 'grupptryck', 'föräldrar och lärare', 'stötta', 'appar och spel', 'belöningssystemet'] }
 ];
 
 const W4 = [
-  { id: 'w4-1', n: '1', topic: 'Hjärnan', q: 'Vad är Brocas område och vad är Wernickes område, och vilka funktioner styr de?',
+  { id: 'w4-1', n: '1', topic: 'Hjärnan', q: 'Vad är Brocas område och vad är Wernickes område? Vilka funktioner styr de?',
     model: '<ul><li>Brocas område hittades när <b>Paul Broca</b> undersökte patienten <b>”Tan”</b>, som bara kunde säga ett ord.</li><li>Han hade en skada i <b>främre tinningloben</b> (enligt boken), och området reglerar den <b>motoriska talförmågan</b>.</li><li><b>Wernickes område</b> hittades hos en patient med <b>afasi</b> som inte förstod talat språk.</li><li>Skadan satt i <b>temporalloben</b>, och området gör att vi <b>förstår språk</b>.</li></ul>',
     keys: ['Broca', 'Tan', '1861', 'motorisk talförmåga', 'Wernicke', 'afasi', 'förstå språk', 'tinningloben'] },
   { id: 'w4-2', n: '2', topic: 'Hjärnan', q: 'Vad menas med att hjärnan är plastisk?',
     model: '<ul><li>Hjärnan kan förändra sin struktur genom <b>nya förbindelser mellan nervceller</b>.</li><li>Den förändras när vi <b>lär oss nya saker</b> och kan anpassa sig efter <b>skador</b>, så att <b>andra delar tar över</b> förlorade funktioner.</li><li>Före <b>1965</b> trodde man att det inte gick.</li></ul>',
     keys: ['nya förbindelser', 'nervceller', 'lär oss', 'skada', 'andra delar tar över', '1965'] },
-  { id: 'w4-3', n: '3', topic: 'Studier', q: 'Vad kom Draganski m.fl. fram till 2006?',
+  { id: 'w4-3', n: '3', topic: 'Studier', note: 'Lärarens bild skriver ”Bozdogan”, ditt material skriver ”Bogdan”. Det säkra är att skriva Draganski.', q: 'Vad kom Bozdogan Draganski m.fl. fram till i deras studie 2006?',
     model: '<ul><li><b>Medicinstudenters</b> hjärnor scannades tre månader före och efter läkarexamen och jämfördes med en <b>kontrollgrupp</b> som inte pluggade.</li><li>Studenterna fick strukturella förändringar i <b>hippocampus och hjässloben</b>.</li><li>Slutsatsen är att hjärnan kan <b>”växa”</b> av <b>stimulering</b> som studier, idrott, meditation och musik.</li></ul>',
     keys: ['experiment', 'medicinstudenter', 'kontrollgrupp', 'hippocampus', 'hjässloben', 'växa', 'stimulering'] },
-  { id: 'w4-4', n: '4', topic: 'Studier', q: 'Vilka skillnader finns mellan en manlig och en kvinnlig hjärna?',
+  { id: 'w4-4', n: '4', topic: 'Studier', q: 'Vad är det för skillnader på en manlig och kvinnlig hjärna?',
     model: '<ul><li><b>Witelson</b> fann att kvinnor har fler kopplingar mellan hjärnhalvorna och män fler kopplingar bak–fram. Mannens hjärna är <b>asymmetrisk</b> med större höger halva.</li><li><b>Georgopoulos</b> fann att kvinnor bearbetar information snabbare vid många aktiviteter och att män kompenserar lättare vid skada.</li><li><b>Daphna Joel</b> fann ingen ”manlig” eller ”kvinnlig” hjärna, bara <b>individuella skillnader</b> (män hade större hippocampus).</li><li>Slutsatsen är att det finns <b>mest likheter</b>. Skillnaderna kan bero på <b>arv, miljö eller båda</b>.</li></ul>',
     keys: ['Witelson', 'kopplingar', 'multitasking', 'asymmetrisk', 'Georgopoulos', 'Daphna Joel', 'individuella skillnader', 'hippocampus', 'arv och miljö'] },
-  { id: 'w4-5', n: '5', topic: 'Studier', q: 'Vad har forskarna kommit fram till om homosexuella och heterosexuella hjärnor?',
+  { id: 'w4-5', n: '5', topic: 'Studier', q: 'Vad har forskarna kommit fram till för skillnader på en homosexuell och heterosexuell hjärna?',
     model: '<ul><li><b>Ivanka Savic</b> på <b>Karolinska</b> undersökte <b>90 personer</b> med <b>MRI och PET</b>.</li><li>Homosexuella mäns hjärnor liknade heterosexuella kvinnors (lika stora halvor), och homosexuella kvinnors hjärnor liknade heterosexuella mäns (höger halva något större).</li><li>Blodflödet till <b>amygdala</b> följde samma mönster.</li></ul>',
     keys: ['Savic', 'Karolinska', '90 personer', 'MRI/PET', 'asymmetri', 'amygdala'] },
-  { id: 'w4-6', n: '6', topic: 'Beroende', q: 'Vad är skillnaden mellan riskbruk, missbruk och beroende?',
+  { id: 'w4-6', n: '6', topic: 'Beroende', q: 'Vad är skillnaderna på riskbruk, missbruk och beroende?',
     model: '<ul><li><b>Riskbruk</b> ökar risken för problem men utan kontrollförlust.</li><li><b>Missbruk</b> ger återkommande negativa konsekvenser för jobb, relationer eller hälsa, men inget starkt fysiologiskt beroende.</li><li><b>Beroende</b> innebär ett tvångsmässigt behov, kontrollförlust, tolerans och/eller abstinens.</li></ul>',
     keys: ['riskbruk', 'missbruk', 'beroende', 'kontrollförlust', 'konsekvenser', 'tolerans', 'abstinens'] },
-  { id: 'w4-7', n: '7', topic: 'Beroende', q: 'Vad menas med tolerans och abstinens?',
+  { id: 'w4-7', n: '7', topic: 'Beroende', q: 'Vad menas med abstinens och tolerans?',
     model: '<ul><li><b>Tolerans</b> betyder att belöningssystemet förändras så att det krävs en <b>större dos</b> för samma effekt.</li><li><b>Abstinens</b> är obehaget som kommer om man slutar, både fysiskt och psykiskt (nedstämdhet, irritation, rastlöshet).</li><li>Att fortsätta för att slippa abstinensen är <b>negativ förstärkning</b>.</li></ul>',
     keys: ['större dos', 'belöningssystemet', 'obehag', 'negativ förstärkning'] },
   { id: 'w4-8', n: '8', topic: 'Beroende', q: 'Vilka är de 5 vanligaste symtomen på beroende?',
     model: '<ul><li>Ständiga <b>tankar på substansen</b></li><li><b>Tolerans</b></li><li><b>Kontrollförlust</b></li><li><b>Abstinens</b></li><li><b>Sociala och/eller ekonomiska problem</b></li></ul>',
     tip: '”Trötta Tonåringar Kan Aldrig Sova”',
     keys: ['tankar på substansen', 'tolerans', 'kontrollförlust', 'abstinens', 'sociala problem', 'ekonomiska problem'] },
-  { id: 'w4-9', n: '9', topic: 'Beroende', q: 'Varför går det inte att förklara beroende med en enda orsak?',
+  { id: 'w4-9', n: '9', topic: 'Beroende', q: 'Varför går det inte att förklara beroende med bara en enda orsak?',
     model: '<ul><li>Många faktorer samverkar: <b>uppväxt, personlighet, biologisk sårbarhet, ärftlighet, psykisk ohälsa och tillgänglighet</b>.</li><li>Alla med svår uppväxt blir inte beroende, och vissa med en bra uppväxt blir det.</li><li>Människors <b>belöningssystem</b> skiljer sig också åt.</li><li>Därför påverkar både <b>arv och miljö</b>.</li></ul>',
     keys: ['arv och miljö', 'uppväxt', 'personlighet', 'biologisk sårbarhet', 'psykisk ohälsa', 'självmedicinering', 'tillgänglighet'] },
   { id: 'w4-10', n: '10', topic: 'Beroende', q: 'Varför är vissa substanser beroendeframkallande?',
@@ -1144,10 +1146,6 @@ const CASES = [
     help: ['Vilken roll kan dopamin och hjärnans belöningssystem spela?', 'Hur kan pannloben och tonårshjärnans utveckling påverka förmågan att stå emot och tänka på konsekvenser?', 'Hur kan beteendet bli en vana, och vad skiljer en stark vana från ett beroende?', 'Vad skulle kunna hjälpa Love att bryta mönstret? Förklara varför.'],
     keys: ['dopamin', 'belöningssystemet', 'positiv förstärkning', 'partiell förstärkning', 'pannloben', '25 år', 'impulskontroll', 'klassisk betingning', 'vana', 'tolerans', 'abstinens', 'kontrollförlust', 'skärmberoende ej sjukdom', 'Folkhälsomyndigheten'],
     answer: '<ul><li><b>Dopamin:</b> varje nytt klipp eller notis kan bli en liten belöning. Dopamin frisätts och Love vill ha mer, alltså <b>positiv förstärkning</b>. Love vet aldrig när nästa bra klipp kommer, vilket liknar <b>partiell förstärkning</b> som är svårast att släcka ut.</li><li><b>Pannloben:</b> Love är 16 och pannloben är färdig först runt <b>25</b>. Förmågan att stå emot och tänka ”jag blir trött i morgon” är svagare, så belöningen nu väger tyngre än konsekvensen sen.</li><li><b>Vana:</b> mobilen i sängen varje kväll gör att sängen blir en signal för att scrolla (<b>klassisk betingning</b>). Upprepning gör beteendet automatiskt.</li><li><b>Vana eller beroende:</b> en stark vana är automatisk men saknar <b>tolerans, abstinens och total kontrollförlust</b>. Ett beroende har dem, och personen fortsätter trots allvarliga konsekvenser. <b>Skärmberoende räknas inte som beroendesjukdom.</b> Love har en stark vana, men tröttheten i skolan är en negativ konsekvens att ta på allvar.</li><li><b>Lösning:</b> mobilen utanför sovrummet, som <b>Folkhälsomyndigheten</b> rekommenderar, tar bort både signalen och dopaminkicken. Avstängda notiser och en skärmtidsgräns blir en yttre broms när pannloben inte räcker. När förstärkningen uteblir släcks vanan så småningom ut.</li></ul>' },
-  { id: 'case-festen', title: 'Festen', src: 'Filmuppgiften (Del 3, fråga 5)',
-    text: '<p>En <b>16-åring</b> är på en fest. Flera kompisar uppmuntrar personen att göra något <b>riskfyllt</b> som hen egentligen tvekar inför.</p><p><b>Hur kan hjärnans utveckling, dopamin och den sociala situationen bidra till att personen ändå gör det?</b></p>',
-    keys: ['social belöning', 'dopamin', 'amygdala', 'rädsla att hamna utanför', 'pannloben omogen', 'riskbedömning', 'social inlärning'],
-    answer: '<ul><li>Kompisarnas gillande blir en <b>social belöning</b> som frisätter <b>dopamin</b>.</li><li>Rädslan att hamna utanför väcker starka känslor via <b>amygdala</b>.</li><li><b>Pannloben</b>, som sköter <b>riskbedömning</b> och konsekvenstänkande, är inte färdig förrän vid <b>ca 25</b>, så bromsen är svag.</li><li>Personen gör dessutom som gruppen, vilket är <b>social inlärning</b>.</li></ul>' },
   { id: 'case-alex', title: 'Alex och mobilspelet', src: 'Övning utan färdigt svar',
     text: '<p><b>Alex, 17</b>, spelar ett mobilspel med <b>dagliga belöningar</b> och har börjat <b>köpa saker i spelet</b> för sina sparpengar. Alex blir <b>irriterad</b> när föräldrarna säger åt hen att sluta.</p><p><b>Analysera Alex beteende med femstegsmallen.</b></p>',
     keys: ['dopamin', 'positiv förstärkning', 'partiell förstärkning', 'tonårshjärnan', 'pannloben', 'irritation som tecken på abstinens', 'ekonomiska problem', 'spel om pengar vs dataspel', 'KBT eller motiverande samtal'],
@@ -1225,6 +1223,11 @@ const TERM_BY = Object.fromEntries(TERMS.map(t => [t.id, t]));
 /* ---- Quiz ---- */
 const BRAIN_POOL = ['Hjärnbarken', 'Pannloben', 'Hjässloben', 'Nackloben', 'Tinningloben', 'Thalamus', 'Hippocampus', 'Amygdala', 'Hypotalamus', 'Lillhjärnan', 'Brocas område', 'Wernickes område'];
 const SUB_POOL = SUBST.map(s => s.n);
+const LEARN_POOL = ['Positiv förstärkning', 'Negativ förstärkning', 'Partiell förstärkning', 'Klassisk betingning', 'Social inlärning', 'Vanemässig inlärning'];
+const DEF_POOL = ['Förnekelse', 'Rationalisering', 'Projektion'];
+const Q = (q, a, d, ex) => ({ q, a, d, ex });
+const L = (q, a, ex) => ({ q, a, d: LEARN_POOL, ex });
+const F = (q, a, ex) => ({ q, a, d: [...DEF_POOL, ...LEARN_POOL], trap: DEF_POOL.filter(x => x !== a), ex });
 const QUIZZES = [
   { id: 'q1', name: 'Hjärnans delar', desc: 'Lärarens exitpaper (Del 1)', kind: 'En person har…', sub: 'Vilken del av hjärnan kan vara påverkad?', pool: BRAIN_POOL, items: [
     { q: 'Svårt att styra sina rörelser och problem med språket.', a: 'Hjärnbarken', ex: 'Hjärnbarken, eftersom hjärnbarken styr rörelser och språk.' },
@@ -1288,6 +1291,192 @@ const QUIZZES = [
     { q: 'Vilket projekt kartlade generna på 1990-talet?', a: 'HUGO-projektet', d: ['Evolutionsteorin', 'Mendels arvslära', 'Draganskis experiment'], ex: 'HUGO-projektet kartlade människans gener på 1990-talet.' },
     { q: 'Vilka stresshormoner nämner boken?', a: 'Kortisol och adrenalin', d: ['Dopamin och serotonin', 'Oxytocin och endorfiner', 'Testosteron och östrogen'], ex: 'Inför ett prov aktiveras limbiska systemet och man får mer kortisol och adrenalin.' },
     { q: 'Hur många nervceller har vi ungefär i hjärnan?', a: 'Ca 86 miljarder', d: ['Ca 86 miljoner', 'Ca 8,6 miljarder', 'Ca 860 miljarder'], ex: 'Ca 86 miljarder nervceller (neuroner) finns i hjärnan.' }
+  ] },
+  { id: 'q5', del: 1, name: 'Hjärnan på djupet', desc: 'Delar, Broca och Wernicke, hjärnhalvor', kind: '', sub: '', pool: BRAIN_POOL, items: [
+    Q('Vilka är hjärnans tre huvuddelar?', 'Storhjärnan, lillhjärnan och hjärnstammen', ['Pannloben, hjässloben och nackloben', 'Thalamus, amygdala och hippocampus', 'Storhjärnan, hjärnbalken och hjärnbarken'], 'Storhjärnan, lillhjärnan och hjärnstammen. Förlängda märgen finns också med i bokens bild.'),
+    Q('Vad heter hjärnans yttre skikt?', 'Hjärnbarken', ['Hjärnbalken', 'Hjärnstammen', 'Lillhjärnan', 'Thalamus'], 'Hjärnbarken är det yttre skiktet. ”Barken är skalet runt allt.”'),
+    Q('Vilken del kallas ”hjärnans beslutsfattarcentrum”?', 'Pannloben', BRAIN_POOL, 'Pannloben: personlighet, planering, omdöme och koncentration. Den blir färdig sist.'),
+    Q('Var finns limbiska systemet enligt boken?', 'I tinningloben', ['I pannloben', 'I nackloben', 'I lillhjärnan'], 'Enligt boken finns limbiska systemet i tinningloben.'),
+    Q('Vilka delar ingår INTE i limbiska systemet?', 'Pannloben och lillhjärnan', ['Thalamus och amygdala', 'Hippocampus och hypotalamus', 'Amygdala och hippocampus'], 'Limbiska systemet = thalamus, hippocampus, amygdala och hypotalamus.'),
+    Q('Vilken del gör synintryck till bilder vi kan minnas?', 'Nackloben', BRAIN_POOL, 'Nackloben = synen. ”Synen sitter längst bak.”'),
+    Q('Vilken del gör hörselintryck till minnen?', 'Tinningloben', BRAIN_POOL, 'Tinningloben = hörseln. ”Tinningen sitter vid örat.”'),
+    Q('Vilken del sköter procedurminnet, alltså att gå, simma och cykla?', 'Lillhjärnan', BRAIN_POOL, 'Lillhjärnan: koordination, balans och procedurminne.'),
+    Q('Vilken del styr tillväxt och sexualdrift, förutom hunger och törst?', 'Hypotalamus', BRAIN_POOL, 'Hypotalamus: hunger, törst, kroppstemperatur, tillväxt och sexualdrift.'),
+    Q('Vilken del hanterar känslominnen?', 'Amygdala', BRAIN_POOL, 'Amygdala: positiva och negativa känslor och känslominnen.'),
+    Q('Vilken del sköter korttidsminnet och att tankar blir ord?', 'Pannloben', BRAIN_POOL, 'Pannloben: personlighet, planering, omdöme, koncentration, korttidsminne och att tankar blir ord.'),
+    Q('Vad hände med patienten ”Tan”?', 'Han kunde bara säga ett ord, ”tan”', ['Han förstod inte talat språk', 'Han kunde inte skapa nya minnen', 'Han hade svårt med balansen'], 'Tan kunde bara säga ”tan”. Minnesknep: Broca = Bara ”tan”.'),
+    Q('Vilket år dog Tan, så att Broca kunde hitta skadan?', '1861', ['1900', '1965', '1990'], 'Tan dog 1861.'),
+    Q('Var satt Tans skada enligt boken?', 'I främre tinningloben', ['I nackloben', 'I lillhjärnan', 'I hjässloben'], 'Boken säger främre tinningloben. Andra källor säger pannloben, men skriv bokens version.'),
+    Q('Vad reglerar Brocas område?', 'Den motoriska talförmågan, att producera tal', ['Förmågan att förstå talat språk', 'Synen', 'Balansen'], 'Broca = producera tal. Wernicke = förstå tal.'),
+    Q('Vad gör Wernickes område?', 'Gör att vi förstår talat språk', ['Reglerar den motoriska talförmågan', 'Skapar långtidsminnen', 'Styr balansen'], 'Wernicke = ”Va sa du?”.'),
+    Q('Vad heter språkstörningen som Wernickes patient hade?', 'Afasi', ['Tolerans', 'Abstinens', 'Hjärnplasticitet'], 'Afasi = språkstörning efter hjärnskada.'),
+    Q('Var satt skadan hos Wernickes patient?', 'I temporalloben (tinningloben)', ['I pannloben', 'I nackloben', 'I lillhjärnan'], 'Temporalloben = tinningloben.'),
+    Q('Vilken hjärnhalva förknippas med logik, språk och analys?', 'Vänster', ['Höger', 'Båda lika mycket', 'Ingen av dem'], 'Vänster: logik, språk, analys, detaljer, matte, tal och skrivande.'),
+    Q('Vilken hjärnhalva förknippas med kreativitet, helhet och intuition?', 'Höger', ['Vänster', 'Båda lika mycket', 'Ingen av dem'], 'Höger: kreativitet, helhet, intuition, bilder, känslor, musik och konst.'),
+    Q('Stämmer det att man är ”vänster- eller högerhjärnad”?', 'Nej, det är en myt eftersom halvorna samarbetar hela tiden', ['Ja, de flesta använder bara en halva', 'Ja, men bara män', 'Ja, det visade Giedds studie'], 'Halvorna samarbetar hela tiden via hjärnbalken.'),
+    Q('Hur skiljer sig hjärnhalvorna åt?', 'De har i stort sett samma uppgifter men behandlar information olika', ['De har helt olika uppgifter', 'Bara den vänstra behandlar information', 'De fungerar exakt likadant'], 'I stort sett samma uppgifter, men de behandlar information olika.'),
+    Q('Var finns nervceller förutom i hjärnan?', 'I ryggmärgen och det perifera nervsystemet', ['Bara i hjärnan', 'I blodet', 'I skelettet'], 'Nervceller finns också i ryggmärgen och det perifera nervsystemet.'),
+    Q('Vad är neuropsykologi?', 'Den del av biologisk psykologi som handlar om hur nervsystemet och hjärnan påverkar beteenden', ['Läran om försvarsmekanismer', 'Läran om inlärning genom belöning', 'Läran om hur man behandlar beroende'], 'Neuropsykologi: hur nervsystemet och hjärnan påverkar egenskaper och beteenden.')
+  ] },
+  { id: 'q6', del: 2, name: 'Ämnen på djupet', desc: 'Signalsubstans eller hormon, minnesregler, stress', kind: '', sub: '', pool: SUB_POOL, items: [
+    Q('Vad är en signalsubstans?', 'Ett kemiskt ämne som överför signaler mellan nervceller', ['Ett ämne som vanligen transporteras med blodet till målceller', 'En del av hjärnbarken', 'En sorts nervcell'], 'Signalsubstans: signaler mellan nervceller, ofta snabba och lokala effekter.'),
+    Q('Vad är ett hormon?', 'Ett kemiskt ämne som vanligen transporteras med blodet och påverkar målceller', ['Ett ämne som bara överför signaler mellan nervceller', 'En del av limbiska systemet', 'En nervcell i ryggmärgen'], 'Hormon: färdas med blodet till målceller.'),
+    Q('Vilka effekter har signalsubstanser ofta?', 'Snabba, lokala effekter', ['Långsamma effekter i hela kroppen', 'Inga effekter alls', 'Bara effekter på skelettet'], 'Signalsubstanser ger ofta snabba, lokala effekter.'),
+    Q('Vilket ämne är både hormon och signalämne och hjälper till med mjölkutdrivning?', 'Oxytocin', SUB_POOL, 'Oxytocin: sociala processer, beröring, närhet, anknytning och mjölkutdrivning.'),
+    Q('Vilket ämne kallas ”kroppens gaspedal”?', 'Noradrenalin', SUB_POOL, 'Noradrenalin gör oss alerta och redo att reagera.'),
+    Q('Vilket ämne kallas ”bromsen”?', 'GABA', SUB_POOL, 'GABA är hjärnans viktigaste hämmande signalsubstans.'),
+    Q('Vilket ämne är kroppens eget opioidsystem?', 'Endorfiner', SUB_POOL, 'Endorfiner = naturlig smärtdämpning.'),
+    Q('Vilket ämne frisätts i belöningssystemet så att vi vill upprepa ett beteende?', 'Dopamin', SUB_POOL, 'Dopamin: förväntan, motivation och belöning.'),
+    Q('Vilket ämne bidrar till driv och längtan vid attraktion?', 'Dopamin', SUB_POOL, 'Dopamin = ”Jag längtar efter det här!”'),
+    Q('Vilket ämne gör att kroppen blir mer aktiverad vid upphetsning?', 'Noradrenalin', SUB_POOL, 'Noradrenalin aktiverar kroppen.'),
+    Q('Vilket ämne kan påverka lubrikation, kroppslig komfort och erektion?', 'Östrogen', SUB_POOL, 'Östrogen: minnesregel ”Sexuell funktion”.'),
+    Q('Vilket ämne ingår i nätverk som reglerar sexuell funktion, men utan något enkelt mönster?', 'GABA', SUB_POOL, 'GABA ingår i nätverk som reglerar sexuell funktion, inget enkelt mönster.'),
+    Q('Vilket ämne påverkar impulskontroll, förutom stämningsläge och sömn?', 'Serotonin', SUB_POOL, 'Serotonin: stämningsläge, sömn och impulskontroll.'),
+    Q('Vilken minnesregel hör till oxytocin?', '”Närhet – inte automatiskt kärlek”', ['”Reglering, inte bara lycka”', '”Kroppens gaspedal”', '”Jag längtar efter det här!”'], 'Oxytocin handlar om närhet, men det betyder inte automatiskt kärlek.'),
+    Q('Vilken minnesregel hör till serotonin?', '”Reglering, inte bara lycka”', ['”Närhet – inte automatiskt kärlek”', '”Naturlig smärtdämpning”', '”Bromsen”'], 'Serotonin reglerar stämningsläge och sömn.'),
+    Q('Vad stämmer om testosteron och östrogen?', 'Båda finns hos alla', ['Testosteron finns bara hos män', 'Östrogen finns bara hos kvinnor', 'Inget av dem påverkar sexualiteten'], 'Båda är könshormoner som finns hos alla.'),
+    Q('Vilket system aktiveras inför ett prov enligt boken?', 'Limbiska systemet', ['Lillhjärnan', 'Hjärnbalken', 'Nackloben'], 'Limbiska systemet aktiveras och man får mer kortisol och adrenalin.'),
+    Q('Varför har vi en stressreaktion enligt boken?', 'Den är en flyktreaktion från förfäderna som nedärvts genom evolutionen', ['Den lärs in i skolan', 'Den beror bara på för lite sömn', 'Den kommer från lillhjärnan'], 'Stress = flyktreaktion vid fara, nedärvd alarmreaktion i våra gener.')
+  ] },
+  { id: 'q7', del: 3, name: 'Tonårshjärnan', desc: 'Utveckling, gas och broms, Giedd', kind: '', sub: '', pool: BRAIN_POOL, items: [
+    Q('Vid vilken ålder anses hjärnan fullt utvecklad?', 'Ca 25 år', ['Ca 16 år', 'Ca 18 år', 'Ca 2 år'], 'Hjärnan anses fullt utvecklad först runt 25 år.'),
+    Q('När sker den mest intensiva utvecklingen av hjärnan?', '0–2 år', ['I tonåren', 'Runt 25 år', 'Efter 25 år'], 'Mest intensivt 0–2 år, men mycket även i tonåren.'),
+    Q('Slutar hjärnan att utvecklas vid 25?', 'Nej, den utvecklas hela livet, men mindre efter det', ['Ja, sedan förändras den aldrig', 'Nej, den utvecklas mest efter 25', 'Ja, men bara pannloben fortsätter'], 'Hjärnan utvecklas hela livet, mindre efter 25.'),
+    Q('Vilka förmågor är inte fullt utvecklade hos tonåringar?', 'Framtidsplanering, överblick, att sålla intryck och riskbedömning', ['Syn, hörsel och balans', 'Hunger, törst och kroppstemperatur', 'Långtidsminne och procedurminne'], 'De sitter i pannloben, som blir färdig sist.'),
+    Q('Vad betyder ”gaspedalen är klar, men bromsen byggs fortfarande”?', 'Känslor och belöning reagerar starkt, men pannloben hänger inte med', ['Lillhjärnan är klar men inte hjärnbarken', 'Hörseln är klar men inte synen', 'Dopamin bromsar och GABA gasar'], 'Gas = amygdala och dopamin. Broms = pannloben.'),
+    Q('Vad är ”gaspedalen” i tonårshjärnan?', 'Amygdala (känslor) och dopamin (belöning)', ['Pannloben och GABA', 'Lillhjärnan och serotonin', 'Hippocampus och oxytocin'], 'Känslor och belöning reagerar starkt.'),
+    Q('Vilken del är ”bromsen” i tonårshjärnan?', 'Pannloben', BRAIN_POOL, 'Pannloben sköter riskbedömning och konsekvenstänkande.'),
+    Q('Varför tar tonåringar mer risker?', 'Stark dragning mot belöning, men pannloben kan inte bedöma risker fullt ut', ['Lillhjärnan är för stor', 'De har för lite dopamin', 'Hippocampus är färdig för tidigt'], 'Stark gaspedal, svag broms.'),
+    Q('Varför är tonåringar mer känslomässigt styrda?', 'Amygdala reagerar starkt medan pannloben inte är färdig', ['Thalamus är inte färdig', 'De har mer GABA än vuxna', 'Nackloben utvecklas sist'], 'Känslorna (amygdala) tar över när bromsen (pannloben) är svag.'),
+    Q('Vad var syftet med Giedds studie?', 'Att förstå hur psykiska sjukdomar uppstår genom att först studera den friska hjärnan', ['Att se om studier får hjärnan att växa', 'Att jämföra mäns och kvinnors hjärnor', 'Att mäta hur alkohol påverkar hjärnan'], 'Giedd ville förstå psykisk sjukdom genom att studera den friska hjärnan.'),
+    Q('Vilken metod använde Giedd?', 'Scanning och hjärnavbildning', ['Experiment med kontrollgrupp', 'Enkäter', 'Intervjuer'], 'Scanning och hjärnavbildning.'),
+    Q('Hur ofta undersöktes hjärnan i Giedds studie?', 'Vartannat år', ['Varje vecka', 'Var tredje månad', 'Bara en gång'], 'Hjärnan undersöktes vartannat år.'),
+    Q('Vad var speciellt med Giedds försökspersoner?', 'Hans två egna barn var med', ['Alla var medicinstudenter', 'Alla var över 25 år', 'Alla var tvillingar'], 'Bland de 2 000 personerna fanns Giedds två egna barn.'),
+    Q('Vilket resultat fick Giedd?', 'Delar av pannloben utvecklas mycket sent', ['Hippocampus och hjässloben växte', 'Kvinnor har fler kopplingar mellan halvorna', 'Män har större hippocampus'], 'Pannloben utvecklas mycket sent.'),
+    Q('Vilken slutsats drog Giedd?', 'Det förklarar varför tonåringar tar risker, är känslomässigt styrda och brister i att planera', ['Hjärnan kan växa av studier', 'Det finns ingen manlig eller kvinnlig hjärna', 'Hjärnan slutar utvecklas vid 16'], 'Det förklarar tonåringars risktagande och känslostyrning.'),
+    Q('I vilken tidskrift publicerades Giedds studie?', 'Neuroscience', ['Journal of Neuroscience', 'Karolinska institutet', 'McMaster'], 'Giedd: Neuroscience. Draganski: Journal of Neuroscience.')
+  ] },
+  { id: 'q8', del: 4, name: 'Studier och perspektiv', desc: 'Draganski, könsskillnader, Savic, biologiska perspektivet', kind: '', sub: '', items: [
+    Q('Vad var syftet med Draganskis studie?', 'Att se om omfattande studier av abstrakt information kan få hjärnan att ”växa”', ['Att förstå hur psykiska sjukdomar uppstår', 'Att jämföra mäns och kvinnors hjärnor', 'Att se hur stress påverkar hjärnan'], 'Kan plugg få hjärnan att ”växa”?'),
+    Q('Vilken metod använde Draganski?', 'Experiment', ['Scanning vartannat år', 'Enkät', 'Fallstudie av en patient'], 'Draganski gjorde ett experiment med kontrollgrupp.'),
+    Q('Vilka var försökspersonerna hos Draganski?', 'Tyska medicinstudenter och en kontrollgrupp', ['2 000 personer mellan 3 och 25 år', '90 personer', 'Över 1 400 personer'], 'Tyska medicinstudenter plus en kontrollgrupp som inte studerade.'),
+    Q('När scannades medicinstudenterna?', 'Tre månader före läkarexamen och efter', ['Vartannat år', 'Bara en gång', 'Varje dag i en vecka'], 'Före och efter, och kontrollgruppen två gånger med tre månaders mellanrum.'),
+    Q('Varför hade Draganski en kontrollgrupp?', 'För att kunna jämföra med personer som inte studerade', ['För att få fler medicinstudenter', 'För att mäta hormoner', 'För att testa läkemedel'], 'Kontrollgrupp = jämförelsegrupp som inte får behandlingen.'),
+    Q('Vilken slutsats drog Draganski?', 'Hjärnan kan växa genom fler förbindelser och mer aktivitet, t.ex. av studier, idrott och musik', ['Hjärnan slutar förändras vid 25', 'Pannloben utvecklas sent', 'Det finns ingen skillnad mellan grupper'], 'Stimulering som studier, idrott, meditation, musik och datorspel.'),
+    Q('I vilken tidskrift publicerades Draganskis studie?', 'Journal of Neuroscience', ['Neuroscience', 'Karolinska institutet', 'Minneapolis'], 'Draganski: Journal of Neuroscience.'),
+    Q('Vad fann Sandra Witelson om kvinnors hjärnor?', 'Fler kopplingar mellan hjärnhalvorna', ['Fler kopplingar från bakre till främre delen', 'Större hippocampus', 'Större höger hjärnhalva'], 'Kvinnor: fler kopplingar mellan halvorna.'),
+    Q('Vad fann Witelson om mäns hjärnor?', 'Fler kopplingar bak–fram och en större höger hjärnhalva', ['Fler kopplingar mellan hjärnhalvorna', 'Mindre amygdala', 'Snabbare informationsbehandling vid många aktiviteter'], 'Män: fler kopplingar bak–fram, asymmetrisk hjärna.'),
+    Q('Vad kan Witelsons resultat förklara?', 'Varför män anses bättre på en enskild uppgift och kvinnor på multitasking', ['Varför tonåringar tar risker', 'Varför vissa blir beroende', 'Varför hjärnan kan växa'], 'Enskild uppgift (cykla, navigera) mot multitasking.'),
+    Q('Var och när gjorde Witelson sin studie?', '2016, McMaster', ['2016, Minneapolis', '2015, Karolinska', '2006, Tyskland'], 'Witelson: 2016, McMaster. Georgopoulos: 2016, Minneapolis.'),
+    Q('Vad fann Georgopoulos om kvinnor?', 'De bearbetar information snabbare vid många olika aktiviteter', ['De har större hippocampus', 'De har fler kopplingar bak–fram', 'De kompenserar lättare vid hjärnskada'], 'Kvinnor bearbetar snabbare vid många aktiviteter.'),
+    Q('Vad fann Georgopoulos om män?', 'De kompenserar lättare om hjärnan skadas (hjärnplasticitet)', ['De bearbetar information snabbare', 'De har fler kopplingar mellan halvorna', 'De har mindre amygdala'], 'Män har lättare att kompensera vid skada.'),
+    Q('Vilken metod och hur många deltog i Daphna Joels studie?', 'MRI, över 1 400 personer', ['MRI och PET, 90 personer', 'Scanning, 2 000 personer', 'Experiment, medicinstudenter'], 'Joel (2015): MRI, över 1 400 personer.'),
+    Q('Vilken enda skillnad hittade Daphna Joel?', 'Män hade större hippocampus', ['Kvinnor hade större amygdala', 'Män hade större pannlob', 'Kvinnor hade större lillhjärna'], 'Annars bara individuella skillnader.'),
+    Q('Vad är slutsatsen om mäns och kvinnors hjärnor?', 'Mest likheter och få skillnader', ['Mest skillnader', 'Inga likheter alls', 'Skillnaderna är bevisat medfödda'], 'Mest likheter, få skillnader.'),
+    Q('Vad kan skillnaderna mellan mäns och kvinnors hjärnor bero på?', 'Man vet inte: arv, miljö eller båda', ['Bara arv', 'Bara miljö', 'Bara hormoner'], 'Flickor och pojkar behandlas olika, så miljön kan spela in.'),
+    Q('Vad påverkar skillnaderna enligt lärarens slide?', 'Kost, vikt, uppväxt, förväntningar och inlärning', ['Bara generna', 'Bara åldern', 'Bara hjärnans storlek'], 'Och många hjärnor är en blandning.'),
+    Q('Var forskade Ivanka Savic?', 'Karolinska institutet', ['McMaster', 'Minneapolis', 'Tyskland'], 'Savic m.fl., Karolinska institutet.'),
+    Q('Vilka metoder använde Savic?', 'MRI och PET', ['Bara enkäter', 'Experiment med kontrollgrupp', 'Scanning vartannat år'], 'MRI och PET på 90 personer.'),
+    Q('Hur många personer var med i Savics studie?', '90', ['2 000', 'Över 1 400', '25'], '25 + 25 + 20 + 20 = 90.'),
+    Q('Vems hjärnor liknade homosexuella kvinnors i Savics studie?', 'Heterosexuella mäns', ['Heterosexuella kvinnors', 'Homosexuella mäns', 'Ingen grupps'], '”Korsvis lika”.'),
+    Q('Vilka grupper hade något asymmetriska hjärnor med större höger halva?', 'Heterosexuella män och homosexuella kvinnor', ['Heterosexuella kvinnor och homosexuella män', 'Alla fyra grupperna', 'Ingen grupp'], 'De andra två grupperna hade det inte.'),
+    Q('Vad följde samma mönster i Savics studie?', 'Blodflödet till amygdala', ['Storleken på lillhjärnan', 'Mängden dopamin', 'Antalet nervceller'], 'Blodflödet till amygdala följde samma korsvisa mönster.'),
+    Q('Vilket framsteg gjordes på 1800-talet?', 'Darwins evolutionsteori och Mendels lära om arv', ['Medicin mot psykisk sjukdom', 'Hjärnscanningstekniker', 'Kartläggningen av generna'], 'D = Darwin (och Mendel).'),
+    Q('Vilket framsteg gjordes på 1950-talet?', 'Medicin mot psykisk sjukdom', ['Darwins evolutionsteori', 'Hjärnscanningstekniker', 'HUGO-projektet'], 'M = Medicin.'),
+    Q('Vilket framsteg gjordes på 1980-talet?', 'Hjärnscanningstekniker', ['Medicin mot psykisk sjukdom', 'Mendels arvslära', 'HUGO-projektet'], 'S = Scanning.'),
+    Q('Vad står D-M-S-G för?', 'Darwin, Medicin, Scanning, Gener', ['Dopamin, Minne, Sömn, GABA', 'Draganski, Mendel, Savic, Giedd', 'Djur, Miljö, Stress, Gener'], 'De fyra framstegen som gjorde perspektivet stort.'),
+    Q('Vad förklarar beteende enligt det biologiska perspektivet?', 'Hjärnan, signalsubstanser och hormoner, arv och evolution', ['Bara uppväxt och kultur', 'Bara försvarsmekanismer', 'Bara belöning och straff'], 'Struktur och funktion, fysiologiska och genetiska faktorer, evolution.'),
+    Q('Vilket är ett antagande i det biologiska perspektivet?', 'Forskning på djur kan generaliseras till människor', ['Beteende förklaras bara av uppväxten', 'Hjärnan kan inte förändras', 'Drifterna är inlärda'], 'Djurforskning kan generaliseras till människor.'),
+    Q('Vad menade Freud redan år 1900?', 'Att drifterna (den aggressiva och den sexuella) var biologiska och medfödda', ['Att hjärnan är plastisk', 'Att det finns 86 miljarder nervceller', 'Att stress är inlärt'], 'Freud såg drifterna som biologiska och medfödda.'),
+    Q('Vilka två saker innebär hjärnplasticitet?', 'Hjärnan förändras när vi lär oss, och anpassar sig efter skador', ['Hjärnan växer bara till 25 år', 'Hjärnan blir mindre av stress', 'Nervceller byts ut varje år'], 'Nya förbindelser när vi lär oss, och andra delar kan ta över efter skada.'),
+    Q('Vilket minnesknep hör till hjärnplasticitet?', 'Tänk lera', ['Tolv Hungriga Apor Hoppar', 'Trötta Tonåringar Kan Aldrig Sova', 'Bara ”tan”'], 'Hjärnan formas av det du gör.')
+  ] },
+  { id: 'q9', del: 4, name: 'Beroende', desc: 'Begrepp, spiralen, orsaker, spel, behandling', kind: '', sub: '', items: [
+    Q('Vad är beroende en blandning av?', 'Belöningssystemet, inlärda vanor och sociala faktorer', ['Bara gener', 'Bara dålig vilja', 'Bara tillgänglighet'], 'Biologi, inlärning och sociala faktorer.'),
+    Q('Vilka substanser är opioider?', 'Morfin och heroin', ['Kokain och amfetamin', 'Alkohol och cannabis', 'Kortisol och adrenalin'], 'Opioider: morfin och heroin.'),
+    Q('Vilka substanser är centralstimulantia?', 'Kokain och amfetamin', ['Morfin och heroin', 'Alkohol och cannabis', 'Dopamin och serotonin'], 'Centralstimulantia: kokain och amfetamin.'),
+    Q('Vad ger en diagnos på beroendesjukdom?', 'Möjlighet till vård och stöd', ['Ingenting, det är bara ett ord', 'Rätt att sluta skolan', 'Ett bevis på att man inte kan bli frisk'], 'Med diagnos finns möjlighet till vård och stöd.'),
+    Q('Vad är riskbruk?', 'Användning som ökar risken för problem, utan tydlig kontrollförlust', ['Återkommande negativa konsekvenser, men inget starkt fysiologiskt beroende', 'Tvångsmässigt behov, kontrollförlust, tolerans och/eller abstinens', 'Att aldrig använda något'], 'Riskbruk: ökad risk, men kontrollen finns kvar.'),
+    Q('Vad är missbruk?', 'Återkommande negativa konsekvenser, men inget starkt fysiologiskt beroende än', ['Användning som ökar risken, utan kontrollförlust', 'Tvångsmässigt behov, kontrollförlust, tolerans och/eller abstinens', 'Att använda läkemedel mot beroende'], 'Missbruk: problem med jobb, relationer eller hälsa.'),
+    Q('Vad är beroende?', 'Tvångsmässigt behov, kontrollförlust, tolerans och/eller abstinens', ['Användning som ökar risken, utan kontrollförlust', 'Återkommande negativa konsekvenser, men inget fysiologiskt beroende', 'Att man dricker på fester'], 'Beroende: tvångsmässigt behov och förlorad kontroll.'),
+    Q('Vad är det första steget i beroendespiralen?', 'Belöning: dopamin frisätts och vi vill upprepa', ['Tolerans', 'Abstinens', 'Negativ förstärkning'], 'Steg 1 = belöning (positiv förstärkning).'),
+    Q('Vad är det sista steget i beroendespiralen?', 'Negativ förstärkning: man fortsätter för att slippa obehaget', ['Belöning', 'Dopamindusch', 'Tolerans'], 'Sedan börjar spiralen om.'),
+    Q('Vilken ordning har beroendespiralen?', 'Belöning, dopamindusch, tolerans, abstinens, negativ förstärkning', ['Tolerans, belöning, abstinens, dopamindusch, negativ förstärkning', 'Abstinens, tolerans, belöning, negativ förstärkning, dopamindusch', 'Belöning, abstinens, tolerans, dopamindusch, negativ förstärkning'], 'Belöning → dopamindusch → tolerans → abstinens → negativ förstärkning.'),
+    Q('Vad händer med belöningssystemet vid tolerans?', 'Det förändras permanent', ['Det försvinner', 'Det blir känsligare för små belöningar', 'Det flyttar till lillhjärnan'], 'Belöningssystemet förändras permanent, så det krävs större dos.'),
+    Q('Vilka psykiska symtom kan abstinens ge?', 'Nedstämdhet, irritation och extrem rastlöshet', ['Bättre minne', 'Mer energi och glädje', 'Snabbare inlärning'], 'Abstinens är obehag, fysiskt och psykiskt.'),
+    Q('Varför kan ett abrupt stopp av alkohol vara farligt?', 'Abstinensen kan vara livsfarlig', ['Toleransen ökar direkt', 'Dopaminet tar slut för alltid', 'Man får afasi'], 'Ett abrupt stopp av alkohol kan vara livsfarligt.'),
+    Q('Vilket är ett av de 5 vanligaste symtomen på beroende?', 'Tankar på substansen hela tiden', ['Bättre sömn', 'Ökad aptit', 'Bättre koncentration'], 'Tankar, tolerans, kontrollförlust, abstinens, sociala/ekonomiska problem.'),
+    Q('Vilket minnesknep hjälper dig minnas de 5 symtomen?', '”Trötta Tonåringar Kan Aldrig Sova”', ['”Tolv Hungriga Apor Hoppar”', '”Darwin, Medicin, Scanning, Gener”', '”Bara tan”'], 'T-T-K-A-S: Tankar, Tolerans, Kontrollförlust, Abstinens, Sociala problem.'),
+    Q('Vad betyder självmedicinering?', 'Att använda alkohol eller droger för att må bättre för stunden vid psykisk ohälsa', ['Att ta läkemedel mot beroende', 'Att behandla sig själv med KBT', 'Att sluta tvärt'], 'Det känns bättre för stunden.'),
+    Q('Hur hänger psykisk ohälsa och beroende ihop?', 'De kan orsaka varandra, åt båda hållen', ['Psykisk ohälsa kommer alltid först', 'Beroende kommer alltid först', 'De har inget samband'], 'Åt båda hållen.'),
+    Q('Vad säger teori 1 om biologin vid beroende?', 'Vissa har ett belöningssystem som behöver mer stimulans', ['Vissa har ett extra känsligt belöningssystem', 'Alla har exakt likadant belöningssystem', 'Belöningssystemet har inget med beroende att göra'], 'Teori 2 säger tvärtom: extra känsligt belöningssystem.'),
+    Q('Vad säger teori 2 om biologin vid beroende?', 'Vissa har ett extra känsligt belöningssystem', ['Vissa har ett belöningssystem som behöver mer stimulans', 'Lillhjärnan styr beroende', 'Bara miljön spelar roll'], 'Teori 1: behöver mer stimulans. Teori 2: extra känsligt.'),
+    Q('Varför kan inte beroende förklaras med en enda orsak?', 'Alla med svår uppväxt blir inte beroende, och vissa med bra uppväxt blir det', ['För att forskarna inte vet något om beroende', 'För att bara gener spelar roll', 'För att beroende alltid beror på tillgänglighet'], 'Flera faktorer samverkar: arv och miljö.'),
+    Q('Vilket är det vanligaste beroendet i Sverige?', 'Alkohol', ['Spel om pengar', 'Opioider', 'Cannabis'], 'Alkohol är vanligast.'),
+    Q('Varför är spelberoende lätt att missa?', 'Det är lätt att dölja', ['Det ger tydliga fysiska tecken', 'Det drabbar bara barn', 'Det räknas inte som sjukdom'], 'Spelberoende är lätt att dölja.'),
+    Q('Vad gör spel om pengar extra beroendeframkallande?', 'Snabb respons och viljan att vinna tillbaka förlorade pengar', ['Att det är gratis', 'Att det bara går att spela på helger', 'Att man aldrig vinner'], 'Snabb respons och jakten på att vinna tillbaka.'),
+    Q('Hur många barn lever med någon som har ett allvarligt spelberoende?', '68 000', ['6 800', '680 000', '27 000'], '68 000 barn.'),
+    Q('Hur mycket spelar vi för i Sverige per år?', 'Över 40 miljarder kr', ['Ca 27–28 miljarder kr', 'Ca 4 miljarder kr', 'Ca 400 miljarder kr'], 'Över 40 miljarder kr. Spelbolagen behåller 27–28 miljarder.'),
+    Q('Hur mycket behåller spelbolagen?', '27–28 miljarder kr', ['Över 40 miljarder kr', 'Ca 2 miljarder kr', 'Ingenting'], 'Spelbolagen behåller 27–28 miljarder.'),
+    Q('Vad gör det svårt att söka hjälp för sexberoende?', 'Skam', ['Att det inte finns någon behandling', 'Tolerans', 'Att det räknas som dataspel'], 'Skam gör det svårt att söka hjälp.'),
+    Q('Vad kännetecknar träningsberoende?', 'Livet kretsar kring träning, även vid sjukdom eller skador', ['Man tränar aldrig', 'Man tränar bara på helger', 'Man blir aldrig skadad'], 'Träningen styr livet.'),
+    Q('Räknas dataspelsberoende som en sjukdom?', 'Nej, till skillnad från spel om pengar', ['Ja, precis som spel om pengar', 'Ja, men bara för vuxna', 'Bara enligt Folkhälsomyndigheten'], 'Spel om pengar kan diagnostiseras, dataspel räknas inte som sjukdom.'),
+    Q('Räknas ”skärmberoende” som en beroendesjukdom?', 'Nej, det är ett omdiskuterat begrepp', ['Ja', 'Bara för barn under 2 år', 'Ja, enligt Folkhälsomyndigheten'], 'Skärmberoende räknas inte som beroendesjukdom.'),
+    Q('Vad säger Folkhälsomyndigheten (2024) om barn under 2 år?', 'De ska inte använda skärmar', ['Max en timme per dag', 'De får använda skärm vid läggdags', 'Det finns inga råd'], 'Under 2 år: inga skärmar. Äldre barn: begränsa.'),
+    Q('Var ska skärmar inte användas enligt Folkhälsomyndigheten?', 'Vid läggdags eller i sovrummet', ['I skolan', 'Utomhus', 'På helger'], 'Inte vid läggdags och inte i sovrummet.'),
+    Q('Vad visar fallet Ove?', 'Positiv förstärkning och hur lätt spelberoende döljs', ['Att dataspel är en sjukdom', 'Att abstinens är ofarligt', 'Att alkohol är vanligast'], 'Ove vann först, förlorade sedan, tog lån och kunde inte berätta.'),
+    Q('Varför är det svårt att bli av med ett beroende?', 'Stark positiv förstärkning, det har blivit ett sätt att leva och man vill undvika abstinensen', ['För att det inte finns någon behandling', 'För att toleransen alltid försvinner', 'För att beroende bara beror på gener'], 'Tre skäl: förstärkning, livsstil, abstinens.'),
+    Q('Vilka behandlingar nämns mot beroende?', 'KBT, motiverande samtal och läkemedel', ['Bara viljestyrka', 'Bara läkemedel', 'Inga, det finns ingen behandling'], 'Det finns ingen ”rätt” behandling.'),
+    Q('Vilka utvecklade motiverande samtal (MI)?', 'William F. Miller och Stephen Rollnick', ['Broca och Wernicke', 'Giedd och Draganski', 'Darwin och Mendel'], 'Miller och Rollnick, runt 1990.'),
+    Q('Vad är syftet med motiverande samtal?', 'Att öka motivationen för en livsstilsförändring', ['Att straffa den som dricker', 'Att ställa en diagnos', 'Att ge läkemedel'], 'MI ökar motivationen till förändring.'),
+    Q('Vilken inriktning har motiverande samtal beröringspunkter med?', 'Humanistisk psykologi', ['Psykoanalysen', 'Biologisk psykologi', 'Neuropsykologi'], 'Tro på människans inneboende möjligheter.'),
+    Q('Hur arbetar man i motiverande samtal?', 'Lyssnar med empati, samtalar jämlikt och utgår från personens egna drivkrafter', ['Säger åt personen vad den ska göra', 'Använder straff och belöning', 'Pratar bara om barndomen'], 'Empati, jämlikhet och egna drivkrafter.'),
+    Q('Var användes motiverande samtal först?', 'Vid alkoholproblem', ['Vid spelberoende', 'I skolan', 'Inom kriminalvården'], 'Först för alkoholproblem, nu även i socialtjänst, skola och kriminalvård.')
+  ] },
+  { id: 'q10', del: 5, name: 'Inlärning och försvarsmekanismer', desc: 'Förstärkning, betingning, förnekelse', kind: 'Vilket begrepp?', sub: '', items: [
+    L('Något behagligt tillförs och beteendet ökar.', 'Positiv förstärkning', 'Positiv = något läggs till.'),
+    L('Något obehagligt tas bort och beteendet ökar.', 'Negativ förstärkning', 'Negativ = något tas bort.'),
+    L('Belöning kommer bara ibland, vilket är svårast att släcka ut.', 'Partiell förstärkning', 'Partiell förstärkning är svårast att släcka ut.'),
+    L('En signal kopplas ihop med en reaktion, t.ex. att soffan väcker sug.', 'Klassisk betingning', 'Signal + reaktion = klassisk betingning.'),
+    L('Man lär sig genom att härma andra.', 'Social inlärning', 'Social inlärning = härmning.'),
+    L('Upprepade beteenden blir automatiska.', 'Vanemässig inlärning', 'Vanemässig inlärning = automatik.'),
+    L('Dricker man alltid vin framför TV:n kan TV:n i sig väcka sug.', 'Klassisk betingning', 'TV:n blir en signal.'),
+    L('Ungdomar ser äldre dricka eller röka och härmar för status och gemenskap.', 'Social inlärning', 'Man härmar andra.'),
+    L('En snus till kaffet, även utan nikotinsug.', 'Vanemässig inlärning', 'Beteendet har blivit automatiskt.'),
+    L('Substansen tar bort ångest, abstinens eller stress.', 'Negativ förstärkning', 'Något obehagligt försvinner.'),
+    L('Substansen ger eufori, avslappning och social belöning.', 'Positiv förstärkning', 'Något behagligt tillförs.'),
+    L('Love vet aldrig när nästa bra klipp kommer.', 'Partiell förstärkning', 'Belöning bara ibland, svårast att släcka ut.'),
+    L('Loves säng blir en signal för att börja scrolla.', 'Klassisk betingning', 'Sängen kopplas ihop med scrollandet.'),
+    L('Alex började dricka på fester eftersom kompisarna gjorde det.', 'Social inlärning', 'Alex härmar kompisarna.'),
+    L('För Alex kändes det lättare att vara social när hen drack.', 'Positiv förstärkning', 'Social belöning tillförs.'),
+    L('Alex dricker hemma när hen är stressad eller mår dåligt.', 'Negativ förstärkning', 'Alkoholen tar bort det obehagliga.'),
+    F('”Jag har inga problem, jag kan sluta när jag vill.”', 'Förnekelse', 'Man förnekar att problemet finns.'),
+    F('”Jag dricker för att hantera stressen.”', 'Rationalisering', 'En rimlig ursäkt som bortförklarar.'),
+    F('”Det är samhällets fel att jag dricker.”', 'Projektion', 'Man lägger skulden på andra.'),
+    Q('Vad heter operant inlärning också?', 'Instrumentell inlärning', ['Klassisk betingning', 'Social inlärning', 'Vanemässig inlärning'], 'Instrumentell (operant) inlärning: positiv och negativ förstärkning.'),
+    Q('Vilket perspektiv hör förnekelse, rationalisering och projektion till?', 'Psykoanalysen (försvarsmekanismer)', ['Beteendepsykologin', 'Biologiska perspektivet', 'Humanistisk psykologi'], 'De är försvarsmekanismer.'),
+    Q('Vilka begrepp hör till beteendepsykologin?', 'Förstärkning, klassisk betingning och social inlärning', ['Förnekelse, rationalisering och projektion', 'Dopamin, serotonin och GABA', 'Tolerans, abstinens och kontrollförlust'], 'Beteendepsykologi = inlärning.')
+  ] },
+  { id: 'q11', del: 5, name: 'Analysfallen', desc: 'Alex och alkoholen, Love, festen, Alex och mobilspelet', kind: '', sub: '', items: [
+    Q('Alex behöver mer alkohol än tidigare för samma effekt. Vilket tecken på beroende är det?', 'Tolerans', ['Abstinens', 'Kontrollförlust', 'Riskbruk'], 'Tolerans = större dos för samma effekt.'),
+    Q('Alex känner sig rastlös och mår dåligt när hen försöker låta bli. Vilket tecken är det?', 'Abstinens', ['Tolerans', 'Kontrollförlust', 'Riskbruk'], 'Abstinens = obehag utan substansen.'),
+    Q('Drickandet påverkar Alex relationer och skolarbete. Vilket symtom är det?', 'Sociala problem', ['Tolerans', 'Abstinens', 'Riskbruk'], 'Sociala och/eller ekonomiska problem.'),
+    Q('Alex fortsätter dricka trots problemen. Vilket symtom visar det?', 'Kontrollförlust', ['Tolerans', 'Riskbruk', 'Projektion'], 'Kan inte låta bli eller begränsa sitt intag.'),
+    Q('Vilket begrepp från psykoanalysen förklarar att Alex säger ”Jag har inga problem”?', 'Förnekelse', ['Rationalisering', 'Projektion', 'Social inlärning'], 'Lärarens exempel på förnekelse är nästan samma mening.'),
+    Q('Varför fortsätter Alex dricka trots konsekvenserna?', 'Tolerans och abstinens gör obehaget starkt, och att dricka tar bort det (negativ förstärkning)', ['Alex har en skadad lillhjärna', 'Alkohol ökar GABA så Alex blir pigg', 'Alex har ingen pannlob'], 'Bonusfrågan: biologi + beteendepsykologi = beroendespiralen.'),
+    Q('Varför är det svårt för Love att sluta scrolla?', 'Varje nytt klipp kan ge en liten dopaminbelöning', ['Love har abstinens från GABA', 'Loves lillhjärna är skadad', 'Serotonin gör Love pigg'], 'Dopamin frisätts och Love vill ha mer: positiv förstärkning.'),
+    Q('Varför väger belöningen nu tyngre än tröttheten sen för Love?', 'Pannloben är inte färdig förrän runt 25', ['Amygdala är färdig för tidigt', 'Hippocampus glömmer tröttheten', 'Thalamus känner ingen smärta'], 'Svag broms, så konsekvenstänkandet förlorar.'),
+    Q('Är Loves scrollande en beroendesjukdom?', 'Nej, skärmberoende räknas inte som beroendesjukdom, men det är en stark vana', ['Ja, det är spelberoende', 'Ja, eftersom Love är trött', 'Ja, enligt Folkhälsomyndigheten'], 'Stark vana, men tröttheten är en negativ konsekvens att ta på allvar.'),
+    Q('Vad skiljer en stark vana från ett beroende?', 'Vanan saknar tolerans, abstinens och total kontrollförlust', ['Vanan är alltid farligare', 'Beroende saknar abstinens', 'Det finns ingen skillnad'], 'Ett beroende har dem, och man fortsätter trots allvarliga konsekvenser.'),
+    Q('Vad är en bra lösning för Love, och varför?', 'Mobilen utanför sovrummet tar bort både signalen och dopaminkicken', ['Scrolla tills det blir tråkigt', 'Dricka kaffe på morgonen', 'Byta till en annan app'], 'Som Folkhälsomyndigheten rekommenderar. Utan förstärkning släcks vanan ut.'),
+    Q('Festen: vad gör kompisarnas gillande?', 'Ger en social belöning som frisätter dopamin', ['Ger abstinens', 'Ökar toleransen', 'Gör pannloben färdig'], 'Social belöning → dopamin.'),
+    Q('Festen: vilken del väcker rädslan att hamna utanför?', 'Amygdala', BRAIN_POOL, 'Amygdala = starka känslor.'),
+    Q('Festen: varför är bromsen svag?', 'Pannloben, som sköter riskbedömning, är inte färdig förrän runt 25', ['Lillhjärnan är för liten', 'Det finns för mycket GABA', 'Hippocampus är skadad'], 'Svag broms, stark gaspedal.'),
+    Q('Festen: personen gör som gruppen. Vilket begrepp är det?', 'Social inlärning', ['Klassisk betingning', 'Förnekelse', 'Tolerans'], 'Man härmar andra.'),
+    Q('Alex och mobilspelet: vad kan irritationen när föräldrarna säger stopp vara tecken på?', 'Abstinens', ['Tolerans', 'Projektion', 'Riskbruk'], 'Irritation kan vara ett tecken på abstinens.'),
+    Q('Alex och mobilspelet: Alex köper saker i spelet för sparpengarna. Vilket symtom kan det vara?', 'Ekonomiska problem', ['Tolerans', 'Abstinens', 'Förnekelse'], 'Sociala och/eller ekonomiska problem.'),
+    Q('Vad är steg 1 i femstegsmallen?', 'Biologi: dopamin och belöningssystemet', ['Lösning', 'Vana eller beroende', 'Inlärning'], 'Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning.'),
+    Q('Vilket minnesknep hjälper dig minnas femstegsmallen?', 'Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning', ['Tolv Hungriga Apor Hoppar', 'Trötta Tonåringar Kan Aldrig Sova', 'Darwin, Medicin, Scanning, Gener'], 'Biologi, hjärnan, inlärning, vana eller beroende, lösning.')
   ] }
 ];
 const QUIZ_BY = Object.fromEntries(QUIZZES.map(q => [q.id, q]));
@@ -2036,12 +2225,21 @@ const ITEM_BY = Object.fromEntries(ALL_ITEMS.map(it => [it.key, it]));
 const MIX_N = 20;
 const EXTRA = {
   mix: { id: 'mix', name: 'Slutprov', desc: `${MIX_N} blandade frågor från alla quiz` },
-  missed: { id: 'missed', name: 'Det du missat', desc: 'Frågor du har svarat fel på' }
+  missed: { id: 'missed', name: 'Det du missat', desc: 'Frågor du har svarat fel på' },
+  all: { id: 'all', name: 'Hela frågebanken', desc: 'Alla frågor i blandad ordning' }
 };
+const QGROUPS = [
+  ['Del 1: Hjärnans delar', ['q1', 'q5']],
+  ['Del 2: Signalsubstanser och hormoner', ['q2', 'q3', 'q6']],
+  ['Del 3: Tonårshjärnan', ['q7']],
+  ['Del 4: Studier och beroende', ['q8', 'q9', 'q4']],
+  ['Del 5: Analys', ['q11', 'q10']]
+];
 const quizMeta = id => QUIZ_BY[id] || EXTRA[id];
 const missedKeys = () => Object.keys(S.missed).filter(k => ITEM_BY[k]);
 function quizItems(id) {
   if (id === 'mix') return shuffle(ALL_ITEMS).slice(0, MIX_N);
+  if (id === 'all') return shuffle(ALL_ITEMS);
   if (id === 'missed') return missedKeys().map(k => ITEM_BY[k]);
   return ALL_ITEMS.filter(it => it.key.startsWith(id + ':'));
 }
@@ -2054,10 +2252,14 @@ function renderQuizPick() {
     return `<div class="qcard${cls ? ' ' + cls : ''}"><h3>${meta.name}</h3><p>${desc}</p>${best}
       <button type="button" class="btn${n ? ' btn-primary' : ''}" data-quiz="${id}"${n ? '' : ' disabled'}>${n ? 'Starta' : 'Inget att repetera än'}</button></div>`;
   };
+  $('#qzTotal').textContent = ALL_ITEMS.length;
   $('#qzList').innerHTML =
-    card('mix', `${MIX_N} blandade frågor från alla quiz. Bra som sista koll.`, MIX_N, 'qcard-main') +
-    card('missed', m ? `${m} frågor du har svarat fel på. Kör tills listan är tom.` : 'Frågor du svarar fel på hamnar här.', m, 'qcard-main') +
-    QUIZZES.map(q => card(q.id, `${q.desc}, ${q.items.length} frågor`, q.items.length)).join('');
+    `<div class="qpick">${card('mix', `${MIX_N} blandade frågor från hela frågebanken. Bra som sista koll.`, MIX_N, 'qcard-main')}`
+    + card('missed', m ? `${m} frågor du har svarat fel på. Kör tills listan är tom.` : 'Frågor du svarar fel på hamnar här.', m, 'qcard-main')
+    + `</div>` + QGROUPS.map(([h, ids]) => `<h2 class="qg">${h}</h2><div class="qpick">${ids.map(id => {
+      const q = QUIZ_BY[id]; return card(id, `${q.desc}, ${q.items.length} frågor`, q.items.length);
+    }).join('')}</div>`).join('')
+    + `<h2 class="qg">Allt på en gång</h2><div class="qpick">${card('all', `Alla ${ALL_ITEMS.length} frågor i blandad ordning. Tar en stund.`, ALL_ITEMS.length)}</div>`;
 }
 function makeOpts(it) {
   let pool = (it.d || it.pool).filter(x => x !== it.a);
