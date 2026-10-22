@@ -365,6 +365,15 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
 .et-sum{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:10px 14px;margin:12px 0}
 .et-score{font-weight:700}
 .case-jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.case-jump .chip span{color:var(--muted);font-weight:600}
+#provet>h2{padding-top:.6em;border-top:2px solid var(--line)}
+#provet .src{margin:-.4em 0 .8em;color:var(--muted);font-style:italic}
+.case-h{font-size:1.25rem;margin:1.8em 0 .5em}
+details.more-q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:2px 14px;margin:14px 0}
+details.more-q[open]{padding-bottom:4px}
+.prov-cta{display:grid;gap:2px;padding:14px 16px;margin:4px 0 16px;border-radius:var(--r-l);background:var(--accent);color:var(--accent-ink);text-decoration:none}
+.prov-cta b{font-family:var(--font-round);font-size:1.15rem}
+.prov-cta span{opacity:.9}
 
 /* ---------- Begreppskort ---------- */
 .fc-tools{display:grid;gap:10px;margin:10px 0 14px}
@@ -477,6 +486,7 @@ details.fc-more .search{margin-bottom:10px}
 <section id="start">
   <h1>Kvällen före provet</h1>
   <p class="lead">Följ stegen i ordning och bocka av dem. Allt du gör sparas på den här enheten.</p>
+  <a class="prov-cta" href="#provet"><b>Det viktigaste: Provet</b><span>Lärarens egna frågor för Del 1–5 på en sida.</span></a>
   <div class="plan-top">
     <div class="plan-prog"><span id="planCount"></span><div class="bar"><i id="planBar"></i></div></div>
     <button type="button" class="btn btn-primary btn-big" id="planNext"></button>
@@ -485,16 +495,16 @@ details.fc-more .search{margin-bottom:10px}
 
   <h2>Så ser provet ut</h2>
   <ul class="exam">
-    <li><a href="#hjarnan"><b>Del 1: Hjärnans delar</b><span>”En person har svårt med X. Vilken del av hjärnan kan vara påverkad? Motivera med en ledtråd ur texten.”</span></a></li>
-    <li><a href="#amnen"><b>Del 2: Signalsubstanser och hormoner</b><span>”Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst.”</span></a></li>
-    <li><a href="#tonar"><b>Del 3: Tonårshjärnan</b><span>Filmfrågorna.</span></a></li>
-    <li><a href="#skriv"><b>Del 4: Skrivfrågor</b><span>Frågor från texthäftet.</span></a></li>
-    <li><a href="#analys"><b>Del 5: Analys</b><span>Använd Del 1–4 för att lösa ett case.</span></a></li>
+    <li><a href="#provet" data-anchor="del1"><b>Del 1. Hjärnans delar</b><span>Exitpaper</span></a></li>
+    <li><a href="#provet" data-anchor="del2"><b>Del 2. Signalsubstanser och hormoner</b><span>Exitpaper</span></a></li>
+    <li><a href="#provet" data-anchor="del3"><b>Del 3. Tonårshjärnan</b><span>Filmklippet inkl. frågor</span></a></li>
+    <li><a href="#provet" data-anchor="del4"><b>Del 4. Skrivfrågor</b><span>Frågorna är från texthäftet ni fått, så se till att ha koll på häftet.</span></a></li>
+    <li><a href="#provet" data-anchor="del5"><b>Del 5. Analys</b><span>Här använder du dig av det du lärt dig från Del 1–4 för att besvara denna fråga.</span></a></li>
   </ul>
 
   <h2>Kom ihåg på provet</h2>
   <ul class="pts">
-    <li><b>Skriv något på varje fråga.</b> Varje poäng räknas.</li>
+    <li><b>”Försök skriv något. Varje poäng kan vara viktig att tjäna in.”</b></li>
     <li><b>Del 1:</b> motivera genom att upprepa funktionen, t.ex. ”Thalamus, eftersom thalamus tar emot information om beröring och smärta.”</li>
     <li><b>Del 4–5:</b> använd fackord.</li>
   </ul>
@@ -507,6 +517,46 @@ details.fc-more .search{margin-bottom:10px}
     <p><b>Nollställa allt?</b> Planen, markerade begrepp, quizresultat och allt du skrivit raderas. Det går inte att ångra.</p>
     <div class="btn-row"><button type="button" class="btn btn-danger-solid" id="resetYes">Ja, nollställ</button><button type="button" class="btn" id="resetNo">Avbryt</button></div>
   </div>
+</section>
+
+<!-- ================= PROVET ================= -->
+<section id="provet" hidden>
+  <h1>Provet</h1>
+  <p class="lead">Lärarens egna frågor, i samma ordning som på provet. Det här är det viktigaste att kunna.</p>
+  <div class="note"><span class="note-l">Läraren säger</span>”Försök skriv något. Varje poäng kan vara viktig att tjäna in.”</div>
+  <nav class="case-jump" id="provNav" aria-label="Hoppa till en del av provet"></nav>
+
+  <h2 id="del1">Del 1. Hjärnans delar</h2>
+  <p class="src">Exitpaper</p>
+  <p>Läs situationen, skriv ditt svar och motivera med minst en ledtråd. Tryck <b>Rätta</b> så kollar sidan svaret och om motiveringen har en ledtråd ur texten.</p>
+  <div id="ex-eth"></div>
+
+  <h2 id="del2">Del 2. Signalsubstanser och hormoner</h2>
+  <p class="src">Exitpaper</p>
+  <p>Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst. Tryck <b>Rätta</b>.</p>
+  <div id="ex-ets"></div>
+
+  <h2 id="del3">Del 3. Tonårshjärnan</h2>
+  <p class="src">Filmklippet inkl. frågor</p>
+  <div class="btn-row">
+    <a class="btn" href="https://youtu.be/C9buw6Qx5E0" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>Se filmklippet</a>
+    <a class="btn" href="#tonar">Läs om tonårshjärnan</a>
+  </div>
+  <div id="w3"></div>
+
+  <h2 id="del4">Del 4. Skrivfrågor</h2>
+  <p class="src">Frågorna är från texthäftet ni fått, så se till att ha koll på häftet.</p>
+  <p>Skriv först, jämför sedan med modellsvaret och bocka av nyckelorden. Använd <b>fackord</b>.</p>
+  <div id="w4"></div>
+  <details class="mall more-q"><summary>Fler skrivfrågor från boken (4)</summary><div id="w4b"></div></details>
+
+  <h2 id="del5">Del 5. Analys</h2>
+  <p class="src">Här använder du dig av det du lärt dig från Del 1–4 för att besvara denna fråga.</p>
+  <h3>Femstegsmallen</h3>
+  <ol class="steps" id="mall"></ol>
+  <div class="tip"><span class="tip-l">Minnesknep</span>Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning</div>
+  <div id="cases"></div>
+  <details class="mall more-q"><summary>Extra övning: Alex och mobilspelet</summary><div id="casesExtra"></div></details>
 </section>
 
 <!-- ================= SNABBKOLL ================= -->
@@ -525,7 +575,7 @@ details.fc-more .search{margin-bottom:10px}
 <section id="hjarnan" class="wide" hidden>
   <div class="narrow">
     <h1>Hjärnans delar</h1>
-    <p class="lead">Del 1: ”En person har svårt med X. Vilken del kan vara påverkad?” Motivera genom att <b>upprepa funktionen</b>. Öva provformatet i <a href="#hjarnan" data-anchor="exit-hjarnan">lärarens exit ticket</a>.</p>
+    <p class="lead">Del 1: ”En person har svårt med X. Vilken del kan vara påverkad?” Motivera genom att <b>upprepa funktionen</b>. Öva provformatet i <a href="#provet" data-anchor="del1">lärarens exit ticket</a>.</p>
   </div>
 
   <div class="map-layout">
@@ -580,9 +630,7 @@ details.fc-more .search{margin-bottom:10px}
   </div>
 
   <div class="narrow">
-    <h2 id="exit-hjarnan">Exit ticket: hjärnans delar</h2>
-    <p>Läs situationen, skriv ditt svar och motivera med minst en ledtråd. Tryck <b>Rätta</b> så kollar sidan svaret och om motiveringen har en ledtråd ur texten.</p>
-    <div id="ex-eth"></div>
+    <div class="note"><span class="note-l">Provformatet</span>Lärarens exit ticket om hjärnans delar finns under <a href="#provet" data-anchor="del1">Provet, Del 1</a>.</div>
 
     <h2>Alla delar (lärarens lista, bok s. 53)</h2>
     <div id="brainTable"></div>
@@ -683,9 +731,7 @@ details.fc-more .search{margin-bottom:10px}
       <li>Belöning och ”vill ha mer” → <b>dopamin</b></li>
     </ul></div>
 
-    <h2 id="exit-amnen">Exit ticket: signalsubstanser och hormoner</h2>
-    <p>Läs situationen och skriv vilket hormon eller vilken signalsubstans som passar bäst. Tryck <b>Rätta</b>.</p>
-    <div id="ex-ets"></div>
+    <div class="note"><span class="note-l">Provformatet</span>Lärarens exit ticket om signalsubstanser och hormoner finns under <a href="#provet" data-anchor="del2">Provet, Del 2</a>.</div>
 
     <h2 id="vem-ar-jag">Vem är jag? (arbetsbladet, steg 1)</h2>
     <p>Skriv rätt ämne vid varje beskrivning. Använd varje ämne en gång.</p>
@@ -710,7 +756,7 @@ details.fc-more .search{margin-bottom:10px}
 <!-- ================= TONÅRSHJÄRNAN ================= -->
 <section id="tonar" hidden>
   <h1>Tonårshjärnan</h1>
-  <p class="lead">Del 3 bygger på filmen. Läs punkterna och skriv sedan svar på filmfrågorna längre ner.</p>
+  <p class="lead">Del 3 bygger på filmen. Läs punkterna här och svara sedan på filmfrågorna under <a href="#provet" data-anchor="del3">Provet</a>.</p>
   <a class="btn btn-primary" href="https://youtu.be/C9buw6Qx5E0" target="_blank" rel="noopener">
     <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
     Se filmen på YouTube
@@ -743,9 +789,7 @@ details.fc-more .search{margin-bottom:10px}
     </div>
   </div>
 
-  <h2 id="filmfragor">Filmfrågor (Del 3)</h2>
-  <p>Skriv först. Jämför sedan med modellsvaret och bocka av nyckelorden.</p>
-  <div id="w3"></div>
+  <div class="note"><span class="note-l">Filmfrågorna</span>Lärarens sex filmfrågor finns under <a href="#provet" data-anchor="del3">Provet, Del 3</a>.</div>
 </section>
 
 <!-- ================= STUDIER ================= -->
@@ -876,32 +920,6 @@ details.fc-more .search{margin-bottom:10px}
   <div id="defTable"></div>
   <h3>Inlärning</h3>
   <div id="learnTable"></div>
-</section>
-
-<!-- ================= SKRIV ================= -->
-<section id="skriv" hidden>
-  <h1>Skrivfrågor</h1>
-  <p class="lead">Del 4: frågor från texthäftet. Skriv först, jämför sedan med modellsvaret och bocka av nyckelorden.</p>
-  <div class="note"><span class="note-l">Lärarens råd</span>Använd <b>fackord</b>. Skriv något på varje fråga, varje poäng räknas.</div>
-  <p>Filmfrågorna (Del 3) finns under <a href="#tonar">Tonårshjärnan</a>.</p>
-  <div id="w4"></div>
-</section>
-
-<!-- ================= ANALYS ================= -->
-<section id="analys" hidden>
-  <h1>Analys</h1>
-  <p class="lead">Del 5: använd allt från Del 1–4 för att lösa ett case. Följ mallen och använd fackord. Börja med lärarens uppgifter: <b>Alex och alkoholen</b> och <b>Love och mobilen</b>.</p>
-  <nav class="case-jump" aria-label="Hoppa till ett case">
-    <a class="chip" href="#analys" data-anchor="case-alkohol">Alex och alkoholen</a>
-    <a class="chip" href="#analys" data-anchor="case-love">Love och mobilen</a>
-    <a class="chip" href="#analys" data-anchor="case-alex">Alex och mobilspelet</a>
-  </nav>
-
-  <h2>Femstegsmallen</h2>
-  <ol class="steps" id="mall"></ol>
-  <div class="tip"><span class="tip-l">Minnesknep</span>Dopamin → Pannlob → Förstärkning → Vana eller beroende → Lösning</div>
-
-  <div id="cases"></div>
 </section>
 
 <!-- ================= BEGREPP ================= -->
@@ -1498,7 +1516,7 @@ const SNABB = [
     ['Brocas område', '<b>Producera tal</b> (motorisk talförmåga). Patienten ”Tan”, 1861. Främre tinningloben (enligt boken).', 'Broca = Bara ”tan”.'],
     ['Wernickes område', '<b>Förstå talat språk</b>. Patient med afasi. Temporalloben (= tinningloben).', 'Wernicke = ”Va sa du?”'],
     ['Hjärnbalken', 'Förbinder hjärnhalvorna så att de samarbetar.']
-  ], after: '<div class="note"><span class="note-l">Så svarar du på Del 1</span>Delen + ”eftersom” + funktionen: ”<b>Thalamus, eftersom thalamus tar emot information om beröring och smärta.</b>” <a href="#hjarnan" data-anchor="exit-hjarnan">Öva i lärarens exit ticket</a></div>' },
+  ], after: '<div class="note"><span class="note-l">Så svarar du på Del 1</span>Delen + ”eftersom” + funktionen: ”<b>Thalamus, eftersom thalamus tar emot information om beröring och smärta.</b>” <a href="#provet" data-anchor="del1">Öva i lärarens exit ticket</a></div>' },
   { id: 'sk-2', nav: 'Del 2', h: 'Del 2: Signalsubstanser och hormoner', rows: [
     ['Dopamin', '<b>Motivation och belöning</b>, förväntan, längtan.<span class="sk-nk">Nyckelord: belöning, nästa nivå, lust att fortsätta</span>', '”Jag längtar efter det här!”'],
     ['Oxytocin', '<b>Närhet</b>, beröring, anknytning, mjölkutdrivning.<span class="sk-nk">Nyckelord: kram, hudkontakt, nyfödd, trygghet</span>', '”Närhet – inte automatiskt kärlek”'],
@@ -1509,7 +1527,7 @@ const SNABB = [
     ['Testosteron', '<b>Könshormon hos alla</b>: sexlust, muskler, mörkare röst i puberteten.<span class="sk-nk">Nyckelord: muskelmassa, röst, sexlust</span>', '”Hormon som påverkar lust – hos alla”'],
     ['Östrogen', '<b>Könshormon hos alla</b>: reproduktion, slemhinnor, skelett, menscykel.<span class="sk-nk">Nyckelord: slemhinnor, skelett, mens</span>', '”Sexuell funktion”'],
     ['Kortisol och adrenalin', '<b>Stresshormoner</b>. Inför ett prov aktiveras limbiska systemet.']
-  ], after: '<div class="trap"><h3>Fällor</h3><ul><li>Muskler, lust, röst → <b>testosteron</b>. Slemhinnor, skelett, mens → <b>östrogen</b> (även hos män).</li><li>Humör och sömn → <b>serotonin</b>. ”Hämmande”, ”dåsig” → <b>GABA</b>.</li><li>Puls och vakenhet → <b>noradrenalin</b>. Belöning, ”vill ha mer” → <b>dopamin</b>.</li></ul></div><p><a href="#amnen" data-anchor="exit-amnen">Öva i lärarens exit ticket</a></p>' },
+  ], after: '<div class="trap"><h3>Fällor</h3><ul><li>Muskler, lust, röst → <b>testosteron</b>. Slemhinnor, skelett, mens → <b>östrogen</b> (även hos män).</li><li>Humör och sömn → <b>serotonin</b>. ”Hämmande”, ”dåsig” → <b>GABA</b>.</li><li>Puls och vakenhet → <b>noradrenalin</b>. Belöning, ”vill ha mer” → <b>dopamin</b>.</li></ul></div><p><a href="#provet" data-anchor="del2">Öva i lärarens exit ticket</a></p>' },
   { id: 'sk-3', nav: 'Del 3', h: 'Del 3: Tonårshjärnan', rows: [
     ['Fullt utvecklad', 'Ca <b>25 år</b>. Pannloben blir klar <b>allra sist</b>.'],
     ['Mest intensivt', '<b>0–2 år</b>, men hjärnan utvecklas mycket i tonåren också.'],
@@ -1806,11 +1824,6 @@ function writeArea(id, label) {
   return `<label class="sr" for="ta-${id}">${label}</label><textarea id="ta-${id}" data-key="${id}" rows="5" placeholder="Skriv ditt svar här…"></textarea>`;
 }
 function wqHTML(q) {
-  if (q.link) {
-    return `<article class="wq"><div class="wq-head"><span class="wq-n">${q.n}</span><h3>${q.q}</h3></div>
-      <p>En 16-åring på en fest gör något riskfyllt. Den här frågan tränar du i caset <b>Festen</b> under Analys.</p>
-      <a class="btn" href="#analys" data-anchor="case-festen">Gå till Festen</a></article>`;
-  }
   return `<article class="wq" id="${q.id}">
     <div class="wq-head"><span class="wq-n">${q.n}</span><h3>${q.q}</h3></div>
     ${q.topic ? `<span class="tag">${q.topic}</span>` : ''}
@@ -1822,7 +1835,7 @@ function wqHTML(q) {
   </article>`;
 }
 function caseHTML(c) {
-  return `<h2 id="${c.id}">${c.title}</h2>
+  return `<h3 class="case-h" id="${c.id}">${c.title}</h3>
   <article class="wq">
     <span class="tag">${c.src}</span>
     <div class="case-text">${c.text}</div>
@@ -1838,8 +1851,10 @@ function caseHTML(c) {
 }
 function renderWriting() {
   $('#w3').innerHTML = W3.map(wqHTML).join('');
-  $('#w4').innerHTML = W4.map(wqHTML).join('');
-  $('#cases').innerHTML = alkHTML() + CASES.map(caseHTML).join('');
+  $('#w4').innerHTML = W4.slice(0, 9).map(wqHTML).join('');
+  $('#w4b').innerHTML = W4.slice(9).map(wqHTML).join('');
+  $('#cases').innerHTML = alkHTML() + CASES.filter(c => c.id === 'case-love').map(caseHTML).join('');
+  $('#casesExtra').innerHTML = CASES.filter(c => c.id !== 'case-love').map(caseHTML).join('');
   hydrateWriting();
 }
 function updateKCount(fs) {
@@ -2081,7 +2096,7 @@ const ALK = {
   ]
 };
 function alkHTML() {
-  return `<h2 id="case-alkohol">Alex och alkoholen</h2>
+  return `<h3 class="case-h" id="case-alkohol">Alex och alkoholen</h3>
   <article class="wq"><span class="tag">Lärarens analysuppgift</span><div class="case-text">${ALK.text}</div>
   <details class="mall"><summary>Femstegsmallen</summary><ol>${MALL.map(([t, d]) => `<li><b>${t}:</b> ${d}</li>`).join('')}</ol></details></article>
   ${ALK.parts.map(wqHTML).join('')}`;
@@ -2372,13 +2387,13 @@ function initQuiz() {
 /* ============ Kvällsplan och start ============ */
 const PLAN = [
   { id: 'snabb', t: 'Läs snabbkollen', d: 'Allt viktigaste på en sida, ordnat efter provets delar. Läs lugnt uppifrån och ner.', go: ['snabb'], btn: 'Öppna snabbkollen' },
-  { id: 'eth', t: 'Del 1: exit ticket om hjärnans delar', d: 'Lärarens exit ticket. Skriv svar och motivering för 10 situationer. Sidan rättar svaret och kollar att du har med en ledtråd.', go: ['hjarnan', 'exit-hjarnan'], btn: 'Öppna exit ticketen' },
-  { id: 'ets', t: 'Del 2: exit ticket om signalsubstanser och hormoner', d: 'Lärarens 16 situationer och arbetsbladets ”Vem är jag?”. Skriv rätt ämne, sidan rättar direkt.', go: ['amnen', 'exit-amnen'], btn: 'Öppna exit ticketen' },
+  { id: 'eth', t: 'Del 1: exit ticket om hjärnans delar', d: 'Lärarens exit ticket. Skriv svar och motivering för 10 situationer. Sidan rättar svaret och kollar att du har med en ledtråd.', go: ['provet', 'del1'], btn: 'Öppna exit ticketen' },
+  { id: 'ets', t: 'Del 2: exit ticket om signalsubstanser och hormoner', d: 'Lärarens 16 situationer. Skriv rätt ämne, sidan rättar direkt. Extra: ”Vem är jag?” under Ämnen.', go: ['provet', 'del2'], btn: 'Öppna exit ticketen' },
   { id: 'kort', t: 'Begreppskort', d: 'Gå igenom korten ett i taget och välj Kan eller Öva mer. Kör sedan bara Öva mer-korten.', go: ['begrepp'], btn: 'Öppna korten' },
-  { id: 'del3', t: 'Del 3: tonårshjärnan', d: 'Läs punkterna och skriv korta svar på filmfrågorna.', go: ['tonar', 'filmfragor'], btn: 'Öppna filmfrågorna' },
-  { id: 'del4', t: 'Del 4: skrivfrågor', d: 'Välj de frågor du är osäkrast på. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['skriv'], btn: 'Öppna skrivfrågorna' },
-  { id: 'alk', t: 'Del 5: Alex och alkoholen', d: 'Lärarens analysuppgift: tre frågor och en bonusfråga. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['analys', 'case-alkohol'], btn: 'Öppna analysuppgiften' },
-  { id: 'love', t: 'Del 5: Love och mobilen', d: 'Arbetsbladet, steg 2. Använd stödfrågorna och femstegsmallen.', go: ['analys', 'case-love'], btn: 'Öppna caset' },
+  { id: 'del3', t: 'Del 3: tonårshjärnan', d: 'Se filmklippet och skriv korta svar på lärarens sex filmfrågor.', go: ['provet', 'del3'], btn: 'Öppna filmfrågorna' },
+  { id: 'del4', t: 'Del 4: skrivfrågor', d: 'Lärarens nio frågor från texthäftet. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['provet', 'del4'], btn: 'Öppna skrivfrågorna' },
+  { id: 'alk', t: 'Del 5: Alex och alkoholen', d: 'Lärarens analysuppgift: tre frågor och en bonusfråga. Skriv, jämför med modellsvaret och bocka av nyckelorden.', go: ['provet', 'case-alkohol'], btn: 'Öppna analysuppgiften' },
+  { id: 'love', t: 'Del 5: Love och mobilen', d: 'Arbetsbladet, steg 2. Använd stödfrågorna och femstegsmallen.', go: ['provet', 'case-love'], btn: 'Öppna caset' },
   { id: 'slut', t: 'Slutprov', d: 'Blandade frågor från alla quiz. Kör sedan ”Det du missat” tills listan är tom.', quiz: 'mix', btn: 'Starta slutprovet' }
 ];
 function stepStatus(p) {
@@ -2390,8 +2405,8 @@ function stepStatus(p) {
     const v = TERMS.map(t => S.cards[t.id]);
     return `${v.filter(x => x === 'kan').length} av ${TERMS.length} kan, ${v.filter(x => x === 'ova').length} att öva mer på`;
   }
-  if (p.id === 'del3') { const ids = W3.filter(q => !q.link).map(q => q.id); return `${ids.filter(i => S.text[i]).length} av ${ids.length} filmfrågor besvarade`; }
-  if (p.id === 'del4') return `${W4.filter(q => S.text[q.id]).length} av ${W4.length} skrivfrågor besvarade`;
+  if (p.id === 'del3') { const ids = W3.map(q => q.id); return `${ids.filter(i => S.text[i]).length} av ${ids.length} filmfrågor besvarade`; }
+  if (p.id === 'del4') { const t = W4.slice(0, 9); return `${t.filter(q => S.text[q.id]).length} av ${t.length} skrivfrågor besvarade`; }
   if (p.id === 'love') return S.text['case-love'] ? 'Påbörjat' : 'Inte påbörjat';
   if (p.id === 'slut') { const m = missedKeys().length; return best('mix') + (m ? `. ${m} missade frågor att repetera` : ''); }
   return '';
@@ -2466,8 +2481,21 @@ themeBtn.addEventListener('click', () => { S.theme = effTheme() === 'dark' ? 'li
 if (mq && mq.addEventListener) mq.addEventListener('change', syncThemeBtn);
 new MutationObserver(syncThemeBtn).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
+/* ============ Provet ============ */
+function renderProvetNav() {
+  const e1 = exStats('eth'), e2 = exStats('ets');
+  const written = ids => ids.filter(id => S.text[id]).length;
+  const d3 = W3.map(q => q.id), d4 = W4.slice(0, 9).map(q => q.id);
+  const d5 = [...ALK.parts.map(p => p.id), 'case-love'];
+  $('#provNav').innerHTML = [
+    ['del1', 'Del 1', `${e1.ok}/${e1.total} rätt`], ['del2', 'Del 2', `${e2.ok}/${e2.total} rätt`],
+    ['del3', 'Del 3', `${written(d3)}/${d3.length} skrivna`], ['del4', 'Del 4', `${written(d4)}/${d4.length} skrivna`],
+    ['del5', 'Del 5', `${written(d5)}/${d5.length} skrivna`]
+  ].map(([a, t, st]) => `<a class="chip" href="#provet" data-anchor="${a}">${t}&nbsp;<span>${st}</span></a>`).join('');
+}
+
 /* ============ Navigering ============ */
-const TABS = [['start', 'Start'], ['snabb', 'Snabbkoll'], ['hjarnan', 'Hjärnan'], ['amnen', 'Ämnen'], ['tonar', 'Tonårshjärnan'], ['studier', 'Studier'], ['beroende', 'Beroende'], ['skriv', 'Skriv'], ['analys', 'Analys'], ['begrepp', 'Begrepp'], ['quiz', 'Quiz']];
+const TABS = [['start', 'Start'], ['provet', 'Provet'], ['snabb', 'Snabbkoll'], ['hjarnan', 'Hjärnan'], ['amnen', 'Ämnen'], ['tonar', 'Tonårshjärnan'], ['studier', 'Studier'], ['beroende', 'Beroende'], ['begrepp', 'Begrepp'], ['quiz', 'Quiz']];
 $('#tabs').innerHTML = TABS.map(([id, n]) => `<a class="tab" href="#${id}">${n}</a>`).join('');
 let pendingAnchor = null;
 let shownId = null;
@@ -2485,6 +2513,7 @@ function show(id) {
   const tabs = $('#tabs'), t = $('.tab[aria-current]', tabs);
   if (t) tabs.scrollTo({ left: t.offsetLeft - tabs.clientWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
   if (id === 'start') renderStart();
+  if (id === 'provet') renderProvetNav();
   if (id === 'quiz' && !QZ) quitQuiz();
   const anchor = pendingAnchor && document.getElementById(pendingAnchor);
   pendingAnchor = null;
