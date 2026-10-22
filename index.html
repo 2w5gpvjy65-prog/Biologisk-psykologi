@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Biologisk psykologi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='40 20 345 230'%3E%3Cpath fill='%23B0306A' d='M62 175C40 140 45 90 85 62C125 32 200 22 255 32C315 42 365 75 375 125C383 160 372 185 345 195C320 202 290 200 265 205C250 225 215 245 170 245C135 245 108 230 104 205C100 192 88 186 75 186C66 186 62 182 62 175Z'/%3E%3C/svg%3E">
 <script>try{var t=(JSON.parse(localStorage.getItem('biopsyk1'))||{}).theme;if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <style>
@@ -45,6 +46,8 @@
 /* ---------- Bas ---------- */
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:120px}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);-webkit-tap-highlight-color:transparent}
 a{color:var(--accent);text-underline-offset:2px}
 b,strong{font-weight:700}
@@ -63,8 +66,8 @@ ul.pts li{margin:.35em 0}
 ul.pts li::marker{color:var(--accent)}
 
 /* ---------- Topp och flikar ---------- */
-.top{position:sticky;top:0;z-index:30;background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.top-row{display:flex;align-items:center;gap:12px;max-width:1040px;margin:0 auto;padding:8px 16px 2px;padding-top:max(8px,env(safe-area-inset-top))}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;gap:12px;max-width:1040px;margin:0 auto;padding-block:8px 2px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .brand{display:flex;align-items:center;gap:9px;margin-right:auto;color:var(--ink);text-decoration:none;font-family:var(--font-round);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;min-height:44px}
 .brand svg{width:30px;height:22px;flex:none}
 .brand small{display:block;font:600 .74rem/1.1 var(--font);color:var(--muted);letter-spacing:0}
@@ -73,18 +76,18 @@ ul.pts li::marker{color:var(--accent)}
 .icon-btn .i-sun{display:none}
 .icon-btn[data-dark="true"] .i-sun{display:block}
 .icon-btn[data-dark="true"] .i-moon{display:none}
-.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:1040px;margin:0 auto;padding:6px 16px 10px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:1040px;margin:0 auto;padding-block:6px 10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;scroll-snap-align:start;min-height:42px;padding:8px 15px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:650;font-size:.96rem;display:inline-flex;align-items:center;white-space:nowrap}
 .tab:hover{color:var(--ink)}
 .tab[aria-current="page"]{background:var(--ink);color:var(--bg)}
 
 /* ---------- Layout ---------- */
-main{padding:18px 16px 96px}
+main{padding-block:18px 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 main>section{max-width:760px;margin:0 auto}
 main>section.wide{max-width:1040px}
 .narrow{max-width:760px}
-footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:.88rem}
+footer{max-width:760px;margin:0 auto;padding-block:0 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));color:var(--muted);font-size:.88rem}
 
 /* ---------- Komponenter ---------- */
 .btn{min-height:44px;padding:9px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:650;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;text-align:center;line-height:1.25}
@@ -94,6 +97,9 @@ footer{max-width:760px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font
 .btn-sm{min-height:40px;padding:6px 13px;font-size:.93rem}
 .btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .btn-danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.btn-danger-solid{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.reset-confirm{background:var(--bad-soft);border-radius:var(--r-m);padding:12px 16px;margin-top:22px}
+.reset-confirm p{margin:0 0 4px}
 .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:14px 16px;margin:12px 0}
 .box>:first-child{margin-top:0}.box>:last-child{margin-bottom:0}
@@ -480,6 +486,11 @@ details.mall ol{margin:4px 0;padding-left:1.4em}
   <ul class="qbest" id="stQuiz"></ul>
   <div class="btn-row" style="margin-top:22px">
     <button type="button" class="btn btn-danger" id="resetBtn">Nollställ alla framsteg</button>
+    <span class="saved" id="resetDone" hidden>Allt är nollställt.</span>
+  </div>
+  <div class="reset-confirm" id="resetConfirm" hidden>
+    <p><b>Nollställa allt?</b> Markerade begrepp, quizresultat, hjärnkartan och allt du skrivit raderas. Det går inte att ångra.</p>
+    <div class="btn-row"><button type="button" class="btn btn-danger-solid" id="resetYes">Ja, nollställ</button><button type="button" class="btn" id="resetNo">Avbryt</button></div>
   </div>
 </section>
 
@@ -1459,7 +1470,7 @@ function setStep(i) {
 function keysHTML(id, keys) {
   if (!keys || !keys.length) return '';
   return `<fieldset class="keys" data-key="${id}"><legend>Rätta dig själv: bocka av nyckelorden du fick med <span class="kcount"></span></legend>
-    <div class="kwrap">${keys.map((k, i) => `<label class="kchip"><input type="checkbox" data-i="${i}"><span>${k}</span></label>`).join('')}</div></fieldset>`;
+    <div class="kwrap">${keys.map((k, i) => `<label class="kchip"><input type="checkbox" id="k-${id}-${i}" data-i="${i}"><span>${k}</span></label>`).join('')}</div></fieldset>`;
 }
 function writeArea(id, label) {
   return `<label class="sr" for="ta-${id}">${label}</label><textarea id="ta-${id}" data-key="${id}" rows="5" placeholder="Skriv ditt svar här…"></textarea>`;
@@ -1709,7 +1720,7 @@ function initQuiz() {
   $('#qzQuit').addEventListener('click', quitQuiz);
   document.addEventListener('click', e => {
     const s = e.target.closest('[data-quiz]');
-    if (s) { if (location.hash !== '#quiz') { suppressQuizReset = true; location.hash = 'quiz'; } startQuiz(s.dataset.quiz); return; }
+    if (s) { if (shownId !== 'quiz') go('quiz'); startQuiz(s.dataset.quiz); window.scrollTo(0, 0); return; }
     if (e.target.closest('#qzBack')) quitQuiz();
   });
   document.addEventListener('keydown', e => {
@@ -1717,7 +1728,6 @@ function initQuiz() {
     if (/^[1-4]$/.test(e.key) && !QZ.answered) answer(+e.key - 1);
   });
 }
-let suppressQuizReset = false;
 
 /* ============ Start och framsteg ============ */
 function renderStart() {
@@ -1737,7 +1747,12 @@ function renderStart() {
   }).join('');
 }
 $('#resetBtn').addEventListener('click', () => {
-  if (!confirm('Nollställa alla framsteg? Markerade begrepp, quizresultat, hjärnkartan och allt du skrivit raderas.')) return;
+  $('#resetConfirm').hidden = false; $('#resetBtn').hidden = true; $('#resetDone').hidden = true;
+  $('#resetYes').focus();
+});
+$('#resetNo').addEventListener('click', () => { $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; $('#resetBtn').focus(); });
+$('#resetYes').addEventListener('click', () => {
+  $('#resetConfirm').hidden = true; $('#resetBtn').hidden = false; $('#resetDone').hidden = false;
   S = fresh({ theme: S.theme });
   save();
   FC.flipped.clear();
@@ -1751,42 +1766,56 @@ $('#resetBtn').addEventListener('click', () => {
 /* ============ Tema ============ */
 const themeBtn = $('#themeBtn');
 const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-const effTheme = () => S.theme || (mq && mq.matches ? 'dark' : 'light');
-function applyTheme() {
-  if (S.theme) document.documentElement.setAttribute('data-theme', S.theme);
-  else document.documentElement.removeAttribute('data-theme');
+const effTheme = () => document.documentElement.getAttribute('data-theme') || (mq && mq.matches ? 'dark' : 'light');
+function syncThemeBtn() {
   const dark = effTheme() === 'dark';
   themeBtn.dataset.dark = String(dark);
   themeBtn.setAttribute('aria-label', dark ? 'Byt till ljust läge' : 'Byt till mörkt läge');
 }
+function applyTheme() {
+  if (S.theme) document.documentElement.setAttribute('data-theme', S.theme);
+  syncThemeBtn();
+}
 themeBtn.addEventListener('click', () => { S.theme = effTheme() === 'dark' ? 'light' : 'dark'; save(); applyTheme(); });
-if (mq && mq.addEventListener) mq.addEventListener('change', applyTheme);
+if (mq && mq.addEventListener) mq.addEventListener('change', syncThemeBtn);
+new MutationObserver(syncThemeBtn).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
 /* ============ Navigering ============ */
 const TABS = [['start', 'Start'], ['hjarnan', 'Hjärnan'], ['amnen', 'Ämnen'], ['tonar', 'Tonårshjärnan'], ['studier', 'Studier'], ['beroende', 'Beroende'], ['skriv', 'Skriv'], ['analys', 'Analys'], ['begrepp', 'Begrepp'], ['quiz', 'Quiz']];
 $('#tabs').innerHTML = TABS.map(([id, n]) => `<a class="tab" href="#${id}">${n}</a>`).join('');
 let pendingAnchor = null;
-const currentId = () => { const h = location.hash.slice(1); return TABS.some(t => t[0] === h) ? h : 'start'; };
+let shownId = null;
+const isTab = id => TABS.some(t => t[0] === id);
+const currentId = () => { const h = location.hash.slice(1); return isTab(h) ? h : 'start'; };
+function go(id, anchor) {
+  pendingAnchor = anchor || null;
+  try { if (location.hash !== '#' + id) history.pushState(null, '', '#' + id); } catch (e) { /* adressen kan inte ändras här */ }
+  show(id);
+}
 function show(id) {
+  shownId = id;
   $$('main > section').forEach(s => { s.hidden = s.id !== id; });
   $$('.tab').forEach(a => { if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   const tabs = $('#tabs'), t = $('.tab[aria-current]', tabs);
   if (t) tabs.scrollTo({ left: t.offsetLeft - tabs.clientWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
   if (id === 'start') renderStart();
-  if (id === 'quiz' && !suppressQuizReset && !QZ) quitQuiz();
-  suppressQuizReset = false;
+  if (id === 'quiz' && !QZ) quitQuiz();
   const anchor = pendingAnchor && document.getElementById(pendingAnchor);
   pendingAnchor = null;
   if (anchor) requestAnimationFrame(() => anchor.scrollIntoView());
   else window.scrollTo(0, 0);
 }
 document.addEventListener('click', e => {
-  const a = e.target.closest('a[data-anchor]');
+  const a = e.target.closest('a[href^="#"]');
   if (!a) return;
-  pendingAnchor = a.dataset.anchor;
-  if (a.getAttribute('href') === location.hash) { e.preventDefault(); show(currentId()); }
+  const id = a.getAttribute('href').slice(1);
+  if (!isTab(id)) return;
+  e.preventDefault();
+  go(id, a.dataset.anchor);
 });
-window.addEventListener('hashchange', () => show(currentId()));
+const onUrl = () => { if (currentId() !== shownId) show(currentId()); };
+window.addEventListener('hashchange', onUrl);
+window.addEventListener('popstate', onUrl);
 
 /* ============ Start ============ */
 applyTheme();
