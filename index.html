@@ -890,7 +890,7 @@ details.fc-more .search{margin-bottom:10px}
       <button type="button" class="chip" id="fcHideAll" hidden>Dölj alla</button>
     </div>
     <details class="fc-more">
-      <summary>Sök och välj kategori: <span id="fcMoreLbl">&nbsp;Alla</span></summary>
+      <summary>Sök och välj kategori: <span id="fcMoreLbl">Alla</span></summary>
       <label class="sr" for="fcSearch">Sök bland begreppen</label>
       <input class="search" id="fcSearch" type="search" placeholder="Sök begrepp eller betydelse" autocomplete="off">
       <div class="chips" id="fcCats" role="group" aria-label="Kategori"></div>
@@ -1688,7 +1688,7 @@ function renderCards(resetPos) {
   $('#fcSolo').hidden = !one; $('#fcGrid').hidden = one;
   $('#fcShowAll').hidden = one; $('#fcHideAll').hidden = one;
   $('#fcShown').textContent = `${FC.list.length} kort i urvalet`;
-  $('#fcMoreLbl').textContent = ' ' + FC.cat + (FC.q.trim() ? `, ”${FC.q.trim()}”` : '');
+  $('#fcMoreLbl').textContent = FC.cat + (FC.q.trim() ? `, ”${FC.q.trim()}”` : '');
   if (one) renderSolo();
   else $('#fcGrid').innerHTML = FC.list.length ? FC.list.map(cardHTML).join('') : `<div class="empty-state">${emptyMsg()}</div>`;
   fcCounts();
